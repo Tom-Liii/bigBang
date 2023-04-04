@@ -1,0 +1,49 @@
+body {
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+}
+
+.userIcon{
+    margin-left: 98%;
+    color: #7b6801;
+    cursor: pointer;
+}
+
+/* * {
+    box-sizing: border-box;
+  } */
+  
+  /* Add styles to the form container */
+  .container {
+    margin: 10% 20%;
+    padding: 100px 80px 80px 80px;
+    background-color: #e0e0e0;
+    opacity: 0.9;
+    border-radius: 25px 25px;
+    cursor: pointer;
+    color: #156108;
+    text-align: center;
+  }
+
+  div{
+    float: left;
+  }
+
+  label{
+    text-align: left;
+    font-size: 25px;
+    cursor: pointer;
+    font-family: Space Grotesk;
+    margin-top: 5%;
+  }
+
+  .forms-container {
+    margin-top: 4%;
+    margin-left: 10%;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+svg{
+}
