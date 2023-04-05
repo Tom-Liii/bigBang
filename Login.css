@@ -83,7 +83,7 @@ html{
   }
   
   input{
-    color: black;
+    color: rgb(28, 28, 28);
     background-color: white;
     border-radius: 7px 7px;
   }
@@ -94,6 +94,9 @@ html{
   
 label{
     float: left;
+    margin-left: 4px;
+    font-size: 14px;
+    color: #424242;
 }
 
 .pwd {
