@@ -1,0 +1,43 @@
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+html, body {
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+}
+
+.top
+{
+    margin-top: 8%;
+}
+
+
+button{
+    background-color: #c13b3b;
+    border: none;
+    text-align: center;
+    color: white;
+    font-family: 'Space Grotesk';
+    font-size: 50px;
+    border-radius: 10px 10px;
+    width: 23%;
+    margin-top: 12%;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: white;
+    color: #c13b3b;
+}
+
+image{
+    text-align: center;
+}

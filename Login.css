@@ -1,0 +1,110 @@
+body {
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+    margin-top: 2%;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+html{
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: Source Sans Pro;
+}
+
+.logo{
+    text-align: center;
+    width: 50%;
+    height: auto;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Add styles to the form container */
+  .container {
+    margin-left: 40%;
+    max-width: 330px;
+    padding: 20px;
+    background-color: #e0e0e0;
+    opacity:0.9;
+    border-radius: 25px 25px;
+  }
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: white;
+  }
+  
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: white;
+    outline: none;
+  
+  }
+  
+  /* Set a style for the submit button */
+  .btn {
+    background-color: #21779d;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px 7px;
+    text-align: center;
+    font-size: 15px;
+    width: 90%;
+    right: auto;
+  }
+  
+  .btn:hover {
+    opacity: 1;
+  }
+  
+  .login{
+    text-align: center;
+    font-family: Source Sans Pro;
+    color:#424242;
+  }
+  
+  input{
+    color: rgb(28, 28, 28);
+    background-color: white;
+    border-radius: 7px 7px;
+  }
+
+  .bottom{
+    margin-top: 6%;
+  }
+  
+label{
+    float: left;
+    margin-left: 4px;
+    font-size: 14px;
+    color: #424242;
+}
+
+.pwd {
+    float: left;
+    /* padding-top: 16px; */
+}
+
+.signUp{
+    float: right;
+}
+
