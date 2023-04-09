@@ -59,7 +59,7 @@
 
 
 
-<body style="height: 100%; margin: 0" onload="countdown()">
+<body style="height: 100%; margin: 0">
 
 
     <svg id="board" viewBox="-95,-95,190,190" style="position: fixed; top: 100; left: 160; height: 570; width: 570" xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +162,9 @@
       let boardStatus = null;
       let ws = null;
       let roomInfor = new RoomInfor();
-
+      let playerColor = 1;
+      let anotherDropped = 0;
+      let anotherMovement = [];
       
       
       function initializeGame(gameMode, userID, roomNum) {
@@ -200,18 +202,21 @@
               console.log('onInitializeRoomState');
               roomInfor.isVisitor = data.visiting;
               roomInfor.isBlack = data.isBlack;
-              boardStatus = data.boardStatus;
+              //boardStatus = data.boardStatus;
               roomInfor.isReady = data.ready;
-/*
+
               if (!roomInfor.isVisitor) {
                 if(roomInfor.isReady){
                   if(isBlack) alert('欢迎,您执黑棋');
-                  else alert('欢迎,您执白棋');
+                  else {
+                    playerColor = -1;
+                    alert('欢迎,您执白棋');
+                }
                 }
                 else alert(`欢迎，等待对手中。`);
               }
               else alert('欢迎,观战者');
-*/              
+              
             }
 
             else if(type === 'AddPlayer'){
@@ -225,6 +230,9 @@
             else if(type === 'DropPiece'){
               console.log('onDropPiece');
               boardStatus = data.boardStatus;
+              anotherMovement = data.movement;
+              anotherDropped = 1;
+
             }
 
         }
@@ -234,12 +242,12 @@
       
       initializeGame("PvP", int(100*Math.random()), 1);
       
-/********************************************************************/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 
       async function play() {
         let winStatus = 0; // Define winStatus
-        let playerColor = 1;
+        //let playerColor = 1;
         
 
         while (winStatus == 0) {
@@ -261,12 +269,23 @@
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
-            else{movement = await getMovement(playerColor);}
-            console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
-            validStatus = isValid(movement);
-            console.log(playerColor); // Corrected typo in console.log
-            validMovement = movement;
-          }
+/********************************************************************/
+            else if((gameSettings.gameMode == "PvP")&&(playerColor*(-1) == -1)){
+              while(anotherDropped == 0){}
+              anotherDropped = 0;
+              movement = anotherMovement;
+              anotherMovement = [];
+            }
+            else if((gameSettings.gameMode != "PvP")&&(playerColor == -1)){
+              movement = await getMovement(playerColor);
+            }
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+            //else{movement = await getMovement(playerColor);}
+              console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+              validStatus = isValid(movement);
+              console.log(playerColor); // Corrected typo in console.log
+              validMovement = movement;
+            }
 
           Update(validMovement,playerColor);
           displayGoboard();
@@ -332,9 +351,9 @@
         console.log(`Placed piece at position (${x}, ${y})`);
 /********************************************************************/
         if(gameSettings.gameMode == "PvP")  
-          ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus}  ));
+          ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement}  ));
 
-/********************************************************************/
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
       }
       //This function updates the boardStatus according to new move
     
