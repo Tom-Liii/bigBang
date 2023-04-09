@@ -31,6 +31,8 @@ async def application(scope, receive, send):
                 'sends': [],
                 'users': [],
                 'movement': [],###
+                'turn': 1,
+                'winner': None,
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -63,6 +65,8 @@ async def application(scope, receive, send):
             'visiting': visiting,
             'isBlack': room['black'] == user_id,# if not visiting else bool(len(room['pieces']) % 2),
             'ready': bool(room['black'] and room['white']),
+            'turn': room['turn'],
+            'winner': room['winner'],
         })})
         
         if not old and (room['black'] == user_id or room['white'] == user_id): # 如果*没有*用户进入了同一个房间, 并且这个用户是执黑或者执白的(即并非visiting)
@@ -90,6 +94,8 @@ async def application(scope, receive, send):
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
                 room['movement'] = data['movement']###
+                room['turn'] = data['turn']
+                room['winner'] = data['winner']
                 for _send in room['sends']:
                     if _send == send:
                         continue
@@ -97,7 +103,10 @@ async def application(scope, receive, send):
                     await _send({'type': 'websocket.send', 'text': json.dumps({#传送新的xy数据到每个人
                         'type': 'DropPiece',
                         'boardStatus': data['boardStatus'],
-                        'movement': data['movement']})})
+                        'movement': data['movement'],
+                        'turn':data['turn'],
+                        'winner': data['winner'],
+                        })})
 
     elif scope['type'] == 'http':
         request = await receive()

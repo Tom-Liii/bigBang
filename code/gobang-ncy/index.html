@@ -237,6 +237,17 @@
               
             }
 
+            else if (type === 'GameOver') {
+              const winner = data.winner;
+              const gameResult = document.getElementById("game-result");
+              if (winner === 1) {
+                gameResult.innerHTML = "Game Over! Black wins!";
+              } else if (winner === -1) {
+                gameResult.innerHTML = "Game Over! White wins!";
+              }
+              //gameStopped = true;
+            }
+
         }
       }
     }
@@ -274,7 +285,7 @@
 /********************************************************************/
             else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
               console.log('before while lock');
-              while(anotherDropped == 0){}
+              //while(anotherDropped == 0){}
               console.log('after while lock');
               anotherDropped = 0;
               /*
@@ -300,6 +311,9 @@
           }
           winStatus = checkWin();
 
+          if (winStatus !== 0 && gameSettings.gameMode === "PvP") {
+            ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
+          }
           playerColor = -playerColor;
         }
 
@@ -320,6 +334,9 @@
         let x = movement[0];
         let y = movement[1];
 
+        if (gameSettings.gameMode === "PvP" && playerColor !== roomInfor.iniColor) {
+          return 0;
+        }
         if (boardStatus[x][y]!=0){
           return false;
         }
@@ -425,7 +442,10 @@
             if (boardStatus[newx][newy]== 0){
             tempPiece.setAttribute("cx", (newx-9)*10);
             tempPiece.setAttribute("cy", (newy-9)*10);
-            tempPiece.setAttribute("fill", playerColor === 1 ? "black" : "white");
+            if(playerColor == -1){
+              tempPiece.style.opacity = "0.68";
+            }
+            tempPiece.setAttribute("fill", roomInfor.iniColor === 1 ? "black" : "white");
             }
             
             //console.log("Mouse position on board: " + newx + "," + newy);
