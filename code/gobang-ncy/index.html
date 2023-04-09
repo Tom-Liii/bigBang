@@ -285,7 +285,20 @@
 /********************************************************************/
             else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
               console.log('before while lock');
-              //while(anotherDropped == 0){}
+
+              setInterval(() => { 
+                if (anotherDropped==1) {
+                  return 800;
+                } 
+              }, 1000);
+
+              while(true){
+                if(setInterval()==800)
+                  break;
+
+              }
+              
+
               console.log('after while lock');
               anotherDropped = 0;
               /*
