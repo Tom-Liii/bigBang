@@ -283,23 +283,27 @@
               movement = expertAI(boardStatus);
             }
 /********************************************************************/
-            else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
-              console.log('before while lock');
+            
+            else if (gameSettings.gameMode == "PvP" && playerColor != roomInfor.iniColor) {
+              console.log("before while lock");
 
-              let intervalId = setInterval(() => { 
-                if (anotherDropped==1) {
-                  clearInterval(intervalId); // Stop the interval if another piece has been dropped
-                } 
-              }, 1000);
+              const waitForAnotherDrop = async () => {
+                return new Promise((resolve) => {
+                  const checkInterval = setInterval(() => {
+                    if (anotherDropped == 1) {
+                      clearInterval(checkInterval);
+                      resolve();
+                    }
+                  }, 1000);
+                });
+              };
 
-              // Wait for the interval to be stopped before continuing
-              let waitForInterval = setInterval(() => {
-                if (!intervalId) {
-                  clearInterval(waitForInterval);
-                  console.log('after while lock');
-                  anotherDropped = 0;
-                }
-              }, 1000);
+              (async () => {
+                await waitForAnotherDrop();
+                console.log("after while lock");
+                anotherDropped = 0;
+              })();
+
               break;
             }
 /********************************************************************/
