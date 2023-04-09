@@ -91,11 +91,21 @@ async def application(scope, receive, send):
                 break
 #需要接收信息......ok
             data = json.loads(event['text'])
+
+            if data['type'] == 'GameOver':
+                winner = data['winner']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'GameOver',
+                        'winner': winner,
+                    })})
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
                 room['movement'] = data['movement']###
                 room['turn'] = data['turn']
-                room['winner'] = data['winner']
+                #room['winner'] = data['winner']
                 for _send in room['sends']:
                     if _send == send:
                         continue
@@ -105,7 +115,7 @@ async def application(scope, receive, send):
                         'boardStatus': data['boardStatus'],
                         'movement': data['movement'],
                         'turn':data['turn'],
-                        'winner': data['winner'],
+                        #'winner': data['winner'],
                         })})
 
     elif scope['type'] == 'http':

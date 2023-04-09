@@ -316,6 +316,16 @@
           }
           playerColor = -playerColor;
         }
+        if (winStatus !== 0) {
+          if (gameSettings.gameMode == "PvP") {
+            ws.send(
+              JSON.stringify({
+                type: "GameOver",
+                winner: -playerColor, // Send the winner information to the server
+              })
+            );
+          }
+        }
 
           // Update the game-result element when the game ends
           const gameResult = document.getElementById("game-result");
@@ -377,10 +387,11 @@
         //console.log(`Placed piece at position (${x}, ${y})`);
 /********************************************************************/
         if(gameSettings.gameMode == "PvP")  
-          ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement}  ));
+          ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement, turn: playerColor,}  ));
 
 /********************************************************************/
       }
+
       //This function updates the boardStatus according to new move
     
       function checkWin() {
