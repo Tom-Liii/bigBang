@@ -286,27 +286,20 @@
             else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
               console.log('before while lock');
 
-              setInterval(() => { 
+              let intervalId = setInterval(() => { 
                 if (anotherDropped==1) {
-                  return 800;
+                  clearInterval(intervalId); // Stop the interval if another piece has been dropped
                 } 
               }, 1000);
 
-              while(true){
-                if(setInterval()==800)
-                  break;
-
-              }
-              
-
-              console.log('after while lock');
-              anotherDropped = 0;
-              /*
-              const x = Math.floor(Math.random() * 19);
-              const y = Math.floor(Math.random() * 19);
-              movement = [x, y];
-              anotherMovement = [];
-              */
+              // Wait for the interval to be stopped before continuing
+              let waitForInterval = setInterval(() => {
+                if (!intervalId) {
+                  clearInterval(waitForInterval);
+                  console.log('after while lock');
+                  anotherDropped = 0;
+                }
+              }, 1000);
               break;
             }
 /********************************************************************/
