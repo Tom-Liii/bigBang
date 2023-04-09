@@ -30,6 +30,7 @@ async def application(scope, receive, send):
                 'boardStatus': [],#改了
                 'sends': [],
                 'users': [],
+                'movement': [],###
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -88,6 +89,7 @@ async def application(scope, receive, send):
             data = json.loads(event['text'])
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
+                room['movement'] = data['movement']###
                 for _send in room['sends']:
                     if _send == send:
                         continue

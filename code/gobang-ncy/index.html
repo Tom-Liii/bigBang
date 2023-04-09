@@ -232,7 +232,7 @@
               console.log('onDropPiece');
               boardStatus = data.boardStatus;
               displayGoboard();
-              anotherMovement = data.movement;
+              //anotherMovement = data.movement;
               anotherDropped = 1;
               
             }
@@ -273,18 +273,21 @@
             }
 /********************************************************************/
             else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
-
+              console.log('before while lock');
               while(anotherDropped == 0){}
+              console.log('after while lock');
               anotherDropped = 0;
-              movement = anotherMovement;
+              const x = Math.floor(Math.random() * 19);
+              const y = Math.floor(Math.random() * 19);
+              movement = [x, y];
               anotherMovement = [];
              
             }
 /********************************************************************/
             else{movement = await getMovement(playerColor);}
-            console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+            //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
-            console.log(playerColor); // Corrected typo in console.log
+            //console.log(playerColor); // Corrected typo in console.log
             validMovement = movement;
           }
 
@@ -335,7 +338,7 @@
               piece.setAttribute("r", "4.2");
               piece.setAttribute("cx", (i - 9) * 10);
               piece.setAttribute("cy", (j - 9) * 10); 
-              console.log(boardStatus[i][j]);
+              //console.log(boardStatus[i][j]);
               piece.setAttribute("fill", boardStatus[i][j] == 1 ? "black" : "white");
               board.appendChild(piece);
             }
@@ -349,7 +352,7 @@
         let x = movement[0];
         let y = movement[1];
         boardStatus[x][y] = playerColor;
-        console.log(`Placed piece at position (${x}, ${y})`);
+        //console.log(`Placed piece at position (${x}, ${y})`);
 /********************************************************************/
         if(gameSettings.gameMode == "PvP")  
           ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement}  ));
@@ -420,7 +423,7 @@
             tempPiece.setAttribute("fill", playerColor === 1 ? "black" : "white");
             }
             
-            console.log("Mouse position on board: " + newx + "," + newy);
+            //console.log("Mouse position on board: " + newx + "," + newy);
 
           });
 
@@ -428,7 +431,7 @@
             const rect = board.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            console.log("Clicked on board at: " + x + "," + y);
+            //console.log("Clicked on board at: " + x + "," + y);
             board.removeEventListener("click", onClick);
             board.removeChild(tempPiece);
 
