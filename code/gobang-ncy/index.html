@@ -145,14 +145,6 @@
       
 
 /********************************************************************/
-  
-      const Message = (content) => {
-        const div = document.createElement('div');
-        div.innerHTML = `<div>${content}</div>`;
-        messageDiv.appendChild(div);
-        setTimeout(() => messageDiv.removeChild(div), 3000);
-      };
-  
       
       class RoomInfor{
         roomNum = null;
@@ -180,8 +172,9 @@
         if(gameMode == "PvP"){
 
           ws = new WebSocket(`ws://${window.location.host}`);
+          alart('on_new_ws');
           ws.onopen = function() {
-            Message('onopen');
+            alert('onopen');
             ws.send(JSON.stringify({type: 'EnterRoom', id: userID, room: roomNum}));
           }
 
@@ -198,12 +191,12 @@
 
           
           ws.onmessage = function (ev){
-            Message('onmessage');
+            alert('onmessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
             if (type === 'InitializeRoomState') {
-              Message('onInitializeRoomState');
+              alert('onInitializeRoomState');
               roomInfor.isVisitor = data.visiting;
               roomInfor.isBlack = data.isBlack;
               boardStatus = data.boardStatus;
@@ -211,25 +204,25 @@
 
               if (!roomInfor.isVisitor) {
                 if(roomInfor.isReady){
-                  if(isBlack) Message('欢迎,您执黑棋');
-                  else Message('欢迎,您执白棋');
+                  if(isBlack) alert('欢迎,您执黑棋');
+                  else alert('欢迎,您执白棋');
                 }
-                else Message(`欢迎，等待对手中。`);
+                else alert(`欢迎，等待对手中。`);
               }
-              else Message('欢迎,观战者');
+              else alert('欢迎,观战者');
               
             }
 
             else if(type === 'AddPlayer'){
-              Message('onAddPlayer');
+              alert('onAddPlayer');
               if (!roomInfor.isVisitor && data.ready && roomInfor.isBlack === true) {
                 roomInfor.isReady = true;
-                Message('您执黑棋，下棋后即开局，无法更换黑白和对手。');
+                alert('您执黑棋，下棋后即开局，无法更换黑白和对手。');
               }
             }
 
             else if(type === 'DropPiece'){
-              Message('onDropPiece');
+              alert('onDropPiece');
               boardStatus = data.boardStatus;
             }
 
