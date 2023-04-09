@@ -155,6 +155,7 @@
         isVisitor = false;
         isReady = false;
         isBlack = false;
+        iniColor = 1;
       }
 
 
@@ -163,6 +164,8 @@
       let ws = null;
       let roomInfor = new RoomInfor();
       let playerColor = 1;
+      let anotherDropped = 0;
+      let anotherMovement = [];
 
       
       
@@ -207,7 +210,7 @@
               if (!roomInfor.isVisitor) {
                 if(roomInfor.isReady){
                   if(!roomInfor.isBlack){
-                    playerColor = -1;
+                    roomInfor.iniColor = -1;
                     alert('欢迎,您执白棋');
                   }
                 }
@@ -228,6 +231,10 @@
             else if(type === 'DropPiece'){
               console.log('onDropPiece');
               boardStatus = data.boardStatus;
+              displayGoboard();
+              anotherMovement = data.movement;
+              anotherDropped = 1;
+              
             }
 
         }
@@ -264,6 +271,16 @@
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
+/********************************************************************/
+            else if((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor)){
+
+              while(anotherDropped == 0){}
+              anotherDropped = 0;
+              movement = anotherMovement;
+              anotherMovement = [];
+             
+            }
+/********************************************************************/
             else{movement = await getMovement(playerColor);}
             console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
