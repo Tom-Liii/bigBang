@@ -285,6 +285,7 @@
 /********************************************************************/
             
             else if (gameSettings.gameMode == "PvP" && playerColor != roomInfor.iniColor) {
+              
               console.log("before while lock");
 
               const waitForAnotherDrop = async () => {
@@ -304,15 +305,17 @@
                 anotherDropped = 0;
               })();
 
-              break;
+              //break;
             }
 /********************************************************************/
-            else{movement = await getMovement(playerColor);}
-
-            //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
-            validStatus = isValid(movement);
-            //console.log(playerColor); // Corrected typo in console.log
-            validMovement = movement;
+            else{console.log("in else!!!!!");
+              movement = await getMovement(playerColor);}
+            if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
+              //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+              validStatus = isValid(movement);
+              //console.log(playerColor); // Corrected typo in console.log
+              validMovement = movement;
+            }
           }
 
           if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
