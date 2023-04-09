@@ -163,6 +163,8 @@
       let ws = null;
       let roomInfor = new RoomInfor();
       let playerColor = 1;
+      let anotherDropped = 0;
+      let anotherMovement = [];
 
       
       
@@ -227,7 +229,9 @@
 
             else if(type === 'DropPiece'){
               console.log('onDropPiece');
-              boardStatus = data.boardStatus;
+              //boardStatus = data.boardStatus;
+              anotherDropped = 1;
+              anotherMovement = data.movement;
             }
 
         }
@@ -264,6 +268,15 @@
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
+/********************************************************************/
+            else if((gameSettings.gameMode == "PvP")&&(playerColor*(-1) == -1)){
+              while(anotherDropped == 0){}
+              anotherDropped = 0;
+              movement = anotherMovement;
+              anotherMovement = [];
+            }    
+            
+/********************************************************************/
             else{movement = await getMovement(playerColor);}
             console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
