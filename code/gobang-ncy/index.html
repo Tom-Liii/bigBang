@@ -240,7 +240,7 @@
     }
       
       
-      initializeGame("PvP", int(100*Math.random()), 1);
+      initializeGame("PvP", Math.floor(100*Math.random()), 1);
       
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
@@ -276,11 +276,8 @@
               movement = anotherMovement;
               anotherMovement = [];
             }
-            else if((gameSettings.gameMode != "PvP")&&(playerColor == -1)){
-              movement = await getMovement(playerColor);
-            }
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-            //else{movement = await getMovement(playerColor);}
+            else{movement = await getMovement(playerColor);}
               console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
               console.log(playerColor); // Corrected typo in console.log

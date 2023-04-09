@@ -94,7 +94,8 @@ async def application(scope, receive, send):
 #发送信息, 需要处理......ok
                     await _send({'type': 'websocket.send', 'text': json.dumps({#传送新的xy数据到每个人
                         'type': 'DropPiece',
-                        'boardStatus': data['boardStatus']})})
+                        'boardStatus': data['boardStatus'],
+                        'movement': data['movement']})})
 
     elif scope['type'] == 'http':
         request = await receive()
