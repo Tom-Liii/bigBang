@@ -184,9 +184,6 @@
           ws.onclose = function(event){
             console.log("onClose");
             if (event.code !== 1000) {
-              if (event.code === 4000) {
-                window.alert('您已在新的浏览器窗口中进入了该房间，本页面将转换为单机模式！');
-              } else {
                 window.alert('连接已断开，将转换为单机模式！');
               }
               setOffline();
@@ -195,7 +192,7 @@
 
           
           ws.onmessage = function (ev){
-            console.log('onmessage');
+            console.log('getMessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
@@ -220,7 +217,7 @@
             }
 
             else if(type === 'AddPlayer'){
-              console.log('onAddPlayer');
+              console.log('getAnotherPlayer');
               if (!roomInfor.isVisitor && data.ready && roomInfor.isBlack === true) {
                 roomInfor.isReady = true;
                 window.alert('您执黑棋，下棋后即开局，无法更换黑白和对手。');
@@ -228,13 +225,14 @@
             }
 
             else if(type === 'DropPiece'){
-              console.log('onDropPiece');
-              //boardStatus = data.boardStatus;
+              console.log('getAnotherDropPiece');
+              boardStatus = data.boardStatus;
               anotherDropped = 1;
               anotherMovement = data.movement;
             }
 
         }
+        
       }
     }
       
@@ -269,18 +267,12 @@
               movement = expertAI(boardStatus);
             }
 /********************************************************************/
-            else if((gameSettings.gameMode == "PvP")&&(playerColor*(-1) == -1)){
-              while(anotherDropped == 0){}
-              anotherDropped = 0;
-              movement = anotherMovement;
-              anotherMovement = [];
-            }    
             
 /********************************************************************/
             else{movement = await getMovement(playerColor);}
-            console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+            //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
-            console.log(playerColor); // Corrected typo in console.log
+            //console.log(playerColor); // Corrected typo in console.log
             validMovement = movement;
           }
 
@@ -331,7 +323,7 @@
               piece.setAttribute("r", "4.2");
               piece.setAttribute("cx", (i - 9) * 10);
               piece.setAttribute("cy", (j - 9) * 10); 
-              console.log(boardStatus[i][j]);
+              //console.log(boardStatus[i][j]);
               piece.setAttribute("fill", boardStatus[i][j] == 1 ? "black" : "white");
               board.appendChild(piece);
             }
@@ -345,7 +337,7 @@
         let x = movement[0];
         let y = movement[1];
         boardStatus[x][y] = playerColor;
-        console.log(`Placed piece at position (${x}, ${y})`);
+        //console.log(`Placed piece at position (${x}, ${y})`);
 /********************************************************************/
         if(gameSettings.gameMode == "PvP")  
           ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement}  ));
@@ -416,7 +408,7 @@
             tempPiece.setAttribute("fill", playerColor === 1 ? "black" : "white");
             }
             
-            console.log("Mouse position on board: " + newx + "," + newy);
+            //console.log("Mouse position on board: " + newx + "," + newy);
 
           });
 
@@ -424,7 +416,7 @@
             const rect = board.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-            console.log("Clicked on board at: " + x + "," + y);
+            //console.log("Clicked on board at: " + x + "," + y);
             board.removeEventListener("click", onClick);
             board.removeChild(tempPiece);
 
