@@ -140,10 +140,10 @@
         this.fiveStepThreeStrikes = fiveStepThreeStrikes;
         this.timerStatus = timerStatus;
         this.timerTime = timerTime;
-      }
-    }
+      }}
 
       
+
 /********************************************************************/
   
       const Message = (content) => {
@@ -171,9 +171,12 @@
       let ws = null;
       let roomInfor = new RoomInfor();
 
+      
+      
       function initializeGame(gameMode, userID, roomNum) {
         gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
+        
         if(gameMode == "PvP"){
 
           ws = new WebSocket(`ws://${window.location.host}`);
@@ -227,13 +230,13 @@
 
         }
       }
-
+    }
       
       
-      initializeGame("PvP", 1, 1);
+      initializeGame("PVP", 1, 1);
+      
 /********************************************************************/
-      
-      
+
 
       async function play() {
         let winStatus = 0; // Define winStatus
@@ -259,15 +262,12 @@
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
-            else/*if mode = 'PvP'*/{
-              movement = await getMovement();
-            }
+            else{movement = await getMovement();}
             console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
             console.log(playerColor); // Corrected typo in console.log
             validMovement = movement;
           }
-
 
           Update(validMovement,playerColor);
           displayGoboard();
@@ -331,14 +331,13 @@
         let y = movement[1];
         boardStatus[x][y] = playerColor;
         console.log(`Placed piece at position (${x}, ${y})`);
+/********************************************************************/
+        if(gameSettings.gameMode == "PvP")  
+          ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus}  ));
+
+/********************************************************************/
       }
       //This function updates the boardStatus according to new move
-
-
-/********************************************************************/
-      ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus}  ));
-
-/********************************************************************/
     
       function checkWin() {
         const len = boardStatus.length;
