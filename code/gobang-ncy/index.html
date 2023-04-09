@@ -181,6 +181,7 @@
 
           ws = new WebSocket(`ws://${window.location.host}`);
           ws.onopen = function() {
+            Message('onopen');
             ws.send(JSON.stringify({type: 'EnterRoom', id: userID, room: roomNum}));
           }
 
@@ -197,10 +198,12 @@
 
           
           ws.onmessage = function (ev){
+            Message('onmessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
             if (type === 'InitializeRoomState') {
+              Message('onInitializeRoomState');
               roomInfor.isVisitor = data.visiting;
               roomInfor.isBlack = data.isBlack;
               boardStatus = data.boardStatus;
@@ -218,6 +221,7 @@
             }
 
             else if(type === 'AddPlayer'){
+              Message('onAddPlayer');
               if (!roomInfor.isVisitor && data.ready && roomInfor.isBlack === true) {
                 roomInfor.isReady = true;
                 Message('您执黑棋，下棋后即开局，无法更换黑白和对手。');
@@ -225,6 +229,7 @@
             }
 
             else if(type === 'DropPiece'){
+              Message('onDropPiece');
               boardStatus = data.boardStatus;
             }
 
