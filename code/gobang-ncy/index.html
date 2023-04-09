@@ -175,7 +175,7 @@
 
           ws.onopen = () => {
             console.log('onopen');
-            ws.send({'text':JSON.stringify({type: 'EnterRoom', id: userID, room: roomNum}}));
+            ws.send(JSON.stringify({type: 'EnterRoom', id: userID, room: roomNum}));
           };
 
           ws.onclose = function(event){
