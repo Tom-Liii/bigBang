@@ -261,7 +261,7 @@
       async function play() {
         let winStatus = 0; // Define winStatus
         
-        
+        await delay(5000);
 
         while (winStatus == 0) {
           let validStatus = 0;
@@ -438,11 +438,11 @@
           return 0;
         }
 
-        
+
       function delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
       }
-      await delay(500);
+
       play();
     
 
