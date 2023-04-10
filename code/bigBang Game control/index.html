@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>bigBang</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://assets.mockflow.com/app/wireframepro/company/C60e51ff3180b4980a08450701f20806b/projects/M84VLDquVob/images/M21e210354201a0e956ded9da48a82c021679583773900">
+    <script src="./scripts/aiFunctions.js"></script>
+    <style>
+      body {
+        background-color: #ffe7cc;
+      }
+
+      #timer-icon {
+      width: 40px;
+      height: 40px;
+      background-image: url("https://cdn-icons-png.flaticon.com/512/37/37663.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      cursor: pointer;}
+
+      #timer-display {
+        font-size: 2em;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #player-icon {
+      width: 50px;
+      height: 50px;
+      background-image: url("images/user.png");
+      background-repeat: no-repeat;
+      background-size: contain;}
+      
+
+      #black {
+        fill: radial-gradient(circle, #808080, #111);
+      }
+  
+      #white {
+        fill: radial-gradient(circle, #fff, #ddd);
+      }
+      
+      #game-result {
+        font-family: 'Space Grotesk', sans-serif;
+        line-height: 0.7em;
+      }
+
+      .hidden {
+        display: none;
+      }
+      
+      #floating-window {
+        position: fixed;
+        height: 500px;
+        width: 600px;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+
+      .question{
+        height: 50px;
+        width: 50px;
+      }
+
+      .window-content {
+        margin-top: 10px;
+      }
+
+    </style>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap');
+</style>
+  
+  
+</head>
+
+
+
+<body style="height: 100%; margin: 0">
+
+
+    <svg id="board" viewBox="-95,-95,190,190" style="position: fixed; top: 100; left: 160; height: 570; width: 570" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+
+          <radialGradient id="black">
+            <stop offset="0%" style="stop-color:#434141" />
+            <stop offset="100%" style="stop-color:#111" />
+          </radialGradient>
+
+          <radialGradient id="white">
+            <stop offset="0%" style="stop-color:#ffffff" />
+            <stop offset="100%" style="stop-color:#ede7e7" />
+          </radialGradient>
+
+          <circle id="mark" r="1.3"/>
+          <circle id="piece" r="4.2"/>
+        </defs>
+        <path stroke="black" stroke-width="0.5" fill="none" d="m-90,-90h180v180h-180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180zm10,0v180
+        zm10,0v180zm10,0v180zm10,0v180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180
+        zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180zm0,10h-180"/>
+        <use xlink:href="#mark"/>
+        <use xlink:href="#mark" x="60" y="60"/>
+        <use xlink:href="#mark" x="60" y="-60"/>
+        <use xlink:href="#mark" x="-60" y="60"/>
+        <use xlink:href="#mark" x="-60" y="-60"/>
+        <use xlink:href="#mark" x="0" y="60"/>
+        <use xlink:href="#mark" x="0" y="-60"/>
+        <use xlink:href="#mark" x="60" y="0"/>
+        <use xlink:href="#mark" x="-60" y="0"/>
+      </svg>
+      <!-- This part is used to draw the Goboard-->
+      
+ 
+
+      
+      <svg id="left-timer-icon" width="45" height="45" style="position: fixed; top: 230px; left: 895px; ">
+        <circle id="black-timer-circle" cx="22.5" cy="22.5" r="16" stroke="#7b6801" stroke-width="5.4" fill="none"/>
+        <line id="black-timer-line1" x1="22.5" y1="22.5" x2="22.5" y2="11.5" stroke="#7b6801" stroke-width="2.8"/>
+        <line id="black-timer-line2" x1="23.75" y1="22.5" x2="13.5" y2="22.5" stroke="#7b6801" stroke-width="2.8"/>
+      </svg>
+      <p id="timer-blackdisplay" style="position: fixed; top: 206px; left: 950px ;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+  
+      <svg id="right-timer-icon" width="45" height="45" style="position: fixed; top: 230px; left: 1145px; ">
+        <circle id="white-timer-circle" cx="22.5" cy="22.5" r="16" stroke="#7b6801" stroke-width="5.4" fill="none"/>
+        <line id="white-timer-line1" x1="22.5" y1="22.5" x2="22.5" y2="11.5" stroke="#7b6801" stroke-width="2.8"/>
+        <line id="white-timer-line2" x1="23.75" y1="22.5" x2="13.5" y2="22.5" stroke="#7b6801" stroke-width="2.8"/>
+      </svg>
+      <p id="timer-whitedisplay" style="position: fixed; top: 206px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+    
+      <!-- This part is to display the timer-->
+
+      
+      
+      
+    <div style="position: fixed; top: 310px; left: 950px;" id="player-icon"></div>
+    <svg style="position: fixed; top: 286px; left: 921.5px; height: 100; width: 100" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="20" fill="transparent" stroke="#7b6801" stroke-width="1.6"/>
+    </svg>
+
+    <div style="position: fixed; top: 310px; left: 1200px;" id="player-icon"></div>
+    <svg style="position: fixed; top: 286px; left: 1171.5px; height: 100; width: 100" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="20" fill="transparent" stroke="#7b6801" stroke-width="1.6"/>
+    </svg>
+    <!-- This part is to display the player icon-->
+    
+    <div id="vs" style="position: fixed; top: 310px; left: 1075px; font-size: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801;">
+      <span style="padding-right: 10px;">vs</span>
+    </div>
+    
+    <div id="game-result" style="position: fixed; top: 430px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
+     
+    <img id="undo-button" src="images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
+
+    <button id="surrender-button" style="position: fixed; top: 500px; left: 995px; font-size: 18px; font-family: 'Space Grotesk', sans-serif; background-color: #c32c20; color: white; border: none; padding: 10px 60px; border-radius: 5px; text-align: center; cursor: pointer;">Surrender</button>
+
+
+
+    <button id="open-window-button" class= "question" style="position: fixed; top: 20px; left: 1370px; background: none; border: none; padding: 0; cursor: pointer;">
+      <img class= "question" src="images/question.png" alt="Open Floating Window">
+    </button>
+    
+    <div id="floating-window" class="hidden">
+      <button id="close-window-button">Close Floating Window</button>
+      <div class="window-content">
+        <p>This is the content of the floating window.</p>
+      </div>
+    </div>
+
+    <div id="help" style="position: fixed; top: 25px; left: 1300px; font-size: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801;">
+      <span style="padding-right: 10px;" alt="Open Floating Window">Help</span>
+    </div>
+
+    
+
+    <script>
+     
+     
+     document.getElementById('open-window-button').addEventListener('click', function() {
+      document.getElementById('floating-window').classList.remove('hidden');
+    });
+    
+    document.getElementById('close-window-button').addEventListener('click', function() {
+      document.getElementById('floating-window').classList.add('hidden');
+    });
+     
+
+     class Timer {
+      constructor(timeInSeconds) {
+        this.totalTime = timeInSeconds;
+        this.remainingTime = timeInSeconds;
+        this.interval = null;
+      }
+
+      start(updateCallback) {
+        this.interval = setInterval(() => {
+          this.update();
+          if (updateCallback) {
+            updateCallback();
+          }
+        }, 1000);
+      }
+        
+      stop() {
+        clearInterval(this.interval);
+      }
+      
+      reset() {
+        this.remainingTime = this.totalTime;
+      }
+
+      update() {
+        if (this.remainingTime > 0) {
+          this.remainingTime -= 1;
+        } else {
+          this.stop();
+        }
+      }
+
+
+      getFormattedTime() {
+        const minutes = Math.floor(this.remainingTime / 60);
+        const seconds = this.remainingTime % 60;
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }
+    
+      isTimeOut() {
+        return this.remainingTime <= 0;
+      }
+    
+    }
+    // This is the structure of Timer
+
+    
+    class GameSettings {
+      constructor(gameMode, earlyTermination, threeStepExchange, fiveStepThreeStrikes, timerStatus, timerTime) {
+        this.gameMode = gameMode;
+        this.earlyTermination = earlyTermination;
+        this.threeStepExchange = threeStepExchange;
+        this.fiveStepThreeStrikes = fiveStepThreeStrikes;
+        this.timerStatus = timerStatus;
+        this.timerTime = timerTime;
+        this.blackTimer = new Timer(timerTime);
+        this.whiteTimer = new Timer(timerTime);
+      }
+    }
+    // This is the structure of game settings, and it is used to store game settings information
+
+
+
+    const gameSettings = new GameSettings("PVP", true, true, false, true, 70);
+    let boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
+    let previousBoard = [boardStatus,boardStatus,boardStatus];
+    let undoCount = -1;
+    
+    // Setting game mode, and create a new empty board
+      
+
+    const lefttimerIcon = document.getElementById('left-timer-icon');
+    const righttimerIcon = document.getElementById('right-timer-icon');
+
+    if (gameSettings.timerStatus) {
+      lefttimerIcon.style.display = 'block';
+      righttimerIcon.style.display = 'block';
+    } else {
+      lefttimerIcon.style.display = 'none';
+      righttimerIcon.style.display = 'none';
+    }
+    // Display the timer icons only when the timer is enabled
+
+
+    let gameStopped = false; 
+    let playerColor = 1; // The initial color is black
+    
+    async function play() {
+      
+      
+      let winStatus = 0; // Define winStatus, it is 0 when there is no winner.
+      
+      
+
+  
+      if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
+        checkTimeOut(); // Call the checkTimeOut() function after starting the timers
+      }
+      
+      const timerBlackDisplay = document.getElementById('timer-blackdisplay');
+      const timerWhiteDisplay = document.getElementById('timer-whitedisplay');
+      
+      
+      setInterval(() => {
+        if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
+          const blackTimerCircle = document.getElementById('black-timer-circle');
+          const blackTimerLine1 = document.getElementById('black-timer-line1');
+          const blackTimerLine2 = document.getElementById('black-timer-line2');
+          const whiteTimerCircle = document.getElementById('white-timer-circle');
+          const whiteTimerLine1 = document.getElementById('white-timer-line1');
+          const whiteTimerLine2 = document.getElementById('white-timer-line2');
+          if (playerColor === 1) {
+            let remainingTime = gameSettings.blackTimer.remainingTime;
+            timerBlackDisplay.innerHTML = `${gameSettings.blackTimer.getFormattedTime()}`;
+            if (remainingTime <= 60) {
+              timerBlackDisplay.style.color = '#c32c20';
+              document.getElementById('left-timer-icon').setAttribute('stroke', '#c32c20'); // set stroke color of left timer icon to red
+              blackTimerCircle.setAttribute('stroke', '#c32c20');
+              blackTimerLine1.setAttribute('stroke', '#c32c20');
+              blackTimerLine2.setAttribute('stroke', '#c32c20');
+            } else {
+              timerBlackDisplay.style.color = '#7b6801';
+            }
+            timerWhiteDisplay.innerHTML = `${gameSettings.whiteTimer.getFormattedTime()}`;
+            } 
+            else {
+              let remainingTime = gameSettings.whiteTimer.remainingTime;
+              timerBlackDisplay.innerHTML = `${gameSettings.blackTimer.getFormattedTime()}`;
+              timerWhiteDisplay.innerHTML = `${gameSettings.whiteTimer.getFormattedTime()}`;
+              if (remainingTime <= 60) {
+                timerWhiteDisplay.style.color = '#c32c20';
+                document.getElementById('right-timer-icon').setAttribute('stroke', '#c32c20'); // set stroke color of right timer icon to red
+                whiteTimerCircle.setAttribute('stroke', '#c32c20');
+                whiteTimerLine1.setAttribute('stroke', '#c32c20');
+                whiteTimerLine2.setAttribute('stroke', '#c32c20');
+              } else {
+                timerWhiteDisplay.style.color = '#7b6801';
+              }
+            }
+        }
+      }, 1000);
+      // Display the black timer and white timer time continuously, and when the time is less than a minute, display the time in red
+
+
+      
+
+
+
+        while (winStatus == 0) {
+
+          if (gameStopped) {
+            break;
+          }
+
+          const undoButton = document.getElementById("undo-button");
+          undoButton.addEventListener('click', () => {
+            // Perform undo functionality here
+            undoMove();          
+          });
+
+          if (undoCount >= 2 && gameSettings.gameMode == "PVP") {
+              undoButton.style.display = 'block';
+            } 
+            else{
+              undoButton.style.display = 'none';
+            }
+
+
+          if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
+            if (playerColor == 1) {
+              gameSettings.whiteTimer.stop();
+              gameSettings.blackTimer.start();
+            } else {       
+              gameSettings.blackTimer.stop();       
+              gameSettings.whiteTimer.start();
+            }
+          }
+
+          let validStatus = 0;
+          let validMovement;
+          let movement
+          
+          const surrenderButton = document.getElementById('surrender-button');
+          
+          
+          surrenderButton.addEventListener('click', () => {
+            console.log("1111111");
+            surrenderButton.style.display = 'none';
+            if (playerColor === 1) {
+              gameStopped = true;
+              winStatus = -1; // white wins
+            } else {
+              gameStopped = true;
+              winStatus = 1; // black wins
+            }
+          // Call the function to end the game and display the result
+        });
+
+          while (validStatus == 0) {
+            if (gameStopped) {
+              gameSettings.blackTimer.stop();
+              gameSettings.whiteTimer.stop();
+              // If the game is stopped due to a timeout, break out of the loop
+              break;}
+
+            if ((gameSettings.gameMode == "Random")&&(playerColor == -1)) {
+              // Generate a random movement 
+              const x = Math.floor(Math.random() * 19);
+              const y = Math.floor(Math.random() * 19);
+              movement = [x, y];}
+            else if ((gameSettings.gameMode == "Medium")&&(playerColor == -1)){
+              movement = mediumAI(boardStatus);
+            }
+            else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
+              movement = expertAI(boardStatus);
+            }
+            else{
+              movement = await getMovement(playerColor);
+            }
+            
+            console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+            validStatus = isValid(movement);
+            validMovement = movement;
+          }
+          // The inner game loop, place a piece until the location is valid
+
+          if (gameStopped) {
+                break;
+          }
+
+          
+          Update(validMovement,playerColor);
+          displayGoboard();
+          undoCount++;
+          
+          previousBoard[0] = JSON.parse(JSON.stringify(previousBoard[1]));
+          previousBoard[1] = JSON.parse(JSON.stringify(previousBoard[2]));
+          previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
+          
+
+          winStatus = checkWin();
+          //Then update and delete the board, check if there is winner
+
+          playerColor = -playerColor;
+          // Switch the player color
+
+        }
+        // The Outer game loop, when there is no winner the game continues
+
+          // Stop the timers and update the result
+          gameSettings.blackTimer.stop();
+          gameSettings.whiteTimer.stop();
+          
+
+        const undoButton = document.getElementById("undo-button");
+        undoButton.style.display = 'none';
+        const surrenderButton = document.getElementById("surrender-button");
+        surrenderButton.style.display = 'none';
+          if (gameStopped && playerColor == 1){
+            winStatus = -1;
+          }
+          else if (gameStopped && playerColor == -1){
+            winStatus = 1;
+          }
+          // Update the game-result element when the game ends
+          const gameResult = document.getElementById("game-result");
+          if (winStatus === 1) {
+            gameResult.innerHTML = "Game Over!<br><span style='font-size:16px;'>Black wins!</span>";
+          } else if (winStatus === -1) {
+            gameResult.innerHTML = "Game Over!<br><span style='font-size:16px;'>White wins!</span>";
+          }
+          
+      }
+      // This part is the script of the game (Main structure)
+    
+
+      play();
+
+      function isValid(movement) {
+
+        if (gameStopped) {
+          // If the game is stopped, do not allow any more pieces to be placed
+          return false;
+        }
+
+        let x = movement[0];
+        let y = movement[1];
+
+        if (boardStatus[x][y]!=0){
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+      //This function checks if the move is valid
+    
+      function displayGoboard() {
+        const board = document.getElementById("board");
+        // Remove existing pieces from the board
+        const existingPieces = document.querySelectorAll(".black, .white");
+        existingPieces.forEach((piece) => board.removeChild(piece));
+        
+        // Iterate through the boardStatus and add pieces to the board
+        for (let i = 0; i < 19; i++) {
+          for (let j = 0; j < 19; j++) {
+            if (boardStatus[i][j] !== 0) {
+              const piece = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              piece.setAttribute("r", "4.2");
+              piece.setAttribute("cx", (i - 9) * 10);
+              piece.setAttribute("cy", (j - 9) * 10); 
+              
+              piece.setAttribute("fill", boardStatus[i][j] == 1 ? "black" : "white");
+              piece.setAttribute("class", boardStatus[i][j] == 1 ? "black" : "white");
+              board.appendChild(piece);
+            }
+          }
+        }
+      }
+      //This function displays the board based on the boardStatus
+
+
+      function Update(movement,playerColor) {
+        let x = movement[0];
+        let y = movement[1];
+        boardStatus[x][y] = playerColor;
+      }
+      //This function updates the boardStatus according to new move
+    
+      function checkWin() {
+        const len = boardStatus.length;
+        
+        function checkLine(x, y, dx, dy) {
+          const player = boardStatus[x][y];
+          if (player === 0) return false;
+          for (let i = 1; i < 5; i++) {
+            const newX = x + dx * i;
+            const newY = y + dy * i;
+            if (
+              newX < 0 || newX >= len ||
+              newY < 0 || newY >= len ||
+              boardStatus[newX][newY] !== player
+              ) {
+                return false;
+              }
+            }
+            return true;
+        }
+        for (let i = 0; i < len; i++) {
+          for (let j = 0; j < len; j++) {
+            if (
+              checkLine(i, j, 1, 0) ||
+              checkLine(i, j, 0, 1) ||
+              checkLine(i, j, 1, 1) ||
+              checkLine(i, j, 1, -1)
+              ) {
+                return boardStatus[i][j];
+              }
+            }
+          }
+          return 0;
+        }
+
+
+      function getMovement(playerColor) {
+        return Promise.race([
+          new Promise((resolve) =>  {
+          const board = document.getElementById("board");
+          
+          const tempPiece = createTempPiece();
+          board.appendChild(tempPiece);
+
+          
+          board.addEventListener("mousemove", function (event) {
+            if (gameStopped) {
+              tempPiece.setAttribute("cx", -1000);
+              tempPiece.setAttribute("cy", -1000);
+              return; // If the game is stopped, return immediately and hide the tempPiece
+            }
+
+            const rect = board.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            newx = Math.floor(x/30);
+            newy = Math.floor(y/30);
+
+            if (boardStatus[newx][newy]== 0){
+            tempPiece.setAttribute("cx", (newx-9)*10);
+            tempPiece.setAttribute("cy", (newy-9)*10);
+            if (playerColor==-1){
+              tempPiece.style.opacity = "0.68";
+            }
+            tempPiece.setAttribute("fill", playerColor == 1 ? "black" : "white");
+            }
+            
+            
+
+          });
+
+          function onClick(event) {
+            
+            if (gameStopped) {
+              return; // If the game is stopped, return immediately without waiting for user input 
+            }
+            const rect = board.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            board.removeEventListener("click", onClick);
+            board.removeChild(tempPiece);
+
+            newx = Math.floor(x/30);
+            newy = Math.floor(y/30);
+            
+            resolve([newx,newy]);
+          }
+    
+          board.addEventListener("click", onClick);
+        }),
+        
+        new Promise((resolve) => {
+          const checkInterval = setInterval(() => {
+            if (gameStopped) {
+              clearInterval(checkInterval);
+              resolve([100, 100]);
+            }
+          }, 1000);
+        }),
+      ]);
+
+
+        function createTempPiece() {
+          const piece = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          piece.setAttribute("r", "4.2");
+          piece.style.opacity = "0.3";
+          piece.setAttribute("cx", -1000);
+          piece.setAttribute("cy", -1000);
+          return piece;
+        }
+      }
+      // This function will get the position of the mouse on the board, as well as the position to drop the piece
+
+
+      function checkTimeOut() {
+        setInterval(() => {
+          if (gameSettings.blackTimer.isTimeOut()) {
+            gameStopped = true;
+            winStatus = -1;
+          } else if (gameSettings.whiteTimer.isTimeOut()) {            
+            gameStopped = true;
+            winStatus = 1;
+          }
+        }, 1000);
+      }
+
+
+ 
+      function undoMove() {
+        undoCount = 0;
+        const undoButton = document.getElementById("undo-button");
+        undoButton.style.display = 'none';
+        boardStatus = JSON.parse(JSON.stringify(previousBoard[0]));
+        previousBoard[0] = JSON.parse(JSON.stringify(boardStatus));
+        previousBoard[1] = JSON.parse(JSON.stringify(boardStatus));
+        previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
+        displayGoboard();
+      }
+
+
+
+
+
+    </script>
+
+
+
+    
+
+
+</body>
+
