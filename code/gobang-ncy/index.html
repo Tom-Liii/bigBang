@@ -285,7 +285,6 @@
 /********************************************************************/
             
             else if (gameSettings.gameMode == "PvP" && playerColor != roomInfor.iniColor) {
-              
               console.log("before while lock");
 
               const waitForAnotherDrop = async () => {
@@ -299,13 +298,11 @@
                 });
               };
 
-              (async () => {
-                await waitForAnotherDrop();
-                console.log("after while lock");
-                anotherDropped = 0;
-              })();
+              await waitForAnotherDrop();
+              console.log("after while lock");
+              anotherDropped = 0;
 
-              //break;
+              break;
             }
 /********************************************************************/
             else{console.log("in else!!!!!");
@@ -315,7 +312,7 @@
               validStatus = isValid(movement);
               //console.log(playerColor); // Corrected typo in console.log
               validMovement = movement;
-            }
+            }else{break;}
           }
 
           if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
@@ -441,7 +438,11 @@
           return 0;
         }
 
-    
+        
+      function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      await delay(500);
       play();
     
 
