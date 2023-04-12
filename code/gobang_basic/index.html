@@ -492,7 +492,7 @@
           // Hide the undo button if from last undo/ beginning <2
 
 
-          if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
+          if ((gameSettings.gameMode === 'PVP' && gameSettings.timerStatus)&&(count!=0)) {
             if (player == 1) {
               gameSettings.player2Timer.stop();
               gameSettings.player1Timer.start();
@@ -605,6 +605,11 @@
           if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
             Update(validMovement,playerColor);  
             displayGoboard();
+          }
+
+          if ((count == 1)&&(player == 1)){
+            gameSettings.player1Timer.start();
+            gameSettings.player2Timer.stop();
           }
 
           console.log(count);
