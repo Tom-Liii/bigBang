@@ -348,6 +348,13 @@
                 gameResult.innerHTML = "Game Over! White wins!";
               }
               //gameStopped = true;
+
+/*******************************************************************************************************************/
+            else if (type === 'TimeSet') {
+              gameSettings.player1Timer = data.p1Time;
+              gameSettings.player2Timer = data.p2Time;
+            }
+/*******************************************************************************************************************/
             }
 
         }
@@ -415,6 +422,10 @@
 
       setInterval(() => {
         if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
+/*******************************************************************************************************************/
+          ws.send(JSON.stringify({ type: 'TimeSet', p1Time: gameSettings.player1Timer, p2Time: gameSettings.player2Timer}));
+
+/*******************************************************************************************************************/
           const player1TimerCircle = document.getElementById('black-timer-circle');
           const player1TimerLine1 = document.getElementById('black-timer-line1');
           const player1TimerLine2 = document.getElementById('black-timer-line2');

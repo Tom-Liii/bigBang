@@ -33,6 +33,8 @@ async def application(scope, receive, send):
                 'movement': [],###
                 'turn': 1,
                 'winner': None,
+                'p1Time': None,
+                'p2Time': None,
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -67,6 +69,8 @@ async def application(scope, receive, send):
             'ready': bool(room['black'] and room['white']),
             'turn': room['turn'],
             'winner': room['winner'],
+            'p1Time': room['p1Time'],
+            'p2Time': room['p2Time'],
         })})
         
         if not old and (room['black'] == user_id or room['white'] == user_id): # 如果*没有*用户进入了同一个房间, 并且这个用户是执黑或者执白的(即并非visiting)
@@ -101,11 +105,23 @@ async def application(scope, receive, send):
                         'type': 'GameOver',
                         'winner': winner,
                     })})
+#*******************************************************************************************************************/
+            if data['type'] == 'TimeSet':
+                p1Time = data['p1Time']
+                p2Time = data['p2Time']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'TimeSet',
+                        'p1Time': p1Time,
+                        'p2Time': p2Time,
+                    })})
+#*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
                 room['movement'] = data['movement']###
                 room['turn'] = data['turn']
-                #room['winner'] = data['winner']
                 for _send in room['sends']:
                     if _send == send:
                         continue
@@ -115,7 +131,6 @@ async def application(scope, receive, send):
                         'boardStatus': data['boardStatus'],
                         'movement': data['movement'],
                         'turn':data['turn'],
-                        #'winner': data['winner'],
                         })})
 
     elif scope['type'] == 'http':
