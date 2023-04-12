@@ -270,6 +270,7 @@
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
+
         gameSettings = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
         
@@ -351,9 +352,13 @@
 
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
-              console.log('onTimeSet, Get Time');
+              //console.log('onTimeSet, Get Time');
               gameSettings.player1Timer = data.p1Time;
+              console.log(gameSettings.player1Timer.remainingTime);
               gameSettings.player2Timer = data.p2Time;
+            }
+            else{
+              console.log('on ELSE message');
             }
 /*******************************************************************************************************************/
             }
@@ -394,12 +399,14 @@
     let countBlack = 0;
     
     async function play() {
+      if (count == 1){
+        await delay(5000);
+      }
       
       
       let winStatus = 0; // Define winStatus, it is 0 when there is no winner.
 
    
-      await delay(5000);
 
   
       if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
@@ -424,6 +431,7 @@
       setInterval(() => {
         if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
 /*******************************************************************************************************************/
+        if(playerColor == roomInfor.iniColor)
           ws.send(JSON.stringify({ type: 'TimeSet', p1Time: gameSettings.player1Timer, p2Time: gameSettings.player2Timer}));
 
 /*******************************************************************************************************************/
@@ -462,7 +470,7 @@
               }
             }
         }
-      }, 200);
+      }, 20);
       // Display the black timer and white timer time continuously, and when the time is less than a minute, display the time in red
 
       const undoButton = document.getElementById("undo-button");
