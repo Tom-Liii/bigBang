@@ -267,6 +267,12 @@
       let playerColor = 1; // The initial color is black
       let anotherDropped = 0;
       let anotherMovement = [];
+      let gameStopped = false; // Set gameStopped to false as default
+      let exchanged = false; // Set exchanged to false as default
+      let player = 1;
+
+      let count = 1; // Count used to count the turn
+      let countBlack = 0;
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
@@ -341,13 +347,18 @@
             }
 
             else if (type === 'GameOver') {
-              const winner = data.winner;
-              const gameResult = document.getElementById("game-result");
+              winStatus = data.winner;
+              
+              if (winStatus != 0){
+                gameStopped = true;
+              }
+              /*const gameResult = document.getElementById("game-result");
+              
               if (winner === 1) {
                 gameResult.innerHTML = "Game Over! Black wins!";
               } else if (winner === -1) {
                 gameResult.innerHTML = "Game Over! White wins!";
-              }
+              }*/
               //gameStopped = true;
             }
 /*******************************************************************************************************************/
@@ -389,13 +400,6 @@
     }
     // Display the timer icons only when the timer is enabled
 
-
-    let gameStopped = false; // Set gameStopped to false as default
-    let exchanged = false; // Set exchanged to false as default
-    let player = 1;
-
-    let count = 1; // Count used to count the turn
-    let countBlack = 0;
     
     async function play() {
       if (count == 1){
@@ -637,10 +641,7 @@
           // Then update and delete the board, check if there is winner
 
 
-          if (winStatus !== 0 && gameSettings.gameMode === "PVP") {
-            ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
-          }
-          // Send game over message when the game ends
+          
 
           playerColor = -playerColor;
           
@@ -685,6 +686,11 @@
           winStatus = 1;
         }
         // Determine who is the winner
+
+        if (winStatus !== 0 && gameSettings.gameMode === "PVP") {
+            ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
+          }
+          // Send game over message when the game ends
         
         const gameResult = document.getElementById("game-result");
         if (winStatus === 1) {
