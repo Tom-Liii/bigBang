@@ -576,17 +576,25 @@
 
               break;
             }
-/********************************************************************/
+
             else{
               movement = await getMovement(playerColor);
             }
-            
-            console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+            if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
+              //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
+              validStatus = isValid(movement);
+              //console.log(playerColor); // Corrected typo in console.log
+              validMovement = movement;
+            }
+            else if(!((gameSettings.gameMode == "PvP")&&(playerColor == roomInfor.iniColor)))
+            {break;}
+            else{
             validStatus = isValid(movement);
             validMovement = movement;
+            }
           }
           // The inner game loop, place a piece until the location is valid
-
+/********************************************************************/
           if (gameStopped) {
                 break;
           }
@@ -611,6 +619,12 @@
           winStatus = checkWin();
           // Then update and delete the board, check if there is winner
 
+/********************************************************************/
+          if (winStatus !== 0 && gameSettings.gameMode === "PvP") {
+            ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
+          }
+          // Send game over message when the game ends
+/********************************************************************/
           playerColor = -playerColor;
           
           if (player == 1){
@@ -623,8 +637,19 @@
           console.log(player);
         }
         // The Outer game loop, when there is no winner the game continues
-
-
+/********************************************************************/
+        if (winStatus !== 0) {
+          if (gameSettings.gameMode == "PvP") {
+            ws.send(
+              JSON.stringify({
+                type: "GameOver",
+                winner: -playerColor, 
+              })
+            );
+          }
+        }
+        // Send the winner information to the server
+/********************************************************************/
         // Stop the timers and update the result
         gameSettings.player1Timer.stop();
         gameSettings.player2Timer.stop();
