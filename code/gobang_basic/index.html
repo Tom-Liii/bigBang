@@ -572,7 +572,7 @@
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
                   const checkInterval = setInterval(() => {
-                    if (anotherDropped == 1) {
+                    if ((anotherDropped == 1)||(gameStopped)) {
                       clearInterval(checkInterval);
                       resolve();
                     }
