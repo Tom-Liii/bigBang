@@ -10,13 +10,7 @@
         background-color: #ffe7cc;
       }
 
-      #timer-icon {
-      width: 40px;
-      height: 40px;
-      background-image: url("https://cdn-icons-png.flaticon.com/512/37/37663.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-      cursor: pointer;}
+      
 
       #timer-display {
         font-size: 2em;
@@ -323,8 +317,10 @@
                 }
                 else alert(`欢迎，等待对手中。`);
               }
-              else alert('欢迎,观战者');
-              
+              else {
+              alert('游戏禁止观战');
+              window.open("about:blank","_self").close();
+              }
             }
 
             else if(type === 'AddPlayer'){
@@ -402,9 +398,10 @@
       
       
       let winStatus = 0; // Define winStatus, it is 0 when there is no winner.
-      
-      
 
+/********************************************************************/      
+      await delay(5000);
+/********************************************************************/
   
       if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
         checkTimeOut(); // Call the checkTimeOut() function after starting the timers
@@ -658,8 +655,11 @@
           
       }
       // This part is the script of the game (Main structure)
-    
-
+/********************************************************************/
+      function delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+/********************************************************************/
       play();
 
 
