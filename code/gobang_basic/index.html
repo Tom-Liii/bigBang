@@ -594,14 +594,16 @@
             }
           }
           // The inner game loop, place a piece until the location is valid
-/********************************************************************/
+
           if (gameStopped) {
                 break;
           }
 
-          
-          Update(validMovement,playerColor);
-          displayGoboard();
+          if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
+            Update(validMovement,playerColor);  
+            displayGoboard();
+          }
+/********************************************************************/
           console.log(count);
           undoCount++;
           if (playerColor == 1){
