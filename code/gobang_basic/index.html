@@ -21,7 +21,7 @@
       #player-icon {
       width: 50px;
       height: 50px;
-      background-image: url("images/user.png");
+      background-image: url("/home/ubuntu/bigBang/code/gobang_basic/images/user.png");
       background-repeat: no-repeat;
       background-size: contain;}
       
@@ -152,7 +152,7 @@
     
     <div id="game-result" style="position: fixed; top: 430px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
      
-    <img id="undo-button" src="images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
+    <img id="undo-button" src="/home/ubuntu/bigBang/code/gobang_basic/images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
 
     <button id="surrender-button" style="position: fixed; top: 500px; left: 995px; font-size: 18px; font-family: 'Space Grotesk', sans-serif; background-color: #c32c20; color: white; border: none; padding: 10px 60px; border-radius: 5px; text-align: center; cursor: pointer;">Surrender</button>
 
@@ -161,7 +161,7 @@
 
 
     <button id="open-window-button" class= "question" style="position: fixed; top: 28px; left: 1370px; background: none; border: none; padding: 0; cursor: pointer;">
-      <img class= "question" src="images/question.png" alt="Open Floating Window">
+      <img class= "question" src="/home/ubuntu/bigBang/code/gobang_basic/images/question.png" alt="Open Floating Window">
     </button>
     
     <div id="floating-window" class="hidden">
@@ -250,7 +250,6 @@
     }
     // This is the structure of game settings, and it is used to store game settings information
 
-/********************************************************************/
 
     class RoomInfor{
         roomNum = null;
@@ -269,9 +268,10 @@
       let anotherDropped = 0;
       let anotherMovement = [];
 
-      function initializeGame(gameMode, userID, roomNum) {
-        //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
-        gameSettings = new GameSettings(gameMode, false, false, false, false, 65);
+      function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
+        
+        //gameSettings = new GameSettings(gameMode, false, false, false, false, 65);
+        gameSetting = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
         
         if(gameMode == "PvP"){
@@ -356,17 +356,8 @@
     }
       
       
-      initializeGame("PvP", Math.floor(100*Math.random()), 1);
+      initializeGame("PvP", Math.floor(100*Math.random()), 1, false, false, false, false, 65);
 
-
-
-
-
-
-
-/********************************************************************/
-
-    
 
     let previousBoard = [boardStatus,boardStatus,boardStatus];
     let undoCount = -1;
@@ -399,9 +390,9 @@
       
       let winStatus = 0; // Define winStatus, it is 0 when there is no winner.
 
-/********************************************************************/      
+  
       await delay(5000);
-/********************************************************************/
+
   
       if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
         checkTimeOut(); // Call the checkTimeOut() function after starting the timers
@@ -554,7 +545,7 @@
               
               //After made a decision, hide the icon
             }
-/********************************************************************/
+
             
             else if (gameSettings.gameMode == "PvP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
@@ -603,7 +594,7 @@
             Update(validMovement,playerColor);  
             displayGoboard();
           }
-/********************************************************************/
+
           console.log(count);
           undoCount++;
           if (playerColor == 1){
@@ -621,12 +612,12 @@
           winStatus = checkWin();
           // Then update and delete the board, check if there is winner
 
-/********************************************************************/
+
           if (winStatus !== 0 && gameSettings.gameMode === "PvP") {
             ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
           }
           // Send game over message when the game ends
-/********************************************************************/
+
           playerColor = -playerColor;
           
           if (player == 1){
@@ -639,7 +630,7 @@
           console.log(player);
         }
         // The Outer game loop, when there is no winner the game continues
-/********************************************************************/
+
         if (winStatus !== 0) {
           if (gameSettings.gameMode == "PvP") {
             ws.send(
@@ -651,7 +642,7 @@
           }
         }
         // Send the winner information to the server
-/********************************************************************/
+
         // Stop the timers and update the result
         gameSettings.player1Timer.stop();
         gameSettings.player2Timer.stop();
@@ -682,11 +673,10 @@
           
       }
       // This part is the script of the game (Main structure)
-/********************************************************************/
       function delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
       }
-/********************************************************************/
+
       play();
 
 
@@ -736,11 +726,10 @@
         let x = movement[0];
         let y = movement[1];
         boardStatus[x][y] = playerColor;
-/********************************************************************/
+
         if(gameSettings.gameMode == "PvP")  
           ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement, turn: playerColor,}  ));
 
-/********************************************************************/
       }
       //This function updates the boardStatus according to new move
     
