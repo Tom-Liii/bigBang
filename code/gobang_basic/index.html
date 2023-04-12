@@ -273,7 +273,7 @@
         gameSettings = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
         
-        if(gameMode == "PvP"){
+        if(gameMode == "PVP"){
 
           ws = new WebSocket(`ws://${window.location.host}`);
 
@@ -351,6 +351,7 @@
 
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
+              console.log('onTimeSet, Get Time');
               gameSettings.player1Timer = data.p1Time;
               gameSettings.player2Timer = data.p2Time;
             }
@@ -362,7 +363,7 @@
     }
       
       
-      initializeGame("PvP", Math.floor(100*Math.random()), 1, false, false, false, false, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, false, true, 65);
 
  
 
@@ -558,7 +559,7 @@
             }
 
             
-            else if (gameSettings.gameMode == "PvP" && playerColor != roomInfor.iniColor) {
+            else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
 
               const waitForAnotherDrop = async () => {
@@ -582,13 +583,13 @@
             else{
               movement = await getMovement(playerColor);
             }
-            if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
+            if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
               //console.log(playerColor); // Corrected typo in console.log
               validMovement = movement;
             }
-            else if(!((gameSettings.gameMode == "PvP")&&(playerColor == roomInfor.iniColor)))
+            else if(!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))
             {break;}
             else{
             validStatus = isValid(movement);
@@ -601,7 +602,7 @@
                 break;
           }
 
-          if(!((gameSettings.gameMode == "PvP")&&(playerColor != roomInfor.iniColor))){
+          if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
             Update(validMovement,playerColor);  
             displayGoboard();
           }
@@ -624,7 +625,7 @@
           // Then update and delete the board, check if there is winner
 
 
-          if (winStatus !== 0 && gameSettings.gameMode === "PvP") {
+          if (winStatus !== 0 && gameSettings.gameMode === "PVP") {
             ws.send(JSON.stringify({ type: 'GameOver', winner: winStatus }));
           }
           // Send game over message when the game ends
@@ -643,7 +644,7 @@
         // The Outer game loop, when there is no winner the game continues
 
         if (winStatus !== 0) {
-          if (gameSettings.gameMode == "PvP") {
+          if (gameSettings.gameMode == "PVP") {
             ws.send(
               JSON.stringify({
                 type: "GameOver",
@@ -739,7 +740,7 @@
         let y = movement[1];
         boardStatus[x][y] = playerColor;
 
-        if(gameSettings.gameMode == "PvP")  
+        if(gameSettings.gameMode == "PVP")  
           ws.send(JSON.stringify(  {type: 'DropPiece', boardStatus: boardStatus, movement: movement, turn: playerColor,}  ));
 
       }
