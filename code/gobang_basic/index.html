@@ -492,7 +492,7 @@
           // Hide the undo button if from last undo/ beginning <2
 
 
-          if ((gameSettings.gameMode === 'PVP' && gameSettings.timerStatus)&&(count!=0)) {
+          if ((gameSettings.gameMode === 'PVP' && gameSettings.timerStatus)&&(count!= 1)) {
             if (player == 1) {
               gameSettings.player2Timer.stop();
               gameSettings.player1Timer.start();
@@ -607,7 +607,7 @@
             displayGoboard();
           }
 
-          if ((count == 1)&&(player == 1)){
+          if ((count == 2)&&(player == 1)){
             gameSettings.player1Timer.start();
             gameSettings.player2Timer.stop();
           }
