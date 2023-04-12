@@ -609,7 +609,7 @@
           }
           // The inner game loop, place a piece until the location is valid
 
-          if (gameStopped) {
+          if (gameStopped && checkWin() == 0) {
                 break;
           }
 
@@ -653,6 +653,11 @@
           }
           // Switch the player color
           console.log(player);
+
+          if (gameStopped && checkWin() != 0) {
+                break;
+          }
+          
         }
         // The Outer game loop, when there is no winner the game continues
 
@@ -679,6 +684,7 @@
         surrenderButton.style.display = 'none';
         // When the game ends, hide the undo button and surrender button
 
+        console.log(player);
         if (player == 1){
           winStatus = 2;
         }
