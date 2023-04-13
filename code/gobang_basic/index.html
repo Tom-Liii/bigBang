@@ -303,7 +303,7 @@
 
           
           ws.onmessage = function (ev){
-            //console.log('onmessage');
+            console.log('onmessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
@@ -363,21 +363,10 @@
             }
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
-              //console.log('onTimeSet, Get Time');
+              console.log('onTimeSet, Get Time');
               gameSettings.player1Timer.remainingTime = data.p1Time;
               gameSettings.player2Timer.remainingTime = data.p2Time;
             }
-            else if (type ==='ThreeChange'){
-                console.log('onThreeChange')
-                roomInfor.iniColor = -1;
-                exchanged = true; 
-                player = 1;
-                count = 7;
-                gameSettings.player2Timer.stop();
-                gameSettings.player1Timer.start();  
-                
-            }
-
             else{
               console.log('on ELSE message');
             }
@@ -389,7 +378,7 @@
     }
       
       
-      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, true, false, true, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, false, true, 65);
 
  
 
@@ -439,12 +428,6 @@
                 gameSettings.player2Timer.stop();
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
-/*******************************************************************************************************************/
-                playerColor = -1;
-                roomInfor.iniColor = 1;
-                ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
-
-/*******************************************************************************************************************/
               });
       exchangeButton.style.display = "none";
 
@@ -541,7 +524,7 @@
             console.log("1111111");
             surrenderButton.style.display = 'none';
             if (player === 1) {
-              gameStopped = true;movement
+              gameStopped = true;
               winStatus = 2; // player 2 wins
             } else {
               gameStopped = true;
@@ -557,7 +540,7 @@
               // If the game is stopped due to a timeout, break out of the loop
               break;
             }
-//11111111111111111111111111111111111111111111
+
             if (exchanged) {
               exchanged = false;
 
@@ -577,13 +560,11 @@
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))){
               movement = fiveStepThreeStrikes();
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6))){
               threeStepExchange();
               movement = await getMovement(playerColor);
               
               exchangeButton.style.display = "none";
-              console.log('player color print: 1');
-              console.log(playerColor); 
               
               //After made a decision, hide the icon
             }
@@ -591,57 +572,37 @@
             
             else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
-              console.log('player color print: 18');
-              console.log(playerColor); 
 
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
                   const checkInterval = setInterval(() => {
-                    if ((anotherDropped == 1)||(gameStopped)||(exchanged)) {
+                    if ((anotherDropped == 1)||(gameStopped)) {
                       clearInterval(checkInterval);
                       resolve();
                     }
-                  }, 100);
+                  }, 1000);
                 });
               };
 
               await waitForAnotherDrop();
               console.log("after while lock");
-              console.log('player color print: 19');
-              console.log(playerColor); 
               anotherDropped = 0;
-              if(!exchanged)
-                break;
-              else{
-                movement = await getMovement(playerColor);
-              }
 
+              break;
             }
 
             else{
-              console.log("IN ELSE!!!!!!!!");
-              console.log(roomInfor.iniColor);
               movement = await getMovement(playerColor);
-              
             }
-
-            console.log('player color print: 2');
-            console.log(playerColor); 
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
-              console.log('player color print: 20');
-              console.log(playerColor); // Corrected typo in console.log
+              //console.log(playerColor); // Corrected typo in console.log
               validMovement = movement;
             }
             else if(!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))
-            {console.log('player color print: 3');
-              console.log(playerColor); 
-              break;}
-            
+            {break;}
             else{
-              console.log('player color print: 4');
-              console.log(playerColor); 
             validStatus = isValid(movement);
             validMovement = movement;
             }
