@@ -38,8 +38,7 @@ async def application(scope, receive, send):
                 'exchanged': None,
                 'previousBoard':[],
                 'onlyBoard':[],
-                'threeStrikes':[],
-                'whiteValidChoice':[],
+                'undo': 1,
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -148,9 +147,39 @@ async def application(scope, receive, send):
                     await _send({'type': 'websocket.send', 'text': json.dumps({
                         'type': 'onlyBoard',
                         'onlyBoard': data['onlyBoard']
-                    })})        
-#*******************************************************************************************************************/
-############################################################################################
+                    })})   
+            if data['type'] == 'undo':
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'undo',
+                        #'undo': data['undo']
+                    })})  
+            if data['type'] == 'Request':
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'Request',
+                        
+                    })})  
+            if data['type'] == 'Accept':
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'Accept',
+                        
+                    })}) 
+            if data['type'] == 'Decline':
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'Decline',
+                        
+                    })}) 
             if data['type'] == '5Step3Hits':
                 room['threeStrikes'] = data['threeStrikes']
                 for _send in room['sends']:
@@ -169,11 +198,8 @@ async def application(scope, receive, send):
                     await _send({'type': 'websocket.send', 'text': json.dumps({
                         'type': 'whiteValidChoice',
                         'whiteValidChoice': data['whiteValidChoice'],
-                    })})
-############################################################################################
-
-
-
+                    })})                                          
+#*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
                 room['movement'] = data['movement']###
@@ -195,3 +221,4 @@ async def application(scope, receive, send):
             await send({'type': 'http.response.start', 'status': 200})
             await send({'type': 'http.response.body', 'body': html})
           
+

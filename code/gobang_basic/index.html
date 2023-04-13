@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>bigBang</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://assets.mockflow.com/app/wireframepro/company/C60e51ff3180b4980a08450701f20806b/projects/M84VLDquVob/images/M21e210354201a0e956ded9da48a82c021679583773900">
-    <script src="./scripts/aiFunctions.js"></script>
+    <script src="http://3.232.58.157/scripts/aiFunctions.js"></script>
     <style>
       body {
         background-color: #ffe7cc;
@@ -21,7 +21,7 @@
       #player-icon {
       width: 50px;
       height: 50px;
-      background-image: url("http://34.225.43.131/images/user.png");
+      background-image: url("http://3.232.58.157/images/user.png");
       background-repeat: no-repeat;
       background-size: contain;}
       
@@ -130,6 +130,7 @@
       </svg>
       <p id="timer-whitedisplay" style="position: fixed; top: 206px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
     
+      <p id="timer-elapseddisplay" style="position: fixed; top: 66px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
       <!-- This part is to display the timer-->
 
       
@@ -150,9 +151,9 @@
       <span style="padding-right: 10px;">vs</span>
     </div>
     
-    <div id="game-result" style="position: fixed; top: 430px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
+    <div id="game-result" style="position: fixed; top: 490px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
      
-    <img id="undo-button" src="http://34.225.43.131/images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
+    <img id="undo-button" src="http://3.232.58.157/images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
 
     <button id="surrender-button" style="position: fixed; top: 500px; left: 995px; font-size: 18px; font-family: 'Space Grotesk', sans-serif; background-color: #c32c20; color: white; border: none; padding: 10px 60px; border-radius: 5px; text-align: center; cursor: pointer;">Surrender</button>
 
@@ -161,7 +162,7 @@
 
 
     <button id="open-window-button" class= "question" style="position: fixed; top: 28px; left: 1370px; background: none; border: none; padding: 0; cursor: pointer;">
-      <img class= "question" src="http://34.225.43.131/images/question.png" alt="Open Floating Window">
+      <img class= "question" src="http://3.232.58.157/images/question.png" alt="Open Floating Window">
     </button>
     
     <div id="floating-window" class="hidden">
@@ -196,15 +197,41 @@
       current: player1Name, <span id="currentPlayerColor"></span>
     </div>
     
-    
+    <button id="accept-button" style="position: fixed; top: 580px; left: 925px; font-size: 16px; font-family: 'Space Grotesk', sans-serif; background-color: #186318c4; color: white; border: none; padding: 10px 40px; border-radius: 5px; text-align: center; cursor: pointer;">Accept</button>
+
+    <button id="decline-button" style="position: fixed; top: 580px; left: 1115px; font-size: 16px; font-family: 'Space Grotesk', sans-serif; background-color: #c32c20; color: white; border: none; padding: 10px 40px; border-radius: 5px; text-align: center; cursor: pointer;">Decline</button>
+
 
     <script>
+//-----------------------------------------------------------------------------------------------------------------------        
+      function getURLParameter(paramName) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(paramName);
+      }
+      const userid = getURLParameter('userid');
+      console.log('User id: ', userid);
 //-----------------------------------------------------------------------------------------------------------------------      
-const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
+    const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
     fiveStepThreeStrikesBlack.style.display = "none";
 
     const fiveStepThreeStrikesWhite = document.getElementById("fiveStepThreeStrikes-white");
     fiveStepThreeStrikesWhite.style.display = "none";
+
+    const acceptButton = document.getElementById("accept-button");
+    acceptButton.style.display = "none";
+    acceptButton.addEventListener('click', async () => {
+      ws.send(JSON.stringify({type: 'Accept'}));
+      acceptButton.style.display = "none";
+      declineButton.style.display = "none";
+    })
+
+    const declineButton = document.getElementById("decline-button");
+    declineButton.style.display = "none";
+    declineButton.addEventListener('click', async () => {
+      ws.send(JSON.stringify({type: 'Decline'}));
+      acceptButton.style.display = "none";
+      declineButton.style.display = "none";
+    })
 //-----------------------------------------------------------------------------------------------------------------------      
      
      document.getElementById('open-window-button').addEventListener('click', function() {
@@ -220,6 +247,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
       constructor(timeInSeconds) {
         this.totalTime = timeInSeconds;
         this.remainingTime = timeInSeconds;
+        this.startingTime = 0;
         this.interval = null;
       }
 
@@ -246,8 +274,15 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
         } else {
           this.stop();
         }
+        this.startingTime += 1;
       }
 
+
+      getFormattedStartTime() {
+        const minutes = Math.floor(this.startingTime / 60);
+        const seconds = this.startingTime % 60;
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }
 
       getFormattedTime() {
         const minutes = Math.floor(this.remainingTime / 60);
@@ -273,6 +308,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
         this.timerTime = timerTime;
         this.player1Timer = new Timer(timerTime);
         this.player2Timer = new Timer(timerTime);
+        this.elapsedTimer = new Timer(100000000000000);
         this.player1Name = player1Name;
         this.player2Name = player2Name;
       }
@@ -300,19 +336,20 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
       let exchanged = false; // Set exchanged to false as default
       let player = 1;
       let previousBoard = new Array(3).fill().map(() => new Array(19).fill().map(() => new Array(19).fill(0)));
+      console.log(previousBoard);
       let undoCount = -1;
       let count = 1; // Count used to count the turn
       let countBlack = 0;
+      let agree = 0;
+      let agreelock = 0;
       let haveGot5step3hitsChoice = 0;/////////////////////////////////////////////////////
       let getWhiteValidChoice = []/////////////////////////////////////////////////////
-
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
 
         gameSettings = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
-        previousBoard = [boardStatus,boardStatus,boardStatus];
 
         if(gameMode == "PVP"){
 
@@ -329,7 +366,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               if (event.code === 4000) {
                 window.alert('您已在新的浏览器窗口中进入了该房间，本页面将转换为单机模式！');
               } else {
-                window.alert('连接已断开，将转换为单机模式！');
+                window.alert('Disconnect!');
               }
               setOffline();
             }
@@ -352,13 +389,13 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
                 if(roomInfor.isReady){
                   if(!roomInfor.isBlack){
                     roomInfor.iniColor = -1;
-                    alert('欢迎,您执白棋');
+                    alert('Hi, You are white piece');
                   }
                 }
-                else alert(`欢迎，等待对手中。`);
+                else alert(`Hi, Please wait for another player`);
               }
               else {
-              alert('游戏禁止观战');
+              alert('Visitors are not allowed');
               window.open("about:blank","_self").close();
               }
             }
@@ -367,7 +404,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               console.log('onAddPlayer');
               if (!roomInfor.isVisitor && data.ready && roomInfor.isBlack === true) {
                 roomInfor.isReady = true;
-                window.alert('您执黑棋，下棋后即开局，无法更换黑白和对手。');
+                window.alert('You are black piece');
               }
             }
 
@@ -398,8 +435,12 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
               //console.log('onTimeSet, Get Time');
-              gameSettings.player1Timer.remainingTime = data.p1Time;
-              gameSettings.player2Timer.remainingTime = data.p2Time;
+              if (data.p1Time < gameSettings.player1Timer.remainingTime){
+                gameSettings.player1Timer.remainingTime = data.p1Time;
+              }
+              if (data.p2Time < gameSettings.player2Timer.remainingTime){
+                gameSettings.player2Timer.remainingTime = data.p2Time;
+              }
             }
             else if (type ==='ThreeChange'){
                 console.log('onThreeChange')
@@ -407,6 +448,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
                 exchanged = true; 
                 player = 1;
                 count = 7;
+                undoCount = 0;
                 gameSettings.player2Timer.stop();
                 gameSettings.player1Timer.start();  
                 
@@ -419,10 +461,28 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if (type === 'onlyBoard') {
               //console.log('onTimeSet, Get Time');
               boardStatus = data.onlyBoard;
-              displayGoboard();////////////////////////////////////////////////////////////////////////////////////////////////
+              displayGoboard();
               console.log('Received onlyBoard:', data.onlyBoard);
             }
-////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (type === 'undo') {
+              //console.log('onTimeSet, Get Time');
+              count = count - 2;
+              countBlack = countBlack - 1;
+              undoCount = 0;
+            }
+            else if (type === 'Request') {              
+              acceptButton.style.display = "block";
+              declineButton.style.display = "block";
+            }
+            else if (type === 'Accept') {              
+              agree = 1;
+              agreelock = 1;
+            }
+            else if (type === 'Decline') {    
+              alert('Declined request');          
+              agree = 0;
+              agreelock = 1;
+            }
             else if(type ==='5Step3Hits'){
               console.log('on5Step3Hits, Get threeStrikes');
               const blackPointsWhiteCanChoose = data.threeStrikes;
@@ -430,14 +490,13 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               whiteChoose(blackPointsWhiteCanChoose);
               
             }
-
             else if (type === 'whiteValidChoice'){
               console.log('onThreeStrikes, get getWhiteValidChoice');
               getWhiteValidChoice = data.whiteValidChoice;
               console.log(getWhiteValidChoice);
               haveGot5step3hitsChoice = 1;
             }
-////////////////////////////////////////////////////////////////////////////////////////////////
+
             else{
               console.log('on ELSE message');
             }
@@ -449,7 +508,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
     }
       
       
-      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, true, false, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, true, true, false, 65);
 
  
 
@@ -483,7 +542,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
 
     async function play() {
       if (count == 1){
-        await delay(5000);
+        await delay(2000);
       }
       
       
@@ -503,6 +562,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
       exchangeButton.addEventListener('click', () => {
                 // Perform exchange functionality here
                 exchanged = true; 
+                undoCount = -1;
                 player = -playerColor;
                 count = 7;
                 gameSettings.player2Timer.stop();
@@ -531,6 +591,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
           const player2TimerCircle = document.getElementById('white-timer-circle');
           const player2TimerLine1 = document.getElementById('white-timer-line1');
           const player2TimerLine2 = document.getElementById('white-timer-line2');
+          const elapsedTimerDisplay = document.getElementById('timer-elapseddisplay');
+          elapsedTimerDisplay.innerHTML = `${gameSettings.elapsedTimer.getFormattedStartTime()}`;
           if (playerColor === 1) {
             let remainingTime = gameSettings.player1Timer.remainingTime;
             timerBlackDisplay.innerHTML = `${gameSettings.player1Timer.getFormattedTime()}`;
@@ -560,13 +622,31 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               }
             }
         }
-      }, 200);
+      }, 50);
       // Display the black timer and white timer time continuously, and when the time is less than a minute, display the time in red
 
       const undoButton = document.getElementById("undo-button");
-      undoButton.addEventListener('click', () => {
+      undoButton.addEventListener('click', async () => {
       // Perform undo functionality here
-        undoMove(); 
+      undoButton.style.display = "none";
+      ws.send(JSON.stringify({type: 'Request'}));
+
+      const waitForAgreement = async () => {
+                return new Promise((resolve) => {
+                  const checkInterval = setInterval(() => {
+                    if (agreelock) {
+                      clearInterval(checkInterval);
+                      resolve();
+                    }
+                  }, 100);
+                });
+              };
+
+      await waitForAgreement();
+      agreelock = 0;
+        if(agree){
+          undoMove(); 
+        }
         if (count!= 6) exchangeButton.style.display = "none";
         });
 
@@ -579,15 +659,15 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             break;
           }
 
- 
 
-          if (undoCount >= 2 && gameSettings.gameMode == "PVP") {
-              undoButton.style.display = 'block';
-            } 
-            else{
-              undoButton.style.display = 'none';
-            }
-          // Hide the undo button if from last undo/ beginning <2
+          console.log("player color", playerColor);
+          console.log("initial color", roomInfor.iniColor);
+          if ((playerColor == roomInfor.iniColor) && count > 2&&(undoCount >= 2 && gameSettings.gameMode == "PVP")){           
+            undoButton.style.display = "block";
+          }
+          else{
+            undoButton.style.display = "none";
+          }
 
 
           if ((gameSettings.gameMode === 'PVP' && gameSettings.timerStatus)&&(count!= 1)) {
@@ -600,6 +680,10 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             }
           }
 
+          if ((count == 2) && (gameSettings.elapsedTimer.startingTime == 0)){
+            gameSettings.elapsedTimer.start();
+          }
+
           let validStatus = 0;
           let validMovement;
           let movement
@@ -608,7 +692,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
           
           
           surrenderButton.addEventListener('click', () => {
-            //console.log("1111111");
+            console.log("1111111");
             surrenderButton.style.display = 'none';
             if (player === 1) {
               gameStopped = true;movement
@@ -643,16 +727,16 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
-            else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){///////////////////////////////////////////////roomInfor.iniColor == 1
+            else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){
               movement = await fiveStepThreeStrikes();
             }
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
               threeStepExchange();
               movement = await getMovement(playerColor);
-              //console.log(movement);
+              console.log(movement);
               exchangeButton.style.display = "none";
-              //console.log('player color print: 1');
-              //console.log(playerColor); 
+              console.log('player color print: 1');
+              console.log(playerColor); 
               
               //After made a decision, hide the icon
             }
@@ -660,8 +744,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             
             else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
-              //console.log('player color print: 18');
-              //console.log(playerColor); 
+              console.log('player color print: 18');
+              console.log(playerColor); 
 
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
@@ -676,8 +760,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
 
               await waitForAnotherDrop();
               console.log("after while lock");
-              //console.log('player color print: 19');
-              //console.log(playerColor); 
+              console.log('player color print: 19');
+              console.log(playerColor); 
               anotherDropped = 0;
               if(!exchanged)
                 break;
@@ -695,9 +779,9 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               
             }
 
-            //console.log('player color print: 2');
-            //console.log(playerColor); 
-			      //console.log(exchanged);
+            console.log('player color print: 2');
+            console.log(playerColor); 
+                  console.log(exchanged);
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
@@ -717,7 +801,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             validMovement = movement;
             }
           }
-          // The inner game loop, place a piece until the location is valid//////////////////////////////////////////////////////////////////////end inner loop
+          // The inner game loop, place a piece until the location is valid
 
           if (gameStopped && checkWin() == 0) {
                 break;
@@ -733,27 +817,30 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             gameSettings.player2Timer.stop();
           }
 
-          //console.log(count);
+          console.log(count);
           undoCount++;
           if (playerColor == 1){
             countBlack++;
-            //console.log(countBlack);
+            console.log(countBlack);
           }
           count++;
           
 
-          //console.log(previousBoard);
+          if (playerColor == roomInfor.iniColor){
+          console.log(previousBoard);
           previousBoard[0] = JSON.parse(JSON.stringify(previousBoard[1]));
           previousBoard[1] = JSON.parse(JSON.stringify(previousBoard[2]));
           previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
-          ws.send(JSON.stringify({ type: 'previousBoard', previousBoard: previousBoard }));
-          //console.log(previousBoard);
+          if (gameSettings.gameMode == "PVP"){
+            ws.send(JSON.stringify({ type: 'previousBoard', previousBoard: previousBoard }));
+            console.log(previousBoard);
+          }
+        }
           // add the current boardStatus to record and send and update the previous saved board 
           
 
           winStatus = checkWin();
           // Then update and delete the board, check if there is winner
-
 
           
 
@@ -766,7 +853,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             player = 1;
           }
           // Switch the player color
-          //console.log(player);
+          console.log(player);
           displayPlayer();
 
           if (gameStopped && checkWin() != 0) {
@@ -775,6 +862,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
           
         }
         // The Outer game loop, when there is no winner the game continues
+
+        gameSettings.elapsedTimer.stop();
 
         if (winStatus !== 0) {
           if (gameSettings.gameMode == "PVP") {
@@ -799,7 +888,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
         surrenderButton.style.display = 'none';
         // When the game ends, hide the undo button and surrender button
 
-        //console.log(player);
+        console.log(player);
         if (player == 1){
           winStatus = 2;
         }
@@ -821,7 +910,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
           gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player2Name} wins!</span>`;
         }
         // Update the game-result element when the game ends
-          
+        window.location.href = "http://34.225.43.131/bigBang/code/StartPage.html?userid=" + userid;
       }
       // This part is the script of the game (Main structure)
 
@@ -830,6 +919,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
       }
 
       play();
+      
+
 
 
 
@@ -891,6 +982,8 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
       }
       //This function updates the boardStatus according to new move
+    
+
       function Update_for_53(movement,playerColor) {
         let x = movement[0];
         let y = movement[1];
@@ -900,6 +993,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
           ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));
 
       }
+
 
       function checkWin() {
         const len = boardStatus.length;
@@ -970,8 +1064,8 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
               tempPiece.style.opacity = "0";
             }
 //----------------------------------------------------------------------------------------------------------------------------   
-            if ((roomInfor.iniColor == 1)&&(count == 7)){
-              //console.log(roomInfor.iniColor);
+            if (((roomInfor.iniColor == 1)&&(count == 7))&&((gameSettings.gameMode == "PVP")&&(playerColor == -1))){
+              console.log(roomInfor.iniColor);
               tempPiece.style.opacity = "0";
             }
             tempPiece.setAttribute("fill", playerColor == 1 ? "black" : "white");
@@ -1039,14 +1133,15 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
  
       function undoMove() {
-        undoCount = 0;
         count = count - 2;
         countBlack = countBlack - 1;
+        undoCount = 0;
         const undoButton = document.getElementById("undo-button");
         undoButton.style.display = 'none';
         
         boardStatus = JSON.parse(JSON.stringify(previousBoard[0]));
-        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: onlyBoard }));
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));
+        ws.send(JSON.stringify({ type: 'undo' }));
         previousBoard[0] = JSON.parse(JSON.stringify(boardStatus));
         previousBoard[1] = JSON.parse(JSON.stringify(boardStatus));
         previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
@@ -1105,9 +1200,9 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         threeStrikes = [movement1, movement2, movement3];
         ws.send(JSON.stringify({ type: '5Step3Hits', threeStrikes: threeStrikes }));//传送三子数据给白子
         //Black side chooses three places, then it's white side's turn
-///////////////////////////////////////////////////////////////////////////////////
-//(等待)(加一个delay锁)
-//以haveGot5step3hitsChoice = 1 为解锁钥匙(这东西初值为0)
+        ///////////////////////////////////////////////////////////////////////////////////
+        //(等待)(加一个delay锁)
+        //以haveGot5step3hitsChoice = 1 为解锁钥匙(这东西初值为0)
         const waitForAnotherDrop2 = async () => {
                 return new Promise((resolve) => {
                   const checkInterval = setInterval(() => {
@@ -1120,7 +1215,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
               };
 
         await waitForAnotherDrop2();
-///////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////
         fiveStepThreeStrikesBlack.style.display = "none";
         let position;
         position = getWhiteValidChoice;//得到的数据放到position里
@@ -1136,44 +1231,44 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
       async function whiteChoose(movements){
             
-        console.log('Enter whiteChoose');
-        if (player == 1){
-          gameSettings.player1Timer.stop();
-        }
-        else{
-          gameSettings.player2Timer.stop();
-        }
-        const fiveStepThreeStrikesWhite = document.getElementById("fiveStepThreeStrikes-white");
-        fiveStepThreeStrikesWhite.style.display = "block";
-        let validStatus = false;
-        let choice
-        while (!validStatus){
-          choice = await getMovement(0);
-          console.log(choice);
-          console.log(movements[0]);
-          console.log(movements[1]);
-          console.log(movements[2]);
-          if ((((choice[0] == movements[0][0])&&(choice[1] == movements[0][1]))||((choice[0] == movements[1][0])&&(choice[1] == movements[1][1])))||((choice[0] == movements[2][0])&&(choice[1] == movements[2][1]))){
-            validStatus = true;
+            console.log('Enter whiteChoose');
+            if (player == 1){
+              gameSettings.player1Timer.stop();
+            }
+            else{
+              gameSettings.player2Timer.stop();
+            }
+            const fiveStepThreeStrikesWhite = document.getElementById("fiveStepThreeStrikes-white");
+            fiveStepThreeStrikesWhite.style.display = "block";
+            let validStatus = false;
+            let choice
+            while (!validStatus){
+              choice = await getMovement(0);
+              console.log(choice);
+              console.log(movements[0]);
+              console.log(movements[1]);
+              console.log(movements[2]);
+              if ((((choice[0] == movements[0][0])&&(choice[1] == movements[0][1]))||((choice[0] == movements[1][0])&&(choice[1] == movements[1][1])))||((choice[0] == movements[2][0])&&(choice[1] == movements[2][1]))){
+                validStatus = true;
+              }
+              console.log(validStatus);
+            }
+            console.log(choice);
+            fiveStepThreeStrikesWhite.style.display = "none";
+            //////////////////////////////////////////////////////////////////////////////////////////
+            const whiteValidChoice = choice;
+            console.log('send whiteValidChoice');
+            console.log(whiteValidChoice);
+            ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
+            //////////////////////////////////////////////////////////////////////////////////////////
+            return choice;
+            if (player == 1){
+              gameSettings.player1Timer.start();
+            }
+            else{
+              gameSettings.player2Timer.start();
+            }
           }
-          console.log(validStatus);
-        }
-        console.log(choice);
-        fiveStepThreeStrikesWhite.style.display = "none";
-        //////////////////////////////////////////////////////////////////////////////////////////
-        const whiteValidChoice = choice;
-        console.log('send whiteValidChoice');
-        console.log(whiteValidChoice);
-        ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
-        //////////////////////////////////////////////////////////////////////////////////////////
-        return choice;
-        if (player == 1){
-          gameSettings.player1Timer.start();
-        }
-        else{
-          gameSettings.player2Timer.start();
-        }
-      }
       // This function is used in fiveStepThreeStrikes, white side choose which piece to place
 
 
@@ -1196,6 +1291,102 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
           }
       }
 
+
+
+      function checkEarlyTermination() {
+        const len = boardStatus.length;
+        let playerPriority = 0;
+
+        function checkPattern(x, y, dx, dy, pattern) {
+          const player = boardStatus[x][y];
+          if (player === 0) return false;
+
+          let count = 0;
+          for (let i = 0; i < pattern.length; i++) {
+            const newX = x + dx * i;
+            const newY = y + dy * i;
+            if (
+              newX < 0 || newX >= len ||
+              newY < 0 || newY >= len ||
+              boardStatus[newX][newY] !== pattern[i] * player
+            ) {
+              return false;
+            }
+            if (pattern[i] === 1) count++;
+          }
+          return count === pattern.filter(e => e === 1).length;
+        }
+
+        function hasDoubleThree(x, y, player) {
+          const patterns = [
+            [1, 1, 0, 1],
+            [1, 0, 1, 1],
+            [1, 1, 1, 0]
+          ];
+          let count = 0;
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (dx === 0 && dy === 0) continue;
+              for (const pattern of patterns) {
+                if (checkPattern(x, y, dx, dy, pattern)) {
+                  count++;
+                  if (count >= 2) return true;
+                }
+              }
+            }
+          }
+          return false;
+        }
+
+        function hasOpenFour(x, y, player) {
+          const patterns = [
+            [1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1],
+            [1, 1, 0, 1, 1],
+            [1, 1, 1, 0, 1]
+          ];
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (dx === 0 && dy === 0) continue;
+              for (const pattern of patterns) {
+                if (checkPattern(x, y, dx, dy, pattern)) {
+                  return true;
+                }
+              }
+            }
+          }
+          return false;
+        }
+
+        for (let i = 0; i < len; i++) {
+          for (let j = 0; j < len; j++) {
+            if (boardStatus[i][j] !== 0) {
+              const player = boardStatus[i][j];
+              if (hasOpenFour(i, j, player)) {
+                if (playerPriority === 0 || playerPriority === player) {
+                  playerPriority = player;
+                } else {
+                  return false; // Both players have open four, no priority
+                }
+              } else if (hasDoubleThree(i, j, player)) {
+                if (playerPriority === 0) {
+                  playerPriority = player;
+                } else if (playerPriority !== player) {
+                  return false
+                } else if (playerPriority !== player) {
+                  return false; // Both players have double three, no priority
+                }
+              }
+            }
+          }
+        }
+
+  return playerPriority !== 0;
+}
+
+
+
     </script>
 
 
@@ -1204,3 +1395,4 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
 
 </body>
+
