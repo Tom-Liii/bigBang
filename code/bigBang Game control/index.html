@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <title>bigBang</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://assets.mockflow.com/app/wireframepro/company/C60e51ff3180b4980a08450701f20806b/projects/M84VLDquVob/images/M21e210354201a0e956ded9da48a82c021679583773900">
+    
+    <script src="./scripts/UI/global.js"></script>
     <script src="./scripts/aiFunctions.js"></script>
+    
     <style>
       body {
         background-color: #ffe7cc;
@@ -65,8 +68,8 @@
       }
 
       .question{
-        height: 50px;
-        width: 50px;
+        height: 32px;
+        width: 32px;
       }
 
       .window-content {
@@ -122,19 +125,19 @@
  
 
       
-      <svg id="left-timer-icon" width="45" height="45" style="position: fixed; top: 230px; left: 895px; ">
+      <svg id="left-timer-icon" width="45" height="45" style="position: fixed; top: 210px; left: 895px; ">
         <circle id="black-timer-circle" cx="22.5" cy="22.5" r="16" stroke="#7b6801" stroke-width="5.4" fill="none"/>
         <line id="black-timer-line1" x1="22.5" y1="22.5" x2="22.5" y2="11.5" stroke="#7b6801" stroke-width="2.8"/>
         <line id="black-timer-line2" x1="23.75" y1="22.5" x2="13.5" y2="22.5" stroke="#7b6801" stroke-width="2.8"/>
       </svg>
-      <p id="timer-blackdisplay" style="position: fixed; top: 206px; left: 950px ;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+      <p id="timer-blackdisplay" style="position: fixed; top: 186px; left: 950px ;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
   
-      <svg id="right-timer-icon" width="45" height="45" style="position: fixed; top: 230px; left: 1145px; ">
+      <svg id="right-timer-icon" width="45" height="45" style="position: fixed; top: 210px; left: 1145px; ">
         <circle id="white-timer-circle" cx="22.5" cy="22.5" r="16" stroke="#7b6801" stroke-width="5.4" fill="none"/>
         <line id="white-timer-line1" x1="22.5" y1="22.5" x2="22.5" y2="11.5" stroke="#7b6801" stroke-width="2.8"/>
         <line id="white-timer-line2" x1="23.75" y1="22.5" x2="13.5" y2="22.5" stroke="#7b6801" stroke-width="2.8"/>
       </svg>
-      <p id="timer-whitedisplay" style="position: fixed; top: 206px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+      <p id="timer-whitedisplay" style="position: fixed; top: 186px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
     
       <!-- This part is to display the timer-->
 
@@ -156,15 +159,17 @@
       <span style="padding-right: 10px;">vs</span>
     </div>
     
-    <div id="game-result" style="position: fixed; top: 430px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
+    <div id="game-result" style="position: fixed; top: 490px; left: 1015px; font-size: 30px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: brown; text-align: center;"></div>   
      
     <img id="undo-button" src="images/back.png" style="position: fixed; top: 65px; left: 670px; width: 32px; height: 32px; cursor: pointer;"/>
 
     <button id="surrender-button" style="position: fixed; top: 500px; left: 995px; font-size: 18px; font-family: 'Space Grotesk', sans-serif; background-color: #c32c20; color: white; border: none; padding: 10px 60px; border-radius: 5px; text-align: center; cursor: pointer;">Surrender</button>
 
+    <button id="exchange-button" style="position: fixed; top: 580px; left: 995px; font-size: 18px; font-family: 'Space Grotesk', sans-serif; background-color: #7b6801; color: white; border: none; padding: 10px 60px; border-radius: 5px; text-align: center; cursor: pointer;">Exchange</button>
 
 
-    <button id="open-window-button" class= "question" style="position: fixed; top: 20px; left: 1370px; background: none; border: none; padding: 0; cursor: pointer;">
+
+    <button id="open-window-button" class= "question" style="position: fixed; top: 28px; left: 1370px; background: none; border: none; padding: 0; cursor: pointer;">
       <img class= "question" src="images/question.png" alt="Open Floating Window">
     </button>
     
@@ -178,11 +183,36 @@
     <div id="help" style="position: fixed; top: 25px; left: 1300px; font-size: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801;">
       <span style="padding-right: 10px;" alt="Open Floating Window">Help</span>
     </div>
+    <!------------------------------------------------------------------------------------------------------->
+    <div id="fiveStepThreeStrikes-black" style="position: fixed; top: 130px; left: 920px; font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801; text-align: center;">
+      <span style="padding-right: 10px;">Please choose three places</span><br>
+      <span>to drop the piece</span>
+    </div>
 
-    
+    <div id="fiveStepThreeStrikes-white" style="position: fixed; top: 130px; left: 920px; font-size: 24px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801; text-align: center;">
+      <span style="padding-right: 10px;">Please choose one place</span><br>
+      <span>from three for the black side</span>
+    </div>
+
+    <div id="player1Name" style="position: fixed; top: 380px; left: 920px; font-size: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801; text-align: center;">
+    </div>
+
+    <div id="player2Name" style="position: fixed; top: 380px; left: 1200px; font-size: 28px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801; text-align: center;">
+    </div>
+
+    <div id="currentPlayer" style="position: fixed; top: 65px; left: 180px; font-size: 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; color: #7b6801; text-align: center;">
+      current: player1Name, <span id="currentPlayerColor"></span>
+    </div>
+    <!------------------------------------------------------------------------------------------------------->
 
     <script>
-     
+//-----------------------------------------------------------------------------------------------------------------------      
+    const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
+    fiveStepThreeStrikesBlack.style.display = "none";
+
+    const fiveStepThreeStrikesWhite = document.getElementById("fiveStepThreeStrikes-white");
+    fiveStepThreeStrikesWhite.style.display = "none";
+//-----------------------------------------------------------------------------------------------------------------------       
      
      document.getElementById('open-window-button').addEventListener('click', function() {
       document.getElementById('floating-window').classList.remove('hidden');
@@ -192,6 +222,7 @@
       document.getElementById('floating-window').classList.add('hidden');
     });
      
+    
 
      class Timer {
       constructor(timeInSeconds) {
@@ -241,33 +272,36 @@
 
     
     class GameSettings {
-      constructor(gameMode, earlyTermination, threeStepExchange, fiveStepThreeStrikes, timerStatus, timerTime) {
+      constructor(gameMode, earlyTermination, threeStepExchange, fiveStepThreeStrikes, timerStatus, timerTime, player1Name, player2Name) {
         this.gameMode = gameMode;
         this.earlyTermination = earlyTermination;
         this.threeStepExchange = threeStepExchange;
         this.fiveStepThreeStrikes = fiveStepThreeStrikes;
         this.timerStatus = timerStatus;
         this.timerTime = timerTime;
-        this.blackTimer = new Timer(timerTime);
-        this.whiteTimer = new Timer(timerTime);
+        this.player1Timer = new Timer(timerTime);
+        this.player2Timer = new Timer(timerTime);
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
       }
     }
     // This is the structure of game settings, and it is used to store game settings information
 
 
-
-    const gameSettings = new GameSettings("PVP", true, true, false, true, 70);
+    
+    let gameSettings = new GameSettings("PVP", false, true, true, true, 65);
     let boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
     let previousBoard = [boardStatus,boardStatus,boardStatus];
     let undoCount = -1;
-    
+    //gameSettings.gameMode = localStorage.getItem('difficulty');
+    console.log(gameSettings.gameMode);
     // Setting game mode, and create a new empty board
       
 
     const lefttimerIcon = document.getElementById('left-timer-icon');
     const righttimerIcon = document.getElementById('right-timer-icon');
 
-    if (gameSettings.timerStatus) {
+    if (gameSettings.timerStatus && gameSettings.gameMode == "PVP") {
       lefttimerIcon.style.display = 'block';
       righttimerIcon.style.display = 'block';
     } else {
@@ -276,9 +310,25 @@
     }
     // Display the timer icons only when the timer is enabled
 
+//----------------------------------------------------------------------------------------------------------------------- 
+    gameSettings.player1Name = "Houting";
+    gameSettings.player2Name = "CY"
+    const player1NameElement = document.getElementById("player1Name");
+    player1NameElement.textContent = gameSettings.player1Name;
+    const player2NameElement = document.getElementById("player2Name");
+    player2NameElement.textContent = gameSettings.player2Name;
+    // Display player names*/
+    const currentPlayerElement = document.getElementById("currentPlayer");
+    currentPlayerElement.innerHTML = `Current: ${gameSettings.player1Name}, black`;
+//-----------------------------------------------------------------------------------------------------------------------   
 
-    let gameStopped = false; 
+
+    let gameStopped = false; // Set gameStopped to false as default
+    let exchanged = false; // Set exchanged to false as default
+    let player = 1;
     let playerColor = 1; // The initial color is black
+    let count = 1; // Count used to count the turn
+    let countBlack = 0;
     
     async function play() {
       
@@ -295,49 +345,67 @@
       const timerBlackDisplay = document.getElementById('timer-blackdisplay');
       const timerWhiteDisplay = document.getElementById('timer-whitedisplay');
       
-      
+      const exchangeButton = document.getElementById("exchange-button");
+      exchangeButton.addEventListener('click', () => {
+                // Perform exchange functionality here
+                exchanged = true; 
+                player = 1;
+                count = 7;
+                gameSettings.player2Timer.stop();
+                gameSettings.player1Timer.start();  
+                undoButton.style.display = "none"; 
+                displayPlayer();    
+              });
+      exchangeButton.style.display = "none";
+
+
       setInterval(() => {
         if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
-          const blackTimerCircle = document.getElementById('black-timer-circle');
-          const blackTimerLine1 = document.getElementById('black-timer-line1');
-          const blackTimerLine2 = document.getElementById('black-timer-line2');
-          const whiteTimerCircle = document.getElementById('white-timer-circle');
-          const whiteTimerLine1 = document.getElementById('white-timer-line1');
-          const whiteTimerLine2 = document.getElementById('white-timer-line2');
+          const player1TimerCircle = document.getElementById('black-timer-circle');
+          const player1TimerLine1 = document.getElementById('black-timer-line1');
+          const player1TimerLine2 = document.getElementById('black-timer-line2');
+          const player2TimerCircle = document.getElementById('white-timer-circle');
+          const player2TimerLine1 = document.getElementById('white-timer-line1');
+          const player2TimerLine2 = document.getElementById('white-timer-line2');
           if (playerColor === 1) {
-            let remainingTime = gameSettings.blackTimer.remainingTime;
-            timerBlackDisplay.innerHTML = `${gameSettings.blackTimer.getFormattedTime()}`;
+            let remainingTime = gameSettings.player1Timer.remainingTime;
+            timerBlackDisplay.innerHTML = `${gameSettings.player1Timer.getFormattedTime()}`;
             if (remainingTime <= 60) {
               timerBlackDisplay.style.color = '#c32c20';
               document.getElementById('left-timer-icon').setAttribute('stroke', '#c32c20'); // set stroke color of left timer icon to red
-              blackTimerCircle.setAttribute('stroke', '#c32c20');
-              blackTimerLine1.setAttribute('stroke', '#c32c20');
-              blackTimerLine2.setAttribute('stroke', '#c32c20');
+              player1TimerCircle.setAttribute('stroke', '#c32c20');
+              player1TimerLine1.setAttribute('stroke', '#c32c20');
+              player1TimerLine2.setAttribute('stroke', '#c32c20');
             } else {
               timerBlackDisplay.style.color = '#7b6801';
             }
-            timerWhiteDisplay.innerHTML = `${gameSettings.whiteTimer.getFormattedTime()}`;
+            timerWhiteDisplay.innerHTML = `${gameSettings.player2Timer.getFormattedTime()}`;
             } 
             else {
-              let remainingTime = gameSettings.whiteTimer.remainingTime;
-              timerBlackDisplay.innerHTML = `${gameSettings.blackTimer.getFormattedTime()}`;
-              timerWhiteDisplay.innerHTML = `${gameSettings.whiteTimer.getFormattedTime()}`;
+              let remainingTime = gameSettings.player2Timer.remainingTime;
+              timerBlackDisplay.innerHTML = `${gameSettings.player1Timer.getFormattedTime()}`;
+              timerWhiteDisplay.innerHTML = `${gameSettings.player2Timer.getFormattedTime()}`;
               if (remainingTime <= 60) {
                 timerWhiteDisplay.style.color = '#c32c20';
                 document.getElementById('right-timer-icon').setAttribute('stroke', '#c32c20'); // set stroke color of right timer icon to red
-                whiteTimerCircle.setAttribute('stroke', '#c32c20');
-                whiteTimerLine1.setAttribute('stroke', '#c32c20');
-                whiteTimerLine2.setAttribute('stroke', '#c32c20');
+                player2TimerCircle.setAttribute('stroke', '#c32c20');
+                player2TimerLine1.setAttribute('stroke', '#c32c20');
+                player2TimerLine2.setAttribute('stroke', '#c32c20');
               } else {
                 timerWhiteDisplay.style.color = '#7b6801';
               }
             }
         }
-      }, 1000);
+      }, 200);
       // Display the black timer and white timer time continuously, and when the time is less than a minute, display the time in red
 
+      const undoButton = document.getElementById("undo-button");
+      undoButton.addEventListener('click', () => {
+      // Perform undo functionality here
+        undoMove(); 
+        if (count!= 6) exchangeButton.style.display = "none";
+        });
 
-      
 
 
 
@@ -347,11 +415,6 @@
             break;
           }
 
-          const undoButton = document.getElementById("undo-button");
-          undoButton.addEventListener('click', () => {
-            // Perform undo functionality here
-            undoMove();          
-          });
 
           if (undoCount >= 2 && gameSettings.gameMode == "PVP") {
               undoButton.style.display = 'block';
@@ -359,15 +422,16 @@
             else{
               undoButton.style.display = 'none';
             }
+          // Hide the undo button if from last undo/ beginning <2
 
 
           if (gameSettings.gameMode === 'PVP' && gameSettings.timerStatus) {
-            if (playerColor == 1) {
-              gameSettings.whiteTimer.stop();
-              gameSettings.blackTimer.start();
+            if (player == 1) {
+              gameSettings.player2Timer.stop();
+              gameSettings.player1Timer.start();
             } else {       
-              gameSettings.blackTimer.stop();       
-              gameSettings.whiteTimer.start();
+              gameSettings.player1Timer.stop();       
+              gameSettings.player2Timer.start();
             }
           }
 
@@ -381,22 +445,28 @@
           surrenderButton.addEventListener('click', () => {
             console.log("1111111");
             surrenderButton.style.display = 'none';
-            if (playerColor === 1) {
+            if (player === 1) {
               gameStopped = true;
-              winStatus = -1; // white wins
+              winStatus = 2; // player 2 wins
             } else {
               gameStopped = true;
-              winStatus = 1; // black wins
+              winStatus = 1; // player 1 wins
             }
           // Call the function to end the game and display the result
         });
 
           while (validStatus == 0) {
             if (gameStopped) {
-              gameSettings.blackTimer.stop();
-              gameSettings.whiteTimer.stop();
+              gameSettings.player1Timer.stop();
+              gameSettings.player2Timer.stop();
               // If the game is stopped due to a timeout, break out of the loop
-              break;}
+              break;
+            }
+
+            if (exchanged) {
+              exchanged = false;
+
+            }
 
             if ((gameSettings.gameMode == "Random")&&(playerColor == -1)) {
               // Generate a random movement 
@@ -409,6 +479,17 @@
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
+            else if (((gameSettings.gameMode == "PVP") && (gameSettings.fiveStepThreeStrikes))&&((playerColor == 1) && (countBlack == 4))){
+              movement = await fiveStepThreeStrikes();
+            }
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6))){
+              threeStepExchange();
+              movement = await getMovement(playerColor);
+              
+              exchangeButton.style.display = "none";
+              
+              //After made a decision, hide the icon
+            }
             else{
               movement = await getMovement(playerColor);
             }
@@ -416,6 +497,8 @@
             console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
             validStatus = isValid(movement);
             validMovement = movement;
+
+
           }
           // The inner game loop, place a piece until the location is valid
 
@@ -426,44 +509,68 @@
           
           Update(validMovement,playerColor);
           displayGoboard();
+          console.log(count);
           undoCount++;
+          if (playerColor == 1){
+            countBlack++;
+            console.log(countBlack);
+          }
+          count++;
           
           previousBoard[0] = JSON.parse(JSON.stringify(previousBoard[1]));
           previousBoard[1] = JSON.parse(JSON.stringify(previousBoard[2]));
           previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
+          // update the previous saved board and add the current boardStatus to record
           
 
           winStatus = checkWin();
-          //Then update and delete the board, check if there is winner
+          // Then update and delete the board, check if there is winner
 
+
+          
           playerColor = -playerColor;
+          
+          if (player == 1){
+            player = 2;
+          }
+          else{
+            player = 1;
+          }
           // Switch the player color
-
+          console.log(player);
+          displayPlayer();
+          
         }
         // The Outer game loop, when there is no winner the game continues
 
-          // Stop the timers and update the result
-          gameSettings.blackTimer.stop();
-          gameSettings.whiteTimer.stop();
+
+        // Stop the timers and update the result
+        gameSettings.player1Timer.stop();
+        gameSettings.player2Timer.stop();
           
 
-        const undoButton = document.getElementById("undo-button");
+        
         undoButton.style.display = 'none';
         const surrenderButton = document.getElementById("surrender-button");
         surrenderButton.style.display = 'none';
-          if (gameStopped && playerColor == 1){
-            winStatus = -1;
-          }
-          else if (gameStopped && playerColor == -1){
-            winStatus = 1;
-          }
-          // Update the game-result element when the game ends
-          const gameResult = document.getElementById("game-result");
-          if (winStatus === 1) {
-            gameResult.innerHTML = "Game Over!<br><span style='font-size:16px;'>Black wins!</span>";
-          } else if (winStatus === -1) {
-            gameResult.innerHTML = "Game Over!<br><span style='font-size:16px;'>White wins!</span>";
-          }
+        // When the game ends, hide the undo button and surrender button
+
+        if (player == 1){
+          winStatus = 2;
+        }
+        else if (player == 2){
+          winStatus = 1;
+        }
+        // Determine who is the winner
+        
+        const gameResult = document.getElementById("game-result");
+        if (winStatus === 1) {
+          gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player1Name} wins!</span>`;
+        } 
+        else if (winStatus === 2) {
+          gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player2Name} wins!</span>`;
+        }
+        // Update the game-result element when the game ends
           
       }
       // This part is the script of the game (Main structure)
@@ -471,15 +578,15 @@
 
       play();
 
-      function isValid(movement) {
 
-        if (gameStopped) {
-          // If the game is stopped, do not allow any more pieces to be placed
-          return false;
-        }
+
+      function isValid(movement) {
 
         let x = movement[0];
         let y = movement[1];
+
+        if (x > 18 || y > 18) return false;
+        // When time out or three step exchange, it will return a [100,100]
 
         if (boardStatus[x][y]!=0){
           return false;
@@ -504,9 +611,16 @@
               piece.setAttribute("r", "4.2");
               piece.setAttribute("cx", (i - 9) * 10);
               piece.setAttribute("cy", (j - 9) * 10); 
-              
-              piece.setAttribute("fill", boardStatus[i][j] == 1 ? "black" : "white");
-              piece.setAttribute("class", boardStatus[i][j] == 1 ? "black" : "white");
+//----------------------------------------------------------------------------------------------------------------------------
+              piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
+              if (boardStatus[i][j] == 0.5){
+                piece.style.opacity = 0.3;
+              }
+              else if (boardStatus[i][j] == -0.5){
+                piece.style.opacity = 0.68;
+              }
+              piece.setAttribute("class", boardStatus[i][j] > 0 ? "black" : "white");
+//----------------------------------------------------------------------------------------------------------------------------
               board.appendChild(piece);
             }
           }
@@ -555,7 +669,7 @@
           }
           return 0;
         }
-
+        // This function will check if there is winner of this game
 
       function getMovement(playerColor) {
         return Promise.race([
@@ -567,7 +681,7 @@
 
           
           board.addEventListener("mousemove", function (event) {
-            if (gameStopped) {
+            if (gameStopped||exchanged) {
               tempPiece.setAttribute("cx", -1000);
               tempPiece.setAttribute("cy", -1000);
               return; // If the game is stopped, return immediately and hide the tempPiece
@@ -583,9 +697,14 @@
             if (boardStatus[newx][newy]== 0){
             tempPiece.setAttribute("cx", (newx-9)*10);
             tempPiece.setAttribute("cy", (newy-9)*10);
-            if (playerColor==-1){
+            if (playerColor == -1){
               tempPiece.style.opacity = "0.68";
             }
+//----------------------------------------------------------------------------------------------------------------------------           
+            if ((playerColor == 0)&&(countBlack == 4)){
+              tempPiece.style.opacity = "0";
+            }
+//----------------------------------------------------------------------------------------------------------------------------            
             tempPiece.setAttribute("fill", playerColor == 1 ? "black" : "white");
             }
             
@@ -615,11 +734,11 @@
         
         new Promise((resolve) => {
           const checkInterval = setInterval(() => {
-            if (gameStopped) {
+            if (gameStopped||exchanged) {
               clearInterval(checkInterval);
               resolve([100, 100]);
             }
-          }, 1000);
+          }, 100);
         }),
       ]);
 
@@ -638,10 +757,10 @@
 
       function checkTimeOut() {
         setInterval(() => {
-          if (gameSettings.blackTimer.isTimeOut()) {
+          if (gameSettings.player1Timer.isTimeOut()) {
             gameStopped = true;
-            winStatus = -1;
-          } else if (gameSettings.whiteTimer.isTimeOut()) {            
+            winStatus = 2;
+          } else if (gameSettings.player2Timer.isTimeOut()) {            
             gameStopped = true;
             winStatus = 1;
           }
@@ -652,18 +771,130 @@
  
       function undoMove() {
         undoCount = 0;
+        count = count - 2;
+        countBlack = countBlack - 1;
         const undoButton = document.getElementById("undo-button");
         undoButton.style.display = 'none';
+        
         boardStatus = JSON.parse(JSON.stringify(previousBoard[0]));
         previousBoard[0] = JSON.parse(JSON.stringify(boardStatus));
         previousBoard[1] = JSON.parse(JSON.stringify(boardStatus));
         previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
         displayGoboard();
+        
       }
 
 
+      function threeStepExchange(){
+        const exchangeButton = document.getElementById("exchange-button");
+        exchangeButton.style.display = "block"; 
+      }
 
 
+      async function fiveStepThreeStrikes(){
+        let lastboardStatus = JSON.parse(JSON.stringify(boardStatus));
+        let threeStrikes;
+        let validStatus = false;
+        let movement1;
+        let movement2;
+        let movement3;
+        const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
+        fiveStepThreeStrikesBlack.style.display = "block";
+        
+        const undoButton = document.getElementById("undo-button");
+        undoButton.style.display = "none";
+
+        while (!validStatus){
+          movement1 = await getMovement(1);
+          validStatus = isValid(movement1);
+        }
+        Update(movement1,0.5);
+        displayGoboard();
+        validStatus = false;
+
+        while (!validStatus){
+          movement2 = await getMovement(1);
+          validStatus = isValid(movement2);
+        }
+        Update(movement2,0.5);
+        displayGoboard();
+        validStatus = false;
+
+        while (!validStatus){
+          movement3 = await getMovement(1);
+          validStatus = isValid(movement3);
+        }
+        Update(movement3,0.5);
+        displayGoboard();
+
+        threeStrikes = [movement1, movement2, movement3];
+        //Black side chooses three places, then it's white side's turn
+
+        fiveStepThreeStrikesBlack.style.display = "none";
+        let position;
+        position = await whiteChoose(threeStrikes);
+        boardStatus = lastboardStatus;
+        console.log(boardStatus);
+        displayGoboard();
+        undoButton.style.display = "block";
+
+        return position;
+      }
+
+
+      async function whiteChoose(movements){
+        if (player == 1){
+          gameSettings.player1Timer.stop();
+        }
+        else{
+          gameSettings.player2Timer.stop();
+        }
+        const fiveStepThreeStrikesWhite = document.getElementById("fiveStepThreeStrikes-white");
+        fiveStepThreeStrikesWhite.style.display = "block";
+        let validStatus = false;
+        let choice
+        while (!validStatus){
+          choice = await getMovement(0);
+          console.log(choice);
+          console.log(movements[0]);
+          console.log(movements[1]);
+          console.log(movements[2]);
+          if ((((choice[0] == movements[0][0])&&(choice[1] == movements[0][1]))||((choice[0] == movements[1][0])&&(choice[1] == movements[1][1])))||((choice[0] == movements[2][0])&&(choice[1] == movements[2][1]))){
+            validStatus = true;
+          }
+          console.log(validStatus);
+        }
+        console.log(choice);
+        fiveStepThreeStrikesWhite.style.display = "none";
+        return choice;
+        if (player == 1){
+          gameSettings.player1Timer.start();
+        }
+        else{
+          gameSettings.player2Timer.start();
+        }
+      }
+      // This function is used in fiveStepThreeStrikes, white side choose which piece to place
+
+
+      function displayPlayer(){
+
+        if (playerColor == 1){
+            if (player == 1){
+              currentPlayerElement.innerHTML = `Current: ${gameSettings.player1Name}, black`;
+            }
+            else{
+              currentPlayerElement.innerHTML = `Current: ${gameSettings.player2Name}, black`;
+            }
+          }else{
+            if (player == 1){
+              currentPlayerElement.innerHTML = `Current: ${gameSettings.player1Name}, white`;
+            }
+            else{
+              currentPlayerElement.innerHTML = `Current: ${gameSettings.player2Name}, white`;
+            }
+          }
+      }
 
     </script>
 
