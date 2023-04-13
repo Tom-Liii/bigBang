@@ -369,7 +369,7 @@
             }
             else if (type ==='ThreeChange'){
                 console.log('onThreeChange')
-                gameSettings.iniColor = (-1) * gameSettings.iniColor;
+                roomInfor.iniColor = (-1) * roomInfor.iniColor;
                 exchanged = true; 
                 player = 1;
                 count = 7;
@@ -389,7 +389,7 @@
     }
       
       
-      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, false, true, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, true, false, true, 65);
 
  
 
@@ -576,7 +576,7 @@
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))){
               movement = fiveStepThreeStrikes();
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (gameSettings.iniColor == -1))){
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
               threeStepExchange();
               movement = await getMovement(playerColor);
               
@@ -588,6 +588,8 @@
             
             else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
+              console.log('player color print: 18');
+              console.log(playerColor); 
 
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
@@ -596,12 +598,14 @@
                       clearInterval(checkInterval);
                       resolve();
                     }
-                  }, 1000);
+                  }, 100);
                 });
               };
 
               await waitForAnotherDrop();
               console.log("after while lock");
+              console.log('player color print: 19');
+              console.log(playerColor); 
               anotherDropped = 0;
 
               break;
@@ -613,7 +617,8 @@
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
-              //console.log(playerColor); // Corrected typo in console.log
+              console.log('player color print: 20');
+              console.log(playerColor); // Corrected typo in console.log
               validMovement = movement;
             }
             else if(!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))
