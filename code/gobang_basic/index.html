@@ -639,7 +639,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))&&roomInfor.iniColor == 1){///////////////////////////////////////////////roomInfor.iniColor == 1
+            else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){///////////////////////////////////////////////roomInfor.iniColor == 1
               movement = fiveStepThreeStrikes();
             }
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
@@ -713,7 +713,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             validMovement = movement;
             }
           }
-          // The inner game loop, place a piece until the location is valid
+          // The inner game loop, place a piece until the location is valid//////////////////////////////////////////////////////////////////////end inner loop
 
           if (gameStopped && checkWin() == 0) {
                 break;
