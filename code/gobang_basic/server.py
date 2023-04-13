@@ -36,6 +36,8 @@ async def application(scope, receive, send):
                 'p1Time': None,
                 'p2Time': None,
                 'exchanged': None,
+                'previousBoard':[],
+                'onlyBoard':[],
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -127,6 +129,24 @@ async def application(scope, receive, send):
                         'type': 'ThreeChange',
                         'exchanged': data['exchanged']
                     })})
+            if data['type'] == 'previousBoard':
+                room['previousBoard'] = data['previousBoard']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'previousBoard',
+                        'previousBoard': data['previousBoard']
+                    })})
+            if data['type'] == 'onlyBoard':
+                room['onlyBoard'] = data['onlyBoard']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'onlyBoard',
+                        'onlyBoard': data['onlyBoard']
+                    })})        
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
