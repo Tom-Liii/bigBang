@@ -424,13 +424,19 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
             else if(type ==='5Step3Hits'){
+              console.log('on5Step3Hits, Get threeStrikes');
               const blackPointsWhiteCanChoose = data.threeStrikes;
+              console.log(blackPointsWhiteCanChoose);
               const whiteValidChoice = whiteChoose(blackPointsWhiteCanChoose);
+              console.log('send whiteValidChoice');
+              console.log(whiteValidChoice);
               ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
             }
 
             else if (type === 'threeStrikes'){
+              console.log('onThreeStrikes, get getWhiteValidChoice');
               getWhiteValidChoice = data.whiteValidChoice;
+              console.log(getWhiteValidChoice);
               haveGot5step3hitsChoice = 1;
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -604,7 +610,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
           
           
           surrenderButton.addEventListener('click', () => {
-            console.log("1111111");
+            //console.log("1111111");
             surrenderButton.style.display = 'none';
             if (player === 1) {
               gameStopped = true;movement
@@ -645,10 +651,10 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
               threeStepExchange();
               movement = await getMovement(playerColor);
-              console.log(movement);
+              //console.log(movement);
               exchangeButton.style.display = "none";
-              console.log('player color print: 1');
-              console.log(playerColor); 
+              //console.log('player color print: 1');
+              //console.log(playerColor); 
               
               //After made a decision, hide the icon
             }
@@ -656,8 +662,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             
             else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
-              console.log('player color print: 18');
-              console.log(playerColor); 
+              //console.log('player color print: 18');
+              //console.log(playerColor); 
 
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
@@ -672,8 +678,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
 
               await waitForAnotherDrop();
               console.log("after while lock");
-              console.log('player color print: 19');
-              console.log(playerColor); 
+              //console.log('player color print: 19');
+              //console.log(playerColor); 
               anotherDropped = 0;
               if(!exchanged)
                 break;
@@ -691,9 +697,9 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               
             }
 
-            console.log('player color print: 2');
-            console.log(playerColor); 
-			      console.log(exchanged);
+            //console.log('player color print: 2');
+            //console.log(playerColor); 
+			      //console.log(exchanged);
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
@@ -729,21 +735,21 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             gameSettings.player2Timer.stop();
           }
 
-          console.log(count);
+          //console.log(count);
           undoCount++;
           if (playerColor == 1){
             countBlack++;
-            console.log(countBlack);
+            //console.log(countBlack);
           }
           count++;
           
 
-          console.log(previousBoard);
+          //console.log(previousBoard);
           previousBoard[0] = JSON.parse(JSON.stringify(previousBoard[1]));
           previousBoard[1] = JSON.parse(JSON.stringify(previousBoard[2]));
           previousBoard[2] = JSON.parse(JSON.stringify(boardStatus));
           ws.send(JSON.stringify({ type: 'previousBoard', previousBoard: previousBoard }));
-          console.log(previousBoard);
+          //console.log(previousBoard);
           // add the current boardStatus to record and send and update the previous saved board 
           
 
@@ -762,7 +768,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             player = 1;
           }
           // Switch the player color
-          console.log(player);
+          //console.log(player);
           displayPlayer();
 
           if (gameStopped && checkWin() != 0) {
@@ -795,7 +801,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
         surrenderButton.style.display = 'none';
         // When the game ends, hide the undo button and surrender button
 
-        console.log(player);
+        //console.log(player);
         if (player == 1){
           winStatus = 2;
         }
@@ -958,7 +964,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
             }
 //----------------------------------------------------------------------------------------------------------------------------   
             if ((roomInfor.iniColor == 1)&&(count == 7)){
-              console.log(roomInfor.iniColor);
+              //console.log(roomInfor.iniColor);
               tempPiece.style.opacity = "0";
             }
             tempPiece.setAttribute("fill", playerColor == 1 ? "black" : "white");
@@ -1050,6 +1056,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
 
       async function fiveStepThreeStrikes(){
+        console.log('Enter fiveStepThreeStrikes');
         let lastboardStatus = JSON.parse(JSON.stringify(boardStatus));
         let threeStrikes;
         let validStatus = false;
@@ -1120,6 +1127,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
 
       async function whiteChoose(movements){
+        console.log('Enter whiteChoose');
         if (player == 1){
           gameSettings.player1Timer.stop();
         }
