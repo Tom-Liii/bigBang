@@ -303,7 +303,7 @@
 
           
           ws.onmessage = function (ev){
-            console.log('onmessage');
+            //console.log('onmessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
@@ -363,12 +363,13 @@
             }
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
-              console.log('onTimeSet, Get Time');
+              //console.log('onTimeSet, Get Time');
               gameSettings.player1Timer.remainingTime = data.p1Time;
               gameSettings.player2Timer.remainingTime = data.p2Time;
             }
             else if (type ==='ThreeChange'){
-              console.log('onThreeChange')
+                console.log('onThreeChange')
+                gameSettings.iniColor = (-1) * gameSettings.iniColor;
                 exchanged = true; 
                 player = 1;
                 count = 7;
@@ -439,6 +440,7 @@
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
 /*******************************************************************************************************************/
+                gameSettings.iniColor = (-1) * gameSettings.iniColor;
                 ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
 
 /*******************************************************************************************************************/
@@ -574,7 +576,7 @@
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))){
               movement = fiveStepThreeStrikes();
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6))){
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (gameSettings.iniColor == -1))){
               threeStepExchange();
               movement = await getMovement(playerColor);
               
