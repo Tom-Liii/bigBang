@@ -369,7 +369,7 @@
             }
             else if (type ==='ThreeChange'){
                 console.log('onThreeChange')
-                roomInfor.iniColor = (-1) * roomInfor.iniColor;
+                roomInfor.iniColor = -1;
                 exchanged = true; 
                 player = 1;
                 count = 7;
@@ -607,13 +607,19 @@
               console.log('player color print: 19');
               console.log(playerColor); 
               anotherDropped = 0;
+              if(!exchanged)
+                break;
+              else{
+                movement[0] = 99;
+                movement[1] = 99;
+              }
 
-              break;
             }
 
             else{
               movement = await getMovement(playerColor);
             }
+
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
