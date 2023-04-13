@@ -124,7 +124,7 @@ async def application(scope, receive, send):
                     if _send == send:
                         continue
                     await _send({'type': 'websocket.send', 'text': json.dumps({
-                        'type': 'exchanged',
+                        'type': 'ThreeChange',
                         'exchanged': data['exchanged']
                     })})
 #*******************************************************************************************************************/
