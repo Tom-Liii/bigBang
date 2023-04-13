@@ -1082,7 +1082,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update_for_53(movement1,0.5);////////////////////////
         displayGoboard();
-        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
         validStatus = false;
 
         while (!validStatus){
@@ -1091,7 +1091,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update_for_53(movement2,0.5);/////////////////////////
         displayGoboard();
-        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
         validStatus = false;
 
         while (!validStatus){
@@ -1100,7 +1100,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update_for_53(movement3,0.5);//////////////////////////
         displayGoboard();
-        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
 
         threeStrikes = [movement1, movement2, movement3];
         ws.send(JSON.stringify({ type: '5Step3Hits', threeStrikes: threeStrikes }));//传送三子数据给白子
