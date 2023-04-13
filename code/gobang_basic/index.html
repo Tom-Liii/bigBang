@@ -440,6 +440,7 @@
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
 /*******************************************************************************************************************/
+                playerColor = -1;
                 roomInfor.iniColor = 1;
                 ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
 
@@ -556,7 +557,7 @@
               // If the game is stopped due to a timeout, break out of the loop
               break;
             }
-
+//11111111111111111111111111111111111111111111
             if (exchanged) {
               exchanged = false;
 
@@ -581,6 +582,8 @@
               movement = await getMovement(playerColor);
               
               exchangeButton.style.display = "none";
+              console.log('player color print: 1');
+              console.log(playerColor); 
               
               //After made a decision, hide the icon
             }
@@ -619,8 +622,11 @@
               console.log("IN ELSE!!!!!!!!");
               console.log(roomInfor.iniColor);
               movement = await getMovement(playerColor);
+              
             }
 
+            console.log('player color print: 2');
+            console.log(playerColor); 
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
@@ -629,8 +635,13 @@
               validMovement = movement;
             }
             else if(!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))
-            {break;}
+            {console.log('player color print: 3');
+              console.log(playerColor); 
+              break;}
+            
             else{
+              console.log('player color print: 4');
+              console.log(playerColor); 
             validStatus = isValid(movement);
             validMovement = movement;
             }
