@@ -440,7 +440,7 @@
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
 /*******************************************************************************************************************/
-                gameSettings.iniColor = (-1) * gameSettings.iniColor;
+                roomInfor.iniColor = 1;
                 ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
 
 /*******************************************************************************************************************/
@@ -540,7 +540,7 @@
             console.log("1111111");
             surrenderButton.style.display = 'none';
             if (player === 1) {
-              gameStopped = true;
+              gameStopped = true;movement
               winStatus = 2; // player 2 wins
             } else {
               gameStopped = true;
@@ -610,13 +610,14 @@
               if(!exchanged)
                 break;
               else{
-                movement[0] = 99;
-                movement[1] = 99;
+                movement = await getMovement(playerColor);
               }
 
             }
 
             else{
+              console.log("IN ELSE!!!!!!!!");
+              console.log(roomInfor.iniColor);
               movement = await getMovement(playerColor);
             }
 
