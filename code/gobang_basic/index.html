@@ -270,6 +270,7 @@
       let gameStopped = false; // Set gameStopped to false as default
       let exchanged = false; // Set exchanged to false as default
       let player = 1;
+      
 
       let count = 1; // Count used to count the turn
       let countBlack = 0;
@@ -303,7 +304,7 @@
 
           
           ws.onmessage = function (ev){
-            console.log('onmessage');
+            //console.log('onmessage');
             const data = JSON.parse(ev.data);
             const type = data['type'];
 
@@ -363,10 +364,21 @@
             }
 /*******************************************************************************************************************/
             else if (type === 'TimeSet') {
-              console.log('onTimeSet, Get Time');
+              //console.log('onTimeSet, Get Time');
               gameSettings.player1Timer.remainingTime = data.p1Time;
               gameSettings.player2Timer.remainingTime = data.p2Time;
             }
+            else if (type ==='ThreeChange'){
+                console.log('onThreeChange')
+                roomInfor.iniColor = -1;
+                exchanged = true; 
+                player = 1;
+                count = 7;
+                gameSettings.player2Timer.stop();
+                gameSettings.player1Timer.start();  
+                
+            }
+
             else{
               console.log('on ELSE message');
             }
@@ -378,7 +390,7 @@
     }
       
       
-      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, false, true, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, true, false, true, 65);
 
  
 
@@ -423,11 +435,17 @@
       exchangeButton.addEventListener('click', () => {
                 // Perform exchange functionality here
                 exchanged = true; 
-                player = 1;
+                player = -playerColor;
                 count = 7;
                 gameSettings.player2Timer.stop();
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
+/*******************************************************************************************************************/
+                playerColor = -1;
+                roomInfor.iniColor = 1;
+                ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
+
+/*******************************************************************************************************************/
               });
       exchangeButton.style.display = "none";
 
@@ -473,7 +491,7 @@
               }
             }
         }
-      }, 20);
+      }, 200);
       // Display the black timer and white timer time continuously, and when the time is less than a minute, display the time in red
 
       const undoButton = document.getElementById("undo-button");
@@ -524,7 +542,7 @@
             console.log("1111111");
             surrenderButton.style.display = 'none';
             if (player === 1) {
-              gameStopped = true;
+              gameStopped = true;movement
               winStatus = 2; // player 2 wins
             } else {
               gameStopped = true;
@@ -540,10 +558,9 @@
               // If the game is stopped due to a timeout, break out of the loop
               break;
             }
-
+//11111111111111111111111111111111111111111111
             if (exchanged) {
               exchanged = false;
-
             }
 
             if ((gameSettings.gameMode == "Random")&&(playerColor == -1)) {
@@ -560,11 +577,13 @@
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))){
               movement = fiveStepThreeStrikes();
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6))){
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
               threeStepExchange();
               movement = await getMovement(playerColor);
-              
+              console.log(movement);
               exchangeButton.style.display = "none";
+              console.log('player color print: 1');
+              console.log(playerColor); 
               
               //After made a decision, hide the icon
             }
@@ -572,37 +591,58 @@
             
             else if (gameSettings.gameMode == "PVP" && playerColor != roomInfor.iniColor) {
               console.log("before while lock");
+              console.log('player color print: 18');
+              console.log(playerColor); 
 
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
                   const checkInterval = setInterval(() => {
-                    if ((anotherDropped == 1)||(gameStopped)) {
+                    if ((anotherDropped == 1)||(gameStopped)||(exchanged)) {
                       clearInterval(checkInterval);
                       resolve();
                     }
-                  }, 1000);
+                  }, 100);
                 });
               };
 
               await waitForAnotherDrop();
               console.log("after while lock");
+              console.log('player color print: 19');
+              console.log(playerColor); 
               anotherDropped = 0;
+              if(!exchanged)
+                break;
+              else{
+                movement = [100,100];;
+              }
 
-              break;
             }
 
             else{
-              movement = await getMovement(playerColor);
+              console.log("IN ELSE!!!!!!!!");
+              console.log(roomInfor.iniColor);
+              movement = await getMovement(playerColor);       
+              
             }
+
+            console.log('player color print: 2');
+            console.log(playerColor); 
+			      console.log(exchanged);
             if(!((gameSettings.gameMode == "PVP")&&(playerColor != roomInfor.iniColor))){
               //console.log(`Clicked at coordinates: (${movement[0]}, ${movement[1]})`);
               validStatus = isValid(movement);
-              //console.log(playerColor); // Corrected typo in console.log
+              console.log('player color print: 20');
+              console.log(playerColor); // Corrected typo in console.log
               validMovement = movement;
             }
-            else if(!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))
-            {break;}
+         else if((!((gameSettings.gameMode == "PVP")&&(playerColor == roomInfor.iniColor)))&&(!exchanged))
+            {console.log('player color print: 3');
+              console.log(playerColor); 
+              break;}
+            
             else{
+              console.log('player color print: 4');
+              console.log(playerColor); 
             validStatus = isValid(movement);
             validMovement = movement;
             }
@@ -833,6 +873,10 @@
             tempPiece.setAttribute("cy", (newy-9)*10);
             if (playerColor==-1){
               tempPiece.style.opacity = "0.68";
+            }
+            if ((roomInfor.iniColor == 1)&&(count == 7)){
+              console.log(roomInfor.iniColor);
+              tempPiece.style.opacity = "0";
             }
             tempPiece.setAttribute("fill", playerColor == 1 ? "black" : "white");
             }
