@@ -891,7 +891,16 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
       }
       //This function updates the boardStatus according to new move
-    
+      function Update_for_53(movement,playerColor) {
+        let x = movement[0];
+        let y = movement[1];
+        boardStatus[x][y] = playerColor;
+
+        if(gameSettings.gameMode == "onlyBoard")  
+          ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));
+
+      }
+
       function checkWin() {
         const len = boardStatus.length;
         
@@ -1071,27 +1080,27 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
           movement1 = await getMovement(1);
           validStatus = isValid(movement1);
         }
-        Update(movement1,0.5);
+        Update_for_53(movement1,0.5);////////////////////////
         displayGoboard();
-        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
         validStatus = false;
 
         while (!validStatus){
           movement2 = await getMovement(1);
           validStatus = isValid(movement2);
         }
-        Update(movement2,0.5);
+        Update_for_53(movement2,0.5);/////////////////////////
         displayGoboard();
-        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
         validStatus = false;
 
         while (!validStatus){
           movement3 = await getMovement(1);
           validStatus = isValid(movement3);
         }
-        Update(movement3,0.5);
+        Update_for_53(movement3,0.5);//////////////////////////
         displayGoboard();
-        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        //ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
 
         threeStrikes = [movement1, movement2, movement3];
         ws.send(JSON.stringify({ type: '5Step3Hits', threeStrikes: threeStrikes }));//传送三子数据给白子
