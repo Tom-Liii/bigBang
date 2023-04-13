@@ -367,6 +367,16 @@
               gameSettings.player1Timer.remainingTime = data.p1Time;
               gameSettings.player2Timer.remainingTime = data.p2Time;
             }
+            else if (type ==='ThreeChange'){
+              console.log('onThreeChange')
+                exchanged = true; 
+                player = 1;
+                count = 7;
+                gameSettings.player2Timer.stop();
+                gameSettings.player1Timer.start();  
+                
+            }
+
             else{
               console.log('on ELSE message');
             }
@@ -428,6 +438,10 @@
                 gameSettings.player2Timer.stop();
                 gameSettings.player1Timer.start();  
                 undoButton.style.display = "none";     
+/*******************************************************************************************************************/
+                ws.send(JSON.stringify({ type: 'ThreeChange', exchanged: exchanged}));
+
+/*******************************************************************************************************************/
               });
       exchangeButton.style.display = "none";
 
@@ -576,7 +590,7 @@
               const waitForAnotherDrop = async () => {
                 return new Promise((resolve) => {
                   const checkInterval = setInterval(() => {
-                    if ((anotherDropped == 1)||(gameStopped)) {
+                    if ((anotherDropped == 1)||(gameStopped)||(exchanged)) {
                       clearInterval(checkInterval);
                       resolve();
                     }

@@ -35,6 +35,7 @@ async def application(scope, receive, send):
                 'winner': None,
                 'p1Time': None,
                 'p2Time': None,
+                'exchanged': None,
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -116,6 +117,15 @@ async def application(scope, receive, send):
                         'type': 'TimeSet',
                         'p1Time': data['p1Time'],
                         'p2Time': data['p2Time'],
+                    })})
+            if data['type'] == 'ThreeChange':
+                room['exchanged'] = data['exchanged']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'exchanged',
+                        'exchanged': data['exchanged']
                     })})
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
