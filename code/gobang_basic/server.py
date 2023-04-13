@@ -38,6 +38,8 @@ async def application(scope, receive, send):
                 'exchanged': None,
                 'previousBoard':[],
                 'onlyBoard':[],
+                'threeStrikes':[],
+                'whiteValidChoice':[],
             }
 
         room = house[room_id]#从房间号得到房间信息, 赋值到room
@@ -148,6 +150,30 @@ async def application(scope, receive, send):
                         'onlyBoard': data['onlyBoard']
                     })})        
 #*******************************************************************************************************************/
+############################################################################################
+            if data['type'] == '5Step3Hits':
+                room['threeStrikes'] = data['threeStrikes']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': '5Step3Hits',
+                        'threeStrikes': data['threeStrikes'],
+                    })})
+
+            if data['type'] == 'whiteValidChoice':
+                room['whiteValidChoice'] = data['whiteValidChoice']
+                for _send in room['sends']:
+                    if _send == send:
+                        continue
+                    await _send({'type': 'websocket.send', 'text': json.dumps({
+                        'type': 'whiteValidChoice',
+                        'whiteValidChoice': data['whiteValidChoice'],
+                    })})
+############################################################################################
+
+
+
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
                 room['movement'] = data['movement']###

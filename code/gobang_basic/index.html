@@ -303,6 +303,8 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
       let undoCount = -1;
       let count = 1; // Count used to count the turn
       let countBlack = 0;
+      let haveGot5step3hitsChoice = 0;/////////////////////////////////////////////////////
+      let getWhiteValidChoice = []/////////////////////////////////////////////////////
 
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
@@ -417,9 +419,21 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if (type === 'onlyBoard') {
               //console.log('onTimeSet, Get Time');
               boardStatus = data.onlyBoard;
+              displayGoboard();////////////////////////////////////////////////////////////////////////////////////////////////
               console.log('Received onlyBoard:', data.onlyBoard);
             }
+////////////////////////////////////////////////////////////////////////////////////////////////
+            else if(type ==='5Step3Hits'){
+              const blackPointsWhiteCanChoose = data.threeStrikes;
+              const whiteValidChoice = whiteChoose(blackPointsWhiteCanChoose);
+              ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
+            }
 
+            else if (type === 'threeStrikes'){
+              getWhiteValidChoice = data.whiteValidChoice;
+              haveGot5step3hitsChoice = 1;
+            }
+////////////////////////////////////////////////////////////////////////////////////////////////
             else{
               console.log('on ELSE message');
             }
@@ -1054,7 +1068,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update(movement1,0.5);
         displayGoboard();
-        validStatus = false;
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
 
         while (!validStatus){
           movement2 = await getMovement(1);
@@ -1062,6 +1076,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update(movement2,0.5);
         displayGoboard();
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
         validStatus = false;
 
         while (!validStatus){
@@ -1070,13 +1085,31 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         Update(movement3,0.5);
         displayGoboard();
+        ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
 
         threeStrikes = [movement1, movement2, movement3];
+        ws.send(JSON.stringify({ type: '5Step3Hits', threeStrikes: threeStrikes }));//传送三子数据给白子
         //Black side chooses three places, then it's white side's turn
+///////////////////////////////////////////////////////////////////////////////////
+//(等待)(加一个delay锁)
+//以haveGot5step3hitsChoice = 1 为解锁钥匙(这东西初值为0)
+        const waitForAnotherDrop2 = async () => {
+                return new Promise((resolve) => {
+                  const checkInterval = setInterval(() => {
+                    if (haveGot5step3hitsChoice == 1) {
+                      clearInterval(checkInterval);
+                      resolve();
+                    }
+                  }, 100);
+                });
+              };
 
+        await waitForAnotherDrop2();
+///////////////////////////////////////////////////////////////////////////////////
         fiveStepThreeStrikesBlack.style.display = "none";
         let position;
-        position = await whiteChoose(threeStrikes);
+        position = getWhiteValidChoice;//得到的数据放到position里
+        //position = await whiteChoose(threeStrikes);
         boardStatus = lastboardStatus;
         console.log(boardStatus);
         displayGoboard();
