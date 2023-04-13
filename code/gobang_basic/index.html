@@ -362,6 +362,8 @@
 
           ws.onclose = function(event){
             console.log("onClose");
+            const simulatClickSurrenderButton = document.getElementById('surrender-button');///////////////////////********************
+            simulatClickSurrenderButton.onclick;////////*********************
             if (event.code !== 1000) {
               if (event.code === 4000) {
                 window.alert('您已在新的浏览器窗口中进入了该房间，本页面将转换为单机模式！');
