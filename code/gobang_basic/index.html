@@ -445,7 +445,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
     }
       
       
-      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, true, false, true, 65);
+      initializeGame("PVP", Math.floor(100*Math.random()), 1, false, false, true, false, 65);
 
  
 
@@ -479,7 +479,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
 
     async function play() {
       if (count == 1){
-        await delay(2000);
+        await delay(5000);
       }
       
       
@@ -639,7 +639,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
               movement = expertAI(boardStatus);
             }
-            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))){
+            else if ((gameSettings.gameMode == "PVP")&&((gameSettings.fiveStepThreeStrikes) && (countBlack == 4))&&roomInfor.iniColor == 1){///////////////////////////////////////////////roomInfor.iniColor == 1
               movement = fiveStepThreeStrikes();
             }
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
