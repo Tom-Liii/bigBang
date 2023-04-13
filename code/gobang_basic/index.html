@@ -427,13 +427,11 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               console.log('on5Step3Hits, Get threeStrikes');
               const blackPointsWhiteCanChoose = data.threeStrikes;
               console.log(blackPointsWhiteCanChoose);
-              const whiteValidChoice = whiteChoose(blackPointsWhiteCanChoose);
-              console.log('send whiteValidChoice');
-              console.log(whiteValidChoice);
-              ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
+              whiteChoose(blackPointsWhiteCanChoose);
+              
             }
 
-            else if (type === 'threeStrikes'){
+            else if (type === 'whiteValidChoice'){
               console.log('onThreeStrikes, get getWhiteValidChoice');
               getWhiteValidChoice = data.whiteValidChoice;
               console.log(getWhiteValidChoice);
@@ -646,7 +644,7 @@ const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-
               movement = expertAI(boardStatus);
             }
             else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){///////////////////////////////////////////////roomInfor.iniColor == 1
-              movement = fiveStepThreeStrikes();
+              movement = await fiveStepThreeStrikes();
             }
             else if ((gameSettings.gameMode == "PVP")&&((gameSettings.threeStepExchange) && (count == 6) && (roomInfor.iniColor == -1))){
               threeStepExchange();
@@ -1076,6 +1074,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         Update(movement1,0.5);
         displayGoboard();
         ws.send(JSON.stringify({ type: 'onlyBoard', onlyBoard: boardStatus }));//传送棋盘数据给白子
+        validStatus = false;
 
         while (!validStatus){
           movement2 = await getMovement(1);
@@ -1127,6 +1126,7 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
 
 
       async function whiteChoose(movements){
+            
         console.log('Enter whiteChoose');
         if (player == 1){
           gameSettings.player1Timer.stop();
@@ -1151,6 +1151,12 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
         console.log(choice);
         fiveStepThreeStrikesWhite.style.display = "none";
+        //////////////////////////////////////////////////////////////////////////////////////////
+        const whiteValidChoice = choice;
+        console.log('send whiteValidChoice');
+        console.log(whiteValidChoice);
+        ws.send(JSON.stringify({ type: 'whiteValidChoice', whiteValidChoice: whiteValidChoice }));
+        //////////////////////////////////////////////////////////////////////////////////////////
         return choice;
         if (player == 1){
           gameSettings.player1Timer.start();
