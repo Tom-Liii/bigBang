@@ -11,6 +11,10 @@ This is the GitHub repository of CSCI3100 project group D3
 # Description
 We are developing a online gobang application with various features. 
 
+# Link to Our Game
+- http://34.225.43.131/game/bigBang/Welcome.html
+- Please note that due to the time and resource limitation of AWS EC2 instance, our website will be down periodically and we cannot handle too many request at the same time, we are trying to fix those issues in further. 
+
 ## Potential Features
 *Potential features that are not introduced in our high-level design*
 - audience
