@@ -130,7 +130,8 @@
       </svg>
       <p id="timer-whitedisplay" style="position: fixed; top: 206px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
     
-      <p id="timer-elapseddisplay" style="position: fixed; top: 66px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+      <p id="timer-elapseddisplay" style="position: fixed; top: 56px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
+      <p id="timer-startdisplay" style="position: fixed; top: 66px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
       <!-- This part is to display the timer-->
 
       
@@ -269,7 +270,10 @@
     document.getElementById('close-window-button').addEventListener('click', function() {
       document.getElementById('floating-window').classList.add('hidden');
     });
-     
+
+
+//-----------------------------------------------------------------------------------------------------------------------  
+      displayStartTime();     
 
      class Timer {
       constructor(timeInSeconds) {
@@ -374,7 +378,13 @@
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
-
+        userID = typeof userID !== 'undefined' ?  userID : 1;
+        roomNum = typeof roomNum !== 'undefined' ?  roomNum : 1;
+        isEarlyTermValid = typeof isEarlyTermValid !== 'undefined' ?  isEarlyTermValid : false;
+        isEarlyTermValid = typeof isEarlyTermValid !== 'undefined' ?  isEarlyTermValid : false;
+        isEarlyTermValid = typeof isEarlyTermValid !== 'undefined' ?  isEarlyTermValid : false;
+        isEarlyTermValid = typeof isEarlyTermValid !== 'undefined' ?  isEarlyTermValid : false;
+        
         gameSettings = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
 
@@ -1321,6 +1331,20 @@ piece.setAttribute("fill", boardStatus[i][j] > 0 ? "black" : "white");
         }
 
         return false;
+      }
+
+      function displayStartTime(){
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const hours = today.getHours();
+        const minutes = today.getMinutes();
+
+        const formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+        console.log(formattedTime);
+        const displayStartTime = getElementById("timer-startdisplay");
+        displayStartTime.innerHTML = `Start Time: ${formattedTime}`;
       }
 
 
