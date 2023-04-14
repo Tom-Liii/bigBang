@@ -198,7 +198,9 @@ async def application(scope, receive, send):
                     await _send({'type': 'websocket.send', 'text': json.dumps({
                         'type': 'whiteValidChoice',
                         'whiteValidChoice': data['whiteValidChoice'],
-                    })})                                          
+                    })})         
+            if data['type'] == 'transfer':
+                transfer(room)                                 
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
@@ -222,3 +224,31 @@ async def application(scope, receive, send):
             await send({'type': 'http.response.body', 'body': html})
           
 
+
+def transfer(data):
+    import mysql.connector
+
+    # Establish a connection to the MySQL database
+    cnx = mysql.connector.connect(
+        host="34.225.43.131",
+        user="remote",
+        password="000000",
+        database="bigbang"
+    )
+
+    # Create a cursor object
+    cursor = cnx.cursor()
+
+
+    # Define the SQL statement to insert data into a table
+    insert_query = "INSERT INTO game_record  VALUES (%d, %d, %s, %s, %s)"
+
+    # Execute the insert query with the data
+    cursor.execute(insert_query, data)
+
+    # Commit the changes to the database
+    cnx.commit()
+
+    # Close the cursor and connection
+    cursor.close()
+    cnx.close()
