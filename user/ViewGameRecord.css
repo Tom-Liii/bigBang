@@ -1,0 +1,105 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(bg.jpg);
+    margin-top: 2%;
+}
+
+html {
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: Source Sans Pro;
+}
+
+
+* {
+    box-sizing: border-box;
+  }
+
+
+/* Add styles to the form container */
+form {
+    margin-left: 9%;
+    width: 1200px;
+    padding: 10px 50px 30px;
+    background-color: #f2f2f2;
+    opacity: 0.9;
+    border-radius: 25px;
+    box-shadow: 1px 2px 2px 2px #d9d6b996;
+    margin-top: 3.5%;
+    height: 650px;
+}
+
+svg {
+    text-align: center;
+    width: 150px;
+    color: #7b6801;
+    margin-top: 1%;
+}
+
+table{
+    font-family: Space Grotesk;
+    margin: 1%;
+    text-align: center;
+    height: 450px;
+    border-radius: 13px;
+    border-collapse: collapse;
+    /* center align the table */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fix table head */
+table {
+    width: 1000px; /* 140px * 5 column + 16px scrollbar width */
+    border-spacing: 0;
+}
+
+tbody, thead tr { 
+    display: block; 
+}
+
+tbody {
+    height: 430px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+tbody td, thead th {
+    width: 180px;
+    height: 40px;
+}
+
+th{
+    font-size: 20px;
+}
+
+td{
+    font-size: 15px;
+}
+
+thead th:last-child {
+    width: 180px; /* scrollbar width */
+    text-align: center;
+}
+
+.btn{
+    background-color: #7b6801;
+    border: none;
+    text-align: center;
+    color: white;
+    font-family: 'Space Grotesk';
+    font-size: 20px;
+    border-radius: 8px 8px;
+    width: 18%;
+    margin-top: 1%;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: #544701e7;
+}

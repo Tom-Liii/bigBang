@@ -1,0 +1,253 @@
+body {
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+}
+
+/* .center {
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+html{
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.logo{
+    text-align: center;
+    width: 50%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Add styles to the form container */
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    padding: 20px 35px;
+    background-color: #e0e0e0;
+    opacity:0.9;
+    border-radius: 25px 25px;
+  }
+  
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0 0 0;
+    border: none;
+    background: white;
+  }
+  
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: white;
+    outline-color:#5958586c;
+  }
+
+  .styling{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 15px;
+    font-family: SourceSansPro;
+  }
+  
+  /* Set a style for the submit button */
+  .btn {
+    background-color: #21779d;
+    color: white;
+    padding: 10px 70px;
+    border: none;
+    cursor: pointer;
+    border-radius: 7px 7px;
+    text-align: center;
+    font-size: 15px;
+    width: 90%;
+    right: auto;
+    margin-top: 45px;
+  }
+  
+  .btn:hover {
+    opacity: 1;
+  }
+  
+  .signup{
+    margin: 1%;
+    text-align: center;
+    font-family: Source Sans Pro;
+    color:#424242;
+  }
+  
+  input{
+    color: black;
+    background-color: white;
+    border-radius: 7px 7px;
+    font-family: SourceSansPro;
+    font-size: 14px;
+  }
+
+  .bottom{
+    margin-top: 30px;
+
+  }
+  
+label{
+    font-size: 15px;
+    float: left;
+    font-family: SourceSansPro;
+    color: #424242;
+}
+
+.remind{
+  font-size: 12px;
+    color: #595858;
+}
+
+.margin{
+    margin-top: 1%;
+    margin-left: 2px;
+}
+
+.svg{
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+h1{
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Space Grotesk;
+  color: #524340e7;
+}
+
+h2{
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Source Sans Pro;
+  color: #524340e7;
+}
+
+.confirm{
+    background-color: #663b3b;
+    border: none;
+    text-align: center;
+    color: white;
+    font-family: 'Space Grotesk';
+    font-size: 25px;
+    border-radius: 10px 10px;
+    width: 30%;
+    margin-top: 1%;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: white;
+    color: #542121e2;
+}
+
+/* The Modal (bg) */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  padding-top: 60px;
+  visibility: hidden;
+}
+
+#notice.show {
+  visibility: visible;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #efe8e8f6;
+  margin: 10% auto 15% auto; 
+  border: 1px solid #888888e7;
+  width: 50%;
+  height: 400px;
+  border-radius: 15px;
+  padding-top: 50px;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.4s;
+  animation: animatezoom 0.4s
+}
+
+/* @-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+} */
+
+/*popup*/
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -200px;
+  background-color: red;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 53%;
+  bottom: 30px;
+  font-size: 16px;
+}
+
+#toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.checkicon i{
+    font-size: 40px;
+    color: #47d764;
+}

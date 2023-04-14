@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="SignUp.css">
+    <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
+    <title>bigBang</title>
+</head>
+
+<body>
+    <div class="center">
+        <img src="image.png" class="logo"> </img>
+    </div>
+    <div class="bottom">
+        <form action="./user_signup.php" method="POST" class="container" id="SignUp">
+            <h1 class="signup"><b>SIGN UP</b></h1>
+
+            <div class="styling">
+                <label for="accName" class="margin">Set Your Account Name<br></label>
+                <label class="remind margin">(Space is not allowed)</label>
+                <input type="text" placeholder="Please set your account name" name="username" minlength="1" maxlength="16" required>
+            </div>
+
+            <div class="styling">
+                <label for="psw" class="margin">Set Your Password<br></label>
+                <label class="remind margin">(8-20 characters)</label>
+                <input type="password" placeholder="Please set your password" name="userpsw" id="pw1" minlength="8" maxlength="16" required>
+            </div>
+
+            <div class="styling">
+                <label for="check" class="margin">Enter Your Password Again</label>
+                <input type="password" placeholder="Please enter your password again" name="pw2" id="pw2" minlength="8" maxlength="16" required>
+            </div>
+
+            <input type="submit" class="btn" value="SIGN UP" onclick="" style="width:auto;">
+
+            <br>
+        </form>
+    </div>
+    
+    <!-- <div id="notice" class="modal">
+        <form class="modal-content animate"  method="post">
+            <span onclick="document.getElementById('notice').style.display='none'"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="#524340e7" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg><br>
+            <h1> Your Account Sign Up Successfully!</h1>
+            <h2> Here is the Account ID:<?php echo $userid_n; ?></h2>
+            <input type="submit" class="confirm" onclick="document.location='Login.html'" value="Confirm">
+        </form>
+      </div> -->
+<!--       <div id="toast"></div> -->
+    <script src="SignUp.js"></script>
+</body>
+</html>

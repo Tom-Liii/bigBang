@@ -1,0 +1,111 @@
+body {
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-image: url(bg.jpg);
+  margin-top: 2%;
+}
+
+form {
+  background-color: #e0e0e0;
+  opacity: 0.9;
+  border-radius: 25px 25px;
+  color: #156108;
+  width: 600px;
+  height: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+  margin-top: 10%;
+  text-align: center;
+}
+
+.title{
+  font-size: 35px;
+  text-align: center;
+  font-family: Space Grotesk;
+  margin-top: 3%;
+  text-align: center;
+}
+
+/* input design*/
+
+.input-container {
+  position: relative;
+  width: 200px;
+  margin: 20px auto;
+}
+
+#input-box {
+  width: 100%;
+  font-size: 26px;
+  border: none;
+  outline: none;
+  background-color: #e0e0e0;
+  color:#156108;
+  margin-top: 10%;
+}
+
+.underline-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.underline {
+  width: 18%;
+  height: 100%;
+  background-color:#156108;
+  transition: background-color 0.3s ease;
+}
+
+.underline.hidden {
+  background-color: transparent;
+}
+
+input[type="text"]{
+  letter-spacing: 3rem;
+  padding: 1.2rem;
+}
+
+.btn{
+  border: none;
+  text-align: center;
+  color: white;
+  font-family: 'Space Grotesk';
+  font-size: 20px;
+  padding: 7px 80px;
+  border-radius: 10px 10px;
+  cursor: pointer;
+  background-color: #156108;
+  margin-top: 6%;
+}
+
+.btn:hover{
+  background-color:#114508;
+}
+
+.newbtn{
+  border: none;
+  text-align: center;
+  color: white;
+  font-family: 'Space Grotesk';
+  font-size: 20px;
+  padding: 7px 70px;
+  border-radius: 10px 10px;
+  cursor: pointer;
+  background-color: #086157;
+  margin-top: 6%;
+}
+
+.newbtn:hover{
+  background-color: #06463f;
+}
+
+svg{
+  float: left;
+  margin-left: 3%;
+  cursor: pointer;
+}

@@ -1,0 +1,147 @@
+body {
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+    margin-top: 2%;
+}
+
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form {
+    background-color: #e0e0e0;
+    opacity: 0.9;
+    border-radius: 25px 25px;
+    color: #156108;
+    /* text-align: center; */
+    width: 500px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 30px;
+    margin-top: 4%;
+  }
+
+  .title{
+    font-size: 35px;
+    text-align: center;
+    font-family: Space Grotesk;
+    margin-left: 17%;
+  }
+
+  .function1{
+    font-size: 25px;
+    font-family: Space Grotesk;
+    margin-left: 30%;
+    margin-top: 2%;
+    gap: 5px;
+  }
+
+  .function2{
+    font-size: 25px;
+    font-family: Space Grotesk;
+    margin-left: 25%;
+    margin-top: 2%;
+  }  
+
+  .function3{
+    font-size: 25px;
+    font-family: Space Grotesk;
+    margin-left: 22%;
+    margin-top: 2%;
+  } 
+
+  .function4{
+    font-size: 25px;
+    font-family: Space Grotesk;
+    margin-left: 45%;
+    margin-top: 2%;
+  } 
+
+  /*switch*/
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 260px;
+    height: 35px;
+    border-radius: 3%;
+    margin-left: 24%;
+  }
+  
+  .switch input {
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccccccd4;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 7px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    padding-top: 6px;
+    content: "";
+    color: white;
+    font-size: 20px;
+    text-align: justify;
+    height: 30px;
+    width: 130px;
+    border-radius: 7px;
+    background-color: #156108;
+    -webkit-transition: .4s;
+    transition: .4s;
+    text-align: center;
+    line-height: 26px;
+  }
+  
+  input:checked+.slider {
+    background-color: #9e9e9e;
+  }
+
+  
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(130px);
+  }
+  
+  /*time*/
+  input[type=time] {
+    width: 245px;
+    height: 28px;
+    padding: 10px 10px;
+    margin-left: 23.5%;
+    border: none;
+    background: rgb(191, 188, 188);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    color: #303930;
+  }
+
+  button{
+    border: none;
+    text-align: center;
+    color: white;
+    font-family: 'Space Grotesk';
+    font-size: 20px;
+    padding: 8px 30px;
+    border-radius: 10px 10px;
+    cursor: pointer;
+    background-color: #156108;
+    margin: 6% 0 0 38%;
+  }
