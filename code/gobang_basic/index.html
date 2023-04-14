@@ -209,7 +209,18 @@
         return urlParams.get(paramName);
       }
       const userid = getURLParameter('userid');
+      const username = getURLParameter('username');
+      const roomid = getURLParameter('generatedRoomNo');
+      
+      const gameMode = getURLParameter('difficulty');
+      const isEarlyTermValid = getURLParameter('termination');
+      const isThreeExchangeValid = getURLParameter('threeStep');
+      const isFiveThreeHitValid = getURLParameter('fiveStep');
+      const isTimeValid = getURLParameter('timer');
+      const maxTimeSet = getURLParameter('maxTime');
+      
       console.log('User id: ', userid);
+//function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
 //-----------------------------------------------------------------------------------------------------------------------      
     const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
     fiveStepThreeStrikesBlack.style.display = "none";
@@ -912,7 +923,10 @@
           gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player2Name} wins!</span>`;
         }
         // Update the game-result element when the game ends
-        window.location.href = "http://34.225.43.131/bigBang/code/StartPage.html?userid=" + userid;
+        // record game to a local file
+
+        window.location.href = "transfer.php?userid=" + userid;
+        // window.location.href = "http://34.225.43.131/bigBang/code/StartPage.html?userid=" + userid;
       }
       // This part is the script of the game (Main structure)
 
