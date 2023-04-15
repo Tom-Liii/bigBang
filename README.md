@@ -32,6 +32,7 @@ We are developing a online gobang application with various features.
     packages: 
     - mysqlnd 8.1.2-1ubuntu2.11
 - Python Version: 3.7
+    - daphne: 3.0.2
 
 ## use sign up
 - user id
