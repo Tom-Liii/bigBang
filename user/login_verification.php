@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: Admin.php?userid='.urlencode($userid));
         }
         else{
-            header('Location: StartPage.html?userid='.urlencode($userid).'&username='.urlencode($row['userpsw']));
+            header('Location: StartPage.html?userid='.urlencode($userid).'&username='.urlencode($row['username']));
         }
         exit;
     } else {
