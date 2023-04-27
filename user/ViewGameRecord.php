@@ -38,13 +38,9 @@
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#b41d12\" class=\"bi bi-trash\"
-                viewBox=\"0 0 16 16\" onclick=\"location.href='record.php?userid=".$row['userid']."';\">
-                <path
-                  d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z\" />
-                <path
-                  d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z\" />
-              </svg></td></tr>";
+                echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-border-all\" viewBox=\"0 0 16 16\">
+                <path d=\"M0 0h16v16H0V0zm1 1v6.5h6.5V1H1zm7.5 0v6.5H15V1H8.5zM15 8.5H8.5V15H15V8.5zM7.5 15V8.5H1V15h6.5z\"/>
+              </svg>";
               }
           } else {
               echo "<tr><td colspan='3'>No users found.</td></tr>";
