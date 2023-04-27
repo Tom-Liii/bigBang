@@ -4,8 +4,8 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 include 'dbconfig.php';
 
-// Retrieve the data from the GET request
-$inputData = json_decode($_GET['data'], true);
+// Retrieve the data from the POST request
+$inputData = json_decode($_POST['data'], true);
 
 $userid = $inputData['userid'];
 $game_record = $inputData['game_record'];

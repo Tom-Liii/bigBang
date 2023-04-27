@@ -75,11 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 <script>
       
-      const url_userid = urlParams.get('username_changed');
+      const url_changed = urlParams.get('username_changed');
       const url_duplicate_name = urlParams.get('duplicate_name');
       // const url_userid = getURLParameter('username_changed');
       // const url_duplicate_name = getURLParameter('duplicate_name');
 
+
+      console.log('changed: ' + url_changed);
+      console.log('dup: ' + url_duplicate_name);
       if (url_duplicate_name){
         toastFunction();
       }
