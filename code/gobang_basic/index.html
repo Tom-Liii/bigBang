@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <head>
     <meta charset="utf-8" />
     <title>bigBang</title>
@@ -66,7 +66,23 @@
       .window-content {
         margin-top: 10px;
       }
-
+      .button {
+        border: none;
+	  color: white;
+	    padding: 16px 32px;
+	      text-align: center;
+	        text-decoration: none;
+		  display: inline-block;
+		    font-size: 16px;
+		      margin: 4px 2px;
+		        transition-duration: 0.4s;
+			  cursor: pointer;
+      }
+	.button_back {
+	  background-color: white;
+	  color: black;
+	  border: 2px solid #4CAF50;
+	}
     </style>
 
 
@@ -129,7 +145,7 @@
         <line id="white-timer-line2" x1="23.75" y1="22.5" x2="13.5" y2="22.5" stroke="#7b6801" stroke-width="2.8"/>
       </svg>
       <p id="timer-whitedisplay" style="position: fixed; top: 206px; left: 1200px;font-size: 28px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
-      <p id="timer-startdisplay" style="position: fixed; top: 66px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p >
+      <p id="timer-startdisplay" style="position: fixed; top: 66px; left:300px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p >
       <p id="timer-elapseddisplay" style="position: fixed; top: 66px; left: 200px;font-size: 18px; font-family: 'Space Grotesk', sans-serif;; font-weight: 500; color: #7b6801;"></p>
       <!-- This part is to display the timer-->
 
@@ -228,17 +244,21 @@
         return urlParams.get(paramName);
       }
       const userID = getURLParameter('userID');
-      const username = getURLParameter('username');
-      const roomNum = getURLParameter('generatedRoomNo');
-      
-      const gameMode = getURLParameter('difficulty');
-      const isEarlyTermValid = getURLParameter('termination');
-      const isThreeExchangeValid = getURLParameter('threeStep');
-      const isFiveThreeHitValid = getURLParameter('fiveStep');
-      const isTimeValid = getURLParameter('timer');
-      const maxTimeSet = getURLParameter('maxTime');
+	    const username = getURLParameter('username');
+	    const roomNum = getURLParameter('generatedRoomNo');
+	    const gameMode = getURLParameter('gameMode');
+	    const isEarlyTermValid = (getURLParameter('termination')==="true");
+	    const isThreeExchangeValid = (getURLParameter('threeStep')==="true");
+	    const isFiveThreeHitValid = (getURLParameter('fiveStep')==="true");
+	    const isTimeValid = (getURLParameter('timer')==="true");
+	    const maxTimeSet = getURLParameter('totalSeconds');
       
       console.log('User id: ', userID);
+      console.log('username: ', username);
+      console.log('roomNum: ', roomNum);
+      console.log('gameMode: ', gameMode);
+      console.log('maxTimeSet: ', maxTimeSet);
+
 //-----------------------------------------------------------------------------------------------------------------------      
     const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
     fiveStepThreeStrikesBlack.style.display = "none";
@@ -376,7 +396,14 @@
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
-
+        console.log(gameMode);
+			          console.log(isEarlyTermValid);
+			          console.log(isThreeExchangeValid);
+			          console.log(isFiveThreeHitValid);
+			          console.log(isTimeValid);
+			          console.log(maxTimeSet);
+			          console.log(userID);
+			          console.log(roomNum);
         gameSettings = new GameSettings(gameMode, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
         boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
 
@@ -540,7 +567,7 @@
       
       
       initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
-      initializeGame("PVP",random(), 1 , false , true, true, ture, 65);
+      //initializeGame("PVP",Math.random(), 1 , false , true, true, true, 65);
 
 
       
@@ -558,8 +585,8 @@
     // Display the timer icons only when the timer is enabled
 
     //----------------------------------------------------------------------------------------------------------------------- 
-    gameSettings.player1Name = "Houting";
-    gameSettings.player2Name = "CY"
+    gameSettings.player1Name = "Player 1";
+    gameSettings.player2Name = "Player 2"
     const player1NameElement = document.getElementById("player1Name");
     player1NameElement.textContent = gameSettings.player1Name;
     const player2NameElement = document.getElementById("player2Name");
@@ -755,7 +782,7 @@
               movement = mediumAI(boardStatus);
             }
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
-              movement = expertAI(boardStatus);
+              movement = mediumAI(boardStatus);
             }
             else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){
               movement = await fiveStepThreeStrikes();
@@ -1431,11 +1458,26 @@ function displayStartTime(){
 
 
     </script>
+    <button class="button button_back" onclick="redirectToStartPage()">Go to Start Page</button>
+
+    <script>
+	function redirectToStartPage() {
+			      console.log('Redirecting to StartPage...');
+			      var urlParams = new URLSearchParams(window.location.search);
+			      var userid = urlParams.get('userid');
+			      var username = urlParams.get('username');
+			      console.log('userid:', userid);
+			      var newUrl = 'http://34.237.159.19/game/bigBang/StartPage.html?userid=' + userid + '&username=' + username;
+			      console.log('new URL:', newUrl);
+			      window.location.href = newUrl;
+		    }
+
+    </script>
+
 
 
 
     
 
-
 </body>
-
+</html>
