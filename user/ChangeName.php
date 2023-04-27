@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <br><br> 
  
     <br>
-  </form>
+</form>
 <div id="toast">Duplicate Name!</div>
   <div id="changed">Your name is changed!</div>
 </div>
