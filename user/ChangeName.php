@@ -7,7 +7,15 @@
     <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
     <title>bigBang</title>
-    
+    <script>
+      function getURLParameter(paramName) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(paramName);
+      }
+      const userid = getURLParameter('userid');
+      console.log('User id: ', userid);
+      const username = getURLParameter('username');
+    </script>
 </head>
 
 <body>
@@ -31,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update_name = "UPDATE users SET username = '$name' WHERE userid = $userid";
         if ($conn->query($update_name) === True) {
           echo "Succeed";
-          header('Location: StartPage.html?userid='. urlencode($userid) .'&username_changed=1&username='.$name);
+          header('Location: StartPage.html?userid='. urlencode($userid) .'&username_changed=1&username='.$username);
         }
     } catch (Exception $e) {
       if (mysqli_errno($conn) == 1062) {
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangeName.php?userid='. urlencode($userid) .'&duplicate_name=1&username='.$name);
+        header('Location: ChangeName.php?userid='. urlencode($userid) .'&duplicate_name=1&username='.$username);
     } 
     echo "Fail";
     echo "mysql error no.: ".mysqli_errno($conn);
@@ -52,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <button type="submit" class="btn">Save</button>
-    <button type="button" class="b" onclick="document.location='StartPage.html?userid='+url_userid+'&username='+username">Back</button>
+    <button type="button" class="b" onclick="document.location='StartPage.html?userid=' + userid + '&username='+username">Back</button>
     <br><br> 
  
     <br>

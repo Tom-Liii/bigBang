@@ -12,9 +12,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(paramName);
       }
-      const url_userid = getURLParameter('userid');
-      console.log('User id: ', url_userid);
-    const username = getURLParameter('username');
+      const userid = getURLParameter('userid');
+      console.log('User id: ', userid);
+      const username = getURLParameter('username');
       
     </script>
 </head>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <button type="submit" class="btn">Save</button>
-    <button type="button" onclick="document.location='StartPage.html?userid='+url_userid+'&username='+username" class="cancel">Cancel</button>
+    <button type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username" class="cancel">Cancel</button>
     <br><br> 
  
     <br>
