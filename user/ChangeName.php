@@ -26,6 +26,9 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Form has been submitted
     $uid = $_GET['userid'];
+    session_start();
+    $uname = $_SESSION['uname'];
+    echo $mySessionVar;
     $name = $_POST['accName'];
     echo "Username: ".$name."\n";
     echo "Userid: ".$uid."\n";
@@ -41,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update_name = "UPDATE users SET username = '$name' WHERE userid = $uid";
         if ($conn->query($update_name) === True) {
           echo "Succeed";
-          header('Location: StartPage.html?userid='. urlencode($uid) .'&username_changed=1&username='.$username);
+          header('Location: StartPage.html?userid='. urlencode($uid) .'&username_changed=1&username='.$uname);
         }
     } catch (Exception $e) {
       if (mysqli_errno($conn) == 1062) {
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangeName.php?userid='. urlencode($uid) .'&duplicate_name=1&username='.$username);
+        header('Location: ChangeName.php?userid='. urlencode($uid) .'&duplicate_name=1&username='.$uname);
     } 
     echo "Fail";
     echo "mysql error no.: ".mysqli_errno($conn);

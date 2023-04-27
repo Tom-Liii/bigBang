@@ -15,6 +15,7 @@
       }
       const userid = getURLParameter('userid');
       const username = getURLParameter('username');
+      localStorage.setItem("uname", username);
       console.log('User name: ', username);
       console.log('User id: ', userid);
     </script>
