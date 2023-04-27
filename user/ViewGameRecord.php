@@ -36,7 +36,7 @@
             <th scope="col">FINAL GOBOARD</th>
           </tr>
         </thead>
-        
+        <tbody>
           <?php
           include('dbconfig.php');
 
@@ -56,7 +56,7 @@
           // Close the database connection
           mysqli_close($conn);
           ?>
-        
+        </tbody>
 </table> 
 <button class="btn" type="button" onclick="document.location='view_goboard.php?userid='+userid">View Details</button>
   </form>
