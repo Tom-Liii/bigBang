@@ -46,10 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($result->num_rows > 0) {
             // Current password is correct, update the password
-            $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid";
+            $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid and userpsw = '$crt_pwd'";
             if ($conn->query($update_pwd) === True) {
               echo "Succeed";
-              header('Location: ChangePwd.php?userid='. urlencode($uid) .'&username_changed=1&username='.$uname);
+              header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$uname);
             }
         } else {
             // Current password is incorrect, redirect to appropriate page
