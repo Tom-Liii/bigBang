@@ -43,7 +43,7 @@
             <span class="slider"></span>
         </label>
         <p class="function4">Timer<br></p>
-        <input type="text" id="time" name="time">
+        <input type="text" id="time" name="time" onkeypress="return onlyNumbers(event)" required>
 
         <button type="sumbit" id="confirm">Confirm</button>
     </form>
@@ -69,7 +69,7 @@
             }
 
             // construct the query string
-            const queryString = `termination=${termination}&threeStep=${threeStep}&fiveStep=${fiveStep}&timer=${timer}&roomNo=${roomNo}&totalSeconds=${totalSeconds}&gameMode=${gameMode}`;
+            const queryString = `termination=${termination}&threeStep=${threeStep}&fiveStep=${fiveStep}&timer=${timer}&roomNo=${roomNo}&totalSeconds=${time}&gameMode=${gameMode}`;
 
             console.log(queryString);
             // send the query string
