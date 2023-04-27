@@ -1,139 +1,143 @@
 /* fix the background */
 body {
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-image: url(bg.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-image: url(bg.jpg);
 }
 
 .userIcon{
-    color: #7b6801;
-    cursor: pointer;
+  color: #7b6801;
+  cursor: pointer;
 }
 
 
 
 
 /* * {
-    box-sizing: border-box;
-  } */
-  
-  /* Add styles to the form container */
-  .container {
-    margin: 10% 18%;
-    padding: 100px 80px 80px 80px;
-    background-color: #e0e0e0;
-    opacity: 0.9;
-    border-radius: 25px 25px;
-    cursor: pointer;
-    color: #156108;
-    text-align: center;
-  }
+  box-sizing: border-box;
+} */
 
-  div{
-    float: left;
-  }
+/* Add styles to the form container */
+.container {
+  margin: 10% 18%;
+  padding: 100px 80px 80px 80px;
+  background-color: #e0e0e0;
+  opacity: 0.9;
+  border-radius: 25px 25px;
+  cursor: pointer;
+  color: #156108;
+  text-align: center;
+}
 
-  label{
-    text-align: left;
-    font-size: 25px;
-    cursor: pointer;
-    font-family: Space Grotesk;
-    margin-top: 5%;
-  }
+div{
+  float: left;
+}
 
-  .forms-container {
-    margin-top: 2%;
-    margin-left: 10%;
-    display: flex;
-    /* justify-content: space-between; */
+label{
+  text-align: left;
+  font-size: 25px;
+  cursor: pointer;
+  font-family: Space Grotesk;
+  margin-top: 5%;
+}
+
+.forms-container {
+  margin-top: 2%;
+  margin-left: 10%;
+  display: flex;
+  /* justify-content: space-between; */
 }
 
 /* for user logo */
 /* Popup container - can be anything you want */
 .popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-left: 98%;
+position: relative;
+display: inline-block;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+margin-left: 98%;
 }
 
-a {
-  color: black;
-  padding: 10px 10px;
-  text-decoration: none;
-  display: block;
+button {
+color: black;
+text-decoration: none;
+display: block;
+border: none;
+text-align: center;
+
 }
 
-a:hover {background-color: #f1f1f1}
+button:hover {background-color: #f1f1f1}
 
 /* The actual popup */
 .popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+position: relative;
+display: inline-block;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
 }
 
-a {
-  color: #7b6801;
-  padding: 8px 8px;
-  text-decoration: none;
-  display: block;
-  font-family: Space Grotesk;
+button {
+color: #7b6801;
+width: 140px;
+height: 30px;
+text-decoration: none;
+display: block;
+font-family: Space Grotesk;
+  cursor:pointer;
 }
 
-a:hover {background-color: #c5c49f}
+button:hover {background-color: #c5c49f}
 
 /* The actual popup */
 .popup .popuptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #fffff6;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  top: 135%;
-  left: 0px;
-  margin-left: -110px;
-  padding: 5px;
+visibility: hidden;
+width: 140px;
+background-color: #fffff6;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 8px 0;
+position: absolute;
+z-index: 1;
+top: 135%;
+left: 0px;
+margin-left: -110px;
+padding: 5px;
 }
 
 /* Popup arrow */
 .popup .popuptext::after {
-   content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 80%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #fffff6 transparent;
+ content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 80%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #fffff6 transparent;
 }
 
 /* Toggle this class - hide and show the popup */
 .popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
+visibility: visible;
+-webkit-animation: fadeIn 1s;
+animation: fadeIn 1s;
 }
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
-  to {opacity: 1;}
+from {opacity: 0;} 
+to {opacity: 1;}
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+from {opacity: 0;}
+to {opacity:1 ;}
 }
