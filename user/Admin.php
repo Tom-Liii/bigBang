@@ -38,7 +38,7 @@
 
         
         // Query the database for all users
-        $sql = "SELECT * FROM game";
+        $sql = "SELECT * FROM users";
         $result = mysqli_query($conn, $sql);
         echo "<table class=\"table\">";
         echo "<thead><tr><th scope=\"col\">Account ID</th><th scope=\"col\">User Name</th><th scope=\"col\">Last Online</th><th scope=\"col\"></th></tr></thead>";
