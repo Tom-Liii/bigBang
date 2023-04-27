@@ -31,7 +31,7 @@
 
         
           // Query the database for all users
-          $sql = "SELECT * FROM game";
+          $sql = "SELECT * FROM game where userid = 0";
           $result = mysqli_query($conn, $sql);
           echo "<table class=\"table\">";
           echo "<thead><tr><th scope=\"col\">User ID</th><th scope=\"col\">Start Time</th><th scope=\"col\">Elapsed Time</th><th scope=\"col\">Win Status</th><th scope=\"col\">Game Record</th></tr></thead>";
