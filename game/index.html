@@ -384,6 +384,7 @@
       let gameStopped = false; // Set gameStopped to false as default
       let exchanged = false; // Set exchanged to false as default
       let player = 1;
+      let playerCode;
       let previousBoard = new Array(3).fill().map(() => new Array(19).fill().map(() => new Array(19).fill(0)));
       console.log(previousBoard);
       let undoCount = -1;
@@ -393,6 +394,7 @@
       let agreelock = 0;
       let haveGot5step3hitsChoice = 0;/////////////////////////////////////////////////////
       let getWhiteValidChoice = []/////////////////////////////////////////////////////
+      let recordedStartTime;
 
       function initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet) {
         //gameSettings = new GameSettings(gameMode, true, true, false, true, 300);
@@ -447,6 +449,7 @@
                 if(roomInfor.isReady){
                   if(!roomInfor.isBlack){
                     roomInfor.iniColor = -1;
+                    playerCode = 2;
                     alert('Hi, You are white piece');
                   }
                 }
@@ -462,6 +465,7 @@
               console.log('onAddPlayer');
               if (!roomInfor.isVisitor && data.ready && roomInfor.isBlack === true) {
                 roomInfor.isReady = true;
+                playerCode = 1;
                 window.alert('You are black piece');
               }
             }
@@ -961,11 +965,38 @@
         
         const gameResult = document.getElementById("game-result");
         if (winStatus === 1) {
-          gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player1Name} wins!</span>`;
+          gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player1Name} wins!</span>`;         
         } 
         else if (winStatus === 2) {
           gameResult.innerHTML = `Game Over!<br><span style='font-size:16px;'>${gameSettings.player2Name} wins!</span>`;
         }
+      
+
+        const flattenedBoard = boardStatus.flat().join("");
+        let winRecord;
+        if (winStatus == playerCode){
+          winRecord = 'W';
+        }
+        else{
+          winRecord = 'L';
+        }
+        const dataToPHP = {
+          userid: userID,
+          game_record: flattenedBoard,
+          start_time: recordedStartTime,
+          elapsed_time: gameSettings.elapsedTimer.getFormattedStartTime(),
+          win_status: winRecord
+        }
+        fetch("http://34.237.159.19/bigBang/user/record.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(dataToPHP)
+        })
+        
+
+        console.log("here send data");
         // Update the game-result element when the game ends
         window.location.href = "http://34.225.43.131/bigBang/code/StartPage.html?userid=" + userid;
       }
@@ -1451,6 +1482,7 @@ function displayStartTime(){
         const minutes = today.getMinutes();
 
         const formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+        recordedStartTime = formattedTime;
         console.log(formattedTime);
         const displayStartTime = document.getElementById("timer-startdisplay");
         displayStartTime.innerHTML = `Start Time: ${formattedTime}`;
