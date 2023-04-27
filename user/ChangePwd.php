@@ -24,12 +24,12 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Form has been submitted
-    $userid = $_GET['userid'];
+    $uid = $_GET['userid'];
     $crt_pwd = $_POST['currentPwd'];
     $new_pwd = $_POST['newPwd'];
     echo "Old pwd: ".$crt_pwd."\n";
     echo "New pwd: ".$new_pwd."\n";
-    echo "Userid: ".$userid."\n";
+    echo "Userid: ".$uid."\n";
     // Process the data as needed
     // ...
     
@@ -41,25 +41,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_pwd = mysqli_real_escape_string($conn, $new_pwd);
 
     try {
-        // $sql = "DELETE FROM users WHERE userid = $userid_delete;";
+        // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
 
         if ($result->num_rows > 0) {
             // Current password is correct, update the password
-            $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $userid";
+            $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid";
             if ($conn->query($update_pwd) === True) {
               echo "Succeed";
-              header('Location: ChangePwd.php?userid='. urlencode($userid) .'&success=1');
+              header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1');
             }
         } else {
             // Current password is incorrect, redirect to appropriate page
-            header('Location: ChangePwd.php?userid='. urlencode($userid) .'&wrongpwd=1');
+            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1');
         }
     } catch (Exception $e) {
         echo "Fail";
         echo "mysql error no.: ".mysqli_errno($conn);
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangePwd.php?userid='. urlencode($userid) .'&fail=1');
+        header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1');
     
     }
 

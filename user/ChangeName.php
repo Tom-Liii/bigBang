@@ -25,10 +25,10 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Form has been submitted
-    $userid = $_GET['userid'];
+    $uid = $_GET['userid'];
     $name = $_POST['accName'];
     echo "Username: ".$name."\n";
-    echo "Userid: ".$userid."\n";
+    echo "Userid: ".$uid."\n";
     // $email = $_POST['email'];
     // Process the data as needed
     // ...
@@ -37,17 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = mysqli_real_escape_string($conn, $name);
 
     try {
-        // $sql = "DELETE FROM users WHERE userid = $userid_delete;";
-        $update_name = "UPDATE users SET username = '$name' WHERE userid = $userid";
+        // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
+        $update_name = "UPDATE users SET username = '$name' WHERE userid = $uid";
         if ($conn->query($update_name) === True) {
           echo "Succeed";
-          header('Location: StartPage.html?userid='. urlencode($userid) .'&username_changed=1&username='.$username);
+          header('Location: StartPage.html?userid='. urlencode($uid) .'&username_changed=1&username='.$username);
         }
     } catch (Exception $e) {
       if (mysqli_errno($conn) == 1062) {
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangeName.php?userid='. urlencode($userid) .'&duplicate_name=1&username='.$username);
+        header('Location: ChangeName.php?userid='. urlencode($uid) .'&duplicate_name=1&username='.$username);
     } 
     echo "Fail";
     echo "mysql error no.: ".mysqli_errno($conn);
