@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <br>
 </form>
 <div id="toast">Duplicate Name!</div>
-  <div id="changed">Your name is changed!</div>
+<div id="changed">Your name is changed!</div>
 </div>
 <script>
       function getURLParameter(paramName) {

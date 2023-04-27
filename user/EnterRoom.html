@@ -52,21 +52,40 @@
         <button onclick="joinRoom()" id="confirm" class="btn" type="button">Join</button><br>
         <button onclick="extraCon()" id="Create" class="newbtn" type="button">Create</button>
     </form>
-
+    <div id="toast">Please Enter Room No.</div>
     <script>
         const inputBox = document.getElementById('input-box');
         const underlines = document.querySelectorAll('.underline');
+
+
+        // toast function
+        function toastFunction() {
+            var x = document.getElementById("toast");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        }
+
+
         function extraCon() {
             const room_no = document.getElementById("input-box").value;
             const create_room_url = "ExtraCon.html?userid=" + userid + "&username=" + username + "&roomNo=" + room_no;
 
-            window.location.href = create_room_url;
+            
+            if (room_no === "") {
+                toastFunction();
+            } else {
+                window.location.href = create_room_url;
+            }
         }
         function joinRoom() {
             const room_no = document.getElementById("input-box").value;
             const join_room_url = "http://54.174.147.192/?userid=" + userid + "&username=" + username + "&roomNo=" + room_no;
 
-            window.location.href = join_room_url;
+            if (room_no === "") {
+                toastFunction();
+            } else {
+                window.location.href = join_room_url;
+            }
         }
         inputBox.addEventListener('input', () => {
             const inputLength = inputBox.value.length;
