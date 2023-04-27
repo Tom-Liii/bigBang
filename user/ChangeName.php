@@ -13,8 +13,10 @@
         return urlParams.get(paramName);
       }
       const userid = getURLParameter('userid');
-      console.log('User id: ', userid);
       const username = getURLParameter('username');
+
+      console.log('User name: ', username);
+      console.log('User id: ', userid);
     </script>
 </head>
 
