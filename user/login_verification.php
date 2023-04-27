@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $authentification = false;
 
-    $stmt = $conn->prepare("SELECT userpsw FROM users WHERE userid = ?");
+    $stmt = $conn->prepare("SELECT userpsw, username FROM users WHERE userid = ?");
     $stmt->bind_param("i", $userid);
     $stmt->execute();
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: Admin.php?userid='.urlencode($userid));
         }
         else{
-            header('Location: StartPage.html?userid='.urlencode($userid).'&username='.urlencode($row['username']));
+            header('Location: StartPage.html?userid='.urlencode($userid).'&username='.urlencode($username));
         }
         exit;
     } else {
