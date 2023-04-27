@@ -17,7 +17,7 @@
         console.log('User id: ', userid);
       </script>
 </head>
-<!-- 
+
 <body>
 <div>
 <form class="container">
@@ -26,36 +26,6 @@
         <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
         <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
     </svg>
-
-
-<button class="btn" type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username">Back</button>
-</form>
-</div>
-</body> -->
-
-
-<body>
-  <div class="bg">
-    <br>
-    <div class="styling">
-      <form class="admin">
-        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-fill-gear center" viewBox="0 0 16 16">
-          <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/>
-        </svg>
-        <br>
-        <label class="name">Game Record</label><br><br>
-        <label class="logout" onclick="document.location='Welcome.html'"> LOGOUT
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-            class="bi bi-box-arrow-right" viewBox="0 0 16 12">
-            <path fill-rule="evenodd"
-              d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-            <path fill-rule="evenodd"
-              d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-          </svg>
-        </label>
-      </form>
-      <form class="container">
-      
     <?php
           include('dbconfig.php');
 
@@ -80,8 +50,9 @@
           ?>
       <button class="btn" type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username">Back</button>
 
-      </form>
-    </div>
-  </div>
+
+<!-- <button class="btn" type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username">Back</button> -->
+</form>
+</div>
 </body>
 </html>
