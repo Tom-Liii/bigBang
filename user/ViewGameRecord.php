@@ -45,7 +45,8 @@
           } else {
               echo "<tr><td colspan='3'>No users found.</td></tr>";
           }
-          echo "<tbody>";
+          echo "</tbody>";
+          echo "</table>";
           // echo $rows;
           // Close the database connection
           mysqli_close($conn);
