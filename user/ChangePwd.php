@@ -85,10 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
     <br>
   </form>
-<!--   <div id="toast1">Password changed successfully!</div>
+  <div id="toast1">Password changed successfully!</div>
   <div id="toast2">Wrong current password!</div>
-  <div id="toast3">Authentication failed. Please check your credentials and try again!</div> -->
+  <div id="toast3">Authentication failed. Please check your credentials and try again!</div>
 </div>
+
 <script>
   const form = document.querySelector('form');
 
@@ -133,25 +134,36 @@ form.addEventListener('submit', (event) => {
   }
 
    function toast1Function() {
-    window.alert("Password have been changed successfully!")
-      
+    // window.alert("Password have been changed successfully!")
     // var x = document.getElementById("toast1");
     // x.className = "show";
     // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 10000);
+    var x = document.getElementById("toast1");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+      
   }
 
   function toast2Function() {
-    window.alert("Wrong current password! Please try again!")
+    // window.alert("Wrong current password! Please try again!")
     // var y = document.getElementById("toast2");
     // y.className = "show";
     // setTimeout(function(){ y.className = y.className.replace("show", ""); }, 10000);
+    var x = document.getElementById("toast2");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+      
   }
 
   function toast3Function() {
-    window.alert("Authentication failed. Please check your credentials and try again!")
+    // window.alert("Authentication failed. Please check your credentials and try again!")
     // var z = document.getElementById("toast3");
     // z.className = "show";
     // setTimeout(function(){ z.className = z.className.replace("show", ""); }, 10000);
+    var x = document.getElementById("toast3");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+      
   }
 
   </script>
