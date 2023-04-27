@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $update_name = "UPDATE users SET username = '$name' WHERE userid = $uid";
         if ($conn->query($update_name) === True) {
           echo "Succeed";
-          header('Location: StartPage.html?userid='. urlencode($uid) .'&username_changed=1&username='.$uname);
+          header('Location: StartPage.html?userid='. urlencode($uid) .'&username_changed=1&username='.$update_name);
         }
     } catch (Exception $e) {
       if (mysqli_errno($conn) == 1062) {
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangeName.php?userid='. urlencode($uid) .'&duplicate_name=1&username='.$uname);
+        header('Location: ChangeName.php?userid='. urlencode($uid) .'&duplicate_name=1&username='.$name);
     } 
     echo "Fail";
     echo "mysql error no.: ".mysqli_errno($conn);

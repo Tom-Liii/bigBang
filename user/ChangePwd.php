@@ -25,7 +25,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Form has been submitted
     $uid = $_GET['userid'];
-    $uname = $_SESSION['uname'];
+    $uname = $_GET['username'];
     $crt_pwd = $_POST['currentPwd'];
     $new_pwd = $_POST['newPwd'];
     echo "Old pwd: ".$crt_pwd."\n";
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             // Current password is incorrect, redirect to appropriate page
-            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1');
+            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1'.'&username='.$uname);
         }
     } catch (Exception $e) {
         echo "Fail";
