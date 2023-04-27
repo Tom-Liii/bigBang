@@ -74,10 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div id="changed">Your name is changed!</div>
 </div>
 <script>
-      function getURLParameter(paramName) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(paramName);
-      }
+      
       const url_userid = urlParams.get('username_changed');
       const url_duplicate_name = urlParams.get('duplicate_name');
       // const url_userid = getURLParameter('username_changed');
