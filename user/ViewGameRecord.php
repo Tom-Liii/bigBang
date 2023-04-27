@@ -38,7 +38,7 @@
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td>" . $row['game_record']  ."</td></tr>";
+                echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td></td></tr>";
               }
           } else {
               echo "<tr><td colspan='3'>No users found.</td></tr>";
