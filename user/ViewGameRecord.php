@@ -13,6 +13,7 @@
           return urlParams.get(paramName);
         }
         const userid = getURLParameter('userid');
+        const username = getURLParameter('username');
         console.log('User id: ', userid);
       </script>
 </head>
@@ -28,69 +29,14 @@
     <table class="table">
         <thead>
           <tr>
+            <th scope="col">PLAYER NAME</th>
             <th scope="col">START TIME</th>
             <th scope="col">ELAPSED TIME</th>
-            <th scope="col">PLAYER NAME</th>
-            <th scope="col">WINNER</th>
+            <th scope="col">WIN STATUS</th>
             <th scope="col">FINAL GOBOARD</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">UID11345</td>
-            <td>PP</td>
-            <td>2023-01-19</td>
-            <td>Normal</td>
-            <td>     </td>
-          </tr>
-          <tr>
-            <td scope="row">2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">3</td>
-          </tr>
-          <tr>
-            <td scope="row">6</td>
-          </tr>
         </tbody>
 </table> 
 <button class="btn" type="button" onclick="document.location='view_goboard.php?userid='+userid">View Details</button>
