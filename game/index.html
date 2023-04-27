@@ -987,13 +987,29 @@
           elapsed_time: gameSettings.elapsedTimer.getFormattedStartTime(),
           win_status: winRecord
         }
-        fetch("http://34.237.159.19/bigBang/user/record.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(dataToPHP)
-        })
+        // Create a new XMLHttpRequest object
+const xhr = new XMLHttpRequest();
+
+// Define the POST request URL
+const url = "http://34.237.159.19/bigBang/user/record.php";
+
+// Open the POST request
+xhr.open("POST", url);
+
+// Set the Content-Type header
+xhr.setRequestHeader("Content-Type", "application/json");
+
+// Define the callback function for when the request completes
+xhr.onload = function() {
+  if (xhr.status === 200) {
+    console.log("Data sent successfully!");
+  } else {
+    console.log("Error sending data: " + xhr.status);
+  }
+};
+
+// Send the data to the server
+xhr.send(JSON.stringify(dataToPHP));
         
 
         console.log("here send data");
