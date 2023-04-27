@@ -26,17 +26,6 @@
         <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
         <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
     </svg>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">PLAYER NAME</th>
-            <th scope="col">START TIME</th>
-            <th scope="col">ELAPSED TIME</th>
-            <th scope="col">WIN STATUS</th>
-            <th scope="col">FINAL GOBOARD</th>
-          </tr>
-        </thead>
-        <tbody>
           <?php
           include('dbconfig.php');
 
@@ -44,6 +33,9 @@
           // Query the database for all users
           $sql = "SELECT * FROM game";
           $result = mysqli_query($conn, $sql);
+          echo "<table class=\"table\">";
+          echo "<thead><tr><th scope=\"col\">User ID</th><th scope=\"col\">Start Time</th><th scope=\"col\">Elapsed Time</th><th scope=\"col\">Win Status</th><th scope=\"col\">Game Record</th></tr></thead>";
+        
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
@@ -55,10 +47,10 @@
           // echo $rows;
           // Close the database connection
           mysqli_close($conn);
+          echo "</table>";
           ?>
         </tbody>
-</table> 
-<button class="btn" type="button" onclick="document.location='view_goboard.php?userid='+userid">View Details</button>
+<button class="btn" type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username">Back</button>
   </form>
 </div>
 </body>
