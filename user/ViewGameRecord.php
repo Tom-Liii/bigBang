@@ -35,7 +35,7 @@
           $result = mysqli_query($conn, $sql);
           echo "<table class=\"table\">";
           echo "<thead><tr><th scope=\"col\">User ID</th><th scope=\"col\">Start Time</th><th scope=\"col\">Elapsed Time</th><th scope=\"col\">Win Status</th><th scope=\"col\">Game Record</th></tr></thead>";
-        
+          echo "<tbody>";
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
@@ -44,6 +44,7 @@
           } else {
               echo "<tr><td colspan='3'>No users found.</td></tr>";
           }
+          echo "<tbody>";
           // echo $rows;
           // Close the database connection
           mysqli_close($conn);
