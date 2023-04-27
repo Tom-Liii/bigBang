@@ -72,7 +72,7 @@
 
             
             if (room_no === "") {
-                toastFunction();
+                window.alert("Please enter room number")
             } else {
                 window.location.href = create_room_url;
             }
@@ -82,7 +82,7 @@
             const join_room_url = "http://54.174.147.192/?userid=" + userid + "&username=" + username + "&roomNo=" + room_no;
 
             if (room_no === "") {
-                toastFunction();
+                window.alert("Please enter room number")
             } else {
                 window.location.href = join_room_url;
             }
