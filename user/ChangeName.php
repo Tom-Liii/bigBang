@@ -37,6 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ...
     include 'dbconfig.php';
 
+
+
+
+    
     $name = mysqli_real_escape_string($conn, $name);
 
     try {
@@ -87,11 +91,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         toastFunction();
       }
 
-      if (url_userid){
+      if (url_changed){
         changedFunction();
       }
 
-      console.log('User id: ', url_userid);
+      console.log('User id: ', url_changed);
 
       function toastFunction() {
         var x = document.getElementById("toast");
