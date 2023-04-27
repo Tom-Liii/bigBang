@@ -22,28 +22,10 @@
 </head>
 
 <body>
-  <div class="popup" onclick="myFunction()">
-    <svg class="userIcon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="" class="bi bi-person-circle"
-      viewBox="0 0 16 16">
-      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-      <path fill-rule="evenodd"
-        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-    </svg>
-    <span class="popuptext" id="myPopup">
-      <a href="#" onclick="document.location='ChangeName.php?userid=' + userid + '&username=' + username"><b>Change Name</a>
-      <a href="#" onclick="document.location='ChangePwd.php?userid=' + userid + '&username=' + username">Change Password</a>
-      <a href="#">Back</a>
-      <a href="#" onclick="document.location='Welcome.html'">LOGOUT&nbsp;
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right"
-          viewBox="0 0 16 12">
-          <path fill-rule="evenodd"
-            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-          <path fill-rule="evenodd"
-            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-        </svg>
-        </b></a>
-    </span>
-  </div>
+ <div onclick="document.location='StartPage.html?userid='+userid+'&username='+username"  class="back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16" >
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+    </svg></div>
 
 <div class="forms-container">
     <form class="container1" onclick="getMode()" id="pvp">
