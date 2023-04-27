@@ -87,6 +87,10 @@ thead th:last-child {
     text-align: center;
 }
 
+tbody td:last-child {
+  cursor: pointer;
+}
+
 .btn{
     background-color: #7b6801;
     border: none;
