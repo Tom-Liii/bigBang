@@ -117,10 +117,10 @@ form.addEventListener('submit', (event) => {
     pw2.style.border = '1px solid red'
   }   
 });
-  const urlParams = new URLSearchParams(window.location.search);
-  const success = urlParams.get('success');
-  const wrongpwd = urlParams.get('wrongpwd');
-  const fail = urlParams.get('fail');
+  // const urlParams = new URLSearchParams(window.location.search);
+  const success = getURLParameter('success');
+  const wrongpwd = getURLParameter('wrongpwd');
+  const fail = getURLParameter('fail');
 
   if(success){
     toast1Function();
