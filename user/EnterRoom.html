@@ -49,14 +49,21 @@
             </div>
         </div>
 
-        <button onclick="document.location=`http://54.174.147.192/?userid=`+userid+`&username=`+username+`&termination=false&threeStep=false&fiveStep=false&timer=false&generatedRoomNo=[object%20HTMLInputElement]&totalSeconds=NaN&gameMode=PVP`" id="confirm" class="btn" type="button">Join</button><br>
-        <button onclick="document.location='ExtraCon.html?userid='+userid+'&username='+username+'&roomNo='+document.getElementById('input-box')" id="Create" class="newbtn" type="button">Create</button>
+        <button onclick="joinRoom()" id="confirm" class="btn" type="button">Join</button><br>
+        <button onclick="extraCon()" id="Create" class="newbtn" type="button">Create</button>
     </form>
 
     <script>
         const inputBox = document.getElementById('input-box');
         const underlines = document.querySelectorAll('.underline');
-
+        function extraCon() {
+            const room_no = document.getElementById("input-box").value;
+            const create_room_url = "ExtraCon.html?userid=" + userid + "&username=" + username + "&room_no=" + room_no;
+        }
+        function joinRoom() {
+            const room_no = document.getElementById("input-box").value;
+            const create_room_url = "http://54.174.147.192/?userid=" + userid + "&username=" + username + "&room_no=" + room_no;
+        }
         inputBox.addEventListener('input', () => {
             const inputLength = inputBox.value.length;
 
