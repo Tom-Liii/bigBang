@@ -27,6 +27,9 @@
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
           </svg>
         <span class="popuptext" id="myPopup">
+          <script>
+            console.log("Second username: " + username);
+          </script>
           <b>
             <a href="#" onclick="window.location.href='ChangeName.php?username='+username+'&userid='+userid">Change Name</a>
             <a href="#" onclick="window.location.href='ChangePwd.php?username='+username+'&userid='+userid">Change Password</a>
@@ -64,16 +67,6 @@
           popup.classList.toggle("show");
         }
 
-        function changeName() {
-            const change_name_url = "ChangeName.php?userid=" + userid + "&username=" + username + "&roomNo=" + room_no;
-            window.location.href = create_room_url;
-        }
-
-        function changePwd() {
-            const change_pwd_url = "ChangeName.php?userid=" + userid + "&username=" + username + "&roomNo=" + room_no;
-            window.location.href = create_room_url;
-
-        }
 
         var playerMode; /* 0 = player vs palyer; 1= player vs AI*/
 
