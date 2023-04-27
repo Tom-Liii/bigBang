@@ -59,10 +59,14 @@
         function extraCon() {
             const room_no = document.getElementById("input-box").value;
             const create_room_url = "ExtraCon.html?userid=" + userid + "&username=" + username + "&room_no=" + room_no;
+
+            window.location.href = create_room_url;
         }
         function joinRoom() {
             const room_no = document.getElementById("input-box").value;
-            const create_room_url = "http://54.174.147.192/?userid=" + userid + "&username=" + username + "&room_no=" + room_no;
+            const join_room_url = "http://54.174.147.192/?userid=" + userid + "&username=" + username + "&room_no=" + room_no;
+
+            window.location.href = join_room_url;
         }
         inputBox.addEventListener('input', () => {
             const inputLength = inputBox.value.length;
