@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-    
+
     $name = mysqli_real_escape_string($conn, $name);
 
     try {
@@ -108,14 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         y.className = "show";
         setTimeout(function(){ y.className = y.className.replace("show", ""); }, 5000);
       }
-    
-    function getURLParameter(paramName) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(paramName);
-    }
-    const userid = getURLParameter('userid');
-    console.log('User id: ', userid);
-    const username = getURLParameter('username');
 </script>
 </body>
 </html>
