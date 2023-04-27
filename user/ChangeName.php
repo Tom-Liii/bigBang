@@ -78,8 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(paramName);
       }
-      const url_userid = getURLParameter('username_changed');
-      const url_duplicate_name = getURLParameter('duplicate_name');
+      const url_userid = urlParams.get('username_changed');
+      const url_duplicate_name = urlParams.get('duplicate_name');
+      // const url_userid = getURLParameter('username_changed');
+      // const url_duplicate_name = getURLParameter('duplicate_name');
 
       if (url_duplicate_name){
         toastFunction();
