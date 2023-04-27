@@ -243,18 +243,22 @@
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(paramName);
       }
-      const userID = Math.floor(Math.random()*100);//getURLParameter('userID');
-	          const username = userID;//getURLParameter('username');
-	          const roomNum = 1;//getURLParameter('generatedRoomNo');
-	        
-	          const gameMode = getURLParameter('gameMode');
-	          const isEarlyTermValid = (getURLParameter('termination')==="true");
-	          const isThreeExchangeValid = (getURLParameter('threeStep')==="true");
-	          const isFiveThreeHitValid = (getURLParameter('fiveStep')==="true");
-	          const isTimeValid = (getURLParameter('timer')==="true");
-	          const maxTimeSet = getURLParameter('maxTime');
+      const userID = getURLParameter('userID');
+	    const username = getURLParameter('username');
+	    const roomNum = getURLParameter('generatedRoomNo');
+	    const gameMode = getURLParameter('gameMode');
+	    const isEarlyTermValid = (getURLParameter('termination')==="true");
+	    const isThreeExchangeValid = (getURLParameter('threeStep')==="true");
+	    const isFiveThreeHitValid = (getURLParameter('fiveStep')==="true");
+	    const isTimeValid = (getURLParameter('timer')==="true");
+	    const maxTimeSet = getURLParameter('totalSeconds');
       
       console.log('User id: ', userID);
+      console.log('username: ', username);
+      console.log('roomNum: ', roomNum);
+      console.log('gameMode: ', gameMode);
+      console.log('maxTimeSet: ', maxTimeSet);
+
 //-----------------------------------------------------------------------------------------------------------------------      
     const fiveStepThreeStrikesBlack = document.getElementById("fiveStepThreeStrikes-black");
     fiveStepThreeStrikesBlack.style.display = "none";
@@ -562,7 +566,7 @@
     }
       
       
-      initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, 90);
+      initializeGame(gameMode, userID, roomNum, isEarlyTermValid, isThreeExchangeValid, isFiveThreeHitValid,isTimeValid, maxTimeSet);
       //initializeGame("PVP",Math.random(), 1 , false , true, true, true, 65);
 
 
@@ -1463,7 +1467,7 @@ function displayStartTime(){
 			      var userid = urlParams.get('userid');
 			      var username = urlParams.get('username');
 			      console.log('userid:', userid);
-			      var newUrl = 'http://34.225.43.131/game/bigBang/StartPage.html?userid=' + userid + '&username=' + username;
+			      var newUrl = 'http://34.237.159.19/game/bigBang/StartPage.html?userid=' + userid + '&username=' + username;
 			      console.log('new URL:', newUrl);
 			      window.location.href = newUrl;
 		    }
