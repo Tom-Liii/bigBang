@@ -39,7 +39,7 @@
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#b41d12\" class=\"bi bi-trash\"
-                viewBox=\"0 0 16 16\" onclick=\"location.href='delete_user.php?userid=".$row['userid']."';\">
+                viewBox=\"0 0 16 16\" onclick=\"location.href='record.php?userid=".$row['userid']."';\">
                 <path
                   d=\"M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z\" />
                 <path
