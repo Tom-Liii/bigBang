@@ -37,6 +37,27 @@
           </tr>
         </thead>
         <tbody>
+          <?php
+          include('dbconfig.php');
+
+        
+          // Query the database for all users
+          $sql = "SELECT * FROM game";
+          $result = mysqli_query($conn, $sql);
+          // Loop through the results and display each user in a row of the table
+          if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td>" . $row['game_record']  ."</td>";
+                
+              }
+          } else {
+              echo "<tr><td colspan='3'>No users found.</td></tr>";
+          }
+          echo "</table>";
+          // echo $rows;
+          // Close the database connection
+          mysqli_close($conn);
+          ?>
         </tbody>
 </table> 
 <button class="btn" type="button" onclick="document.location='view_goboard.php?userid='+userid">View Details</button>
