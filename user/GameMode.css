@@ -1,13 +1,13 @@
 /* fix the background */
 body {
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-image: url(bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(bg.jpg);
 }
 
 img {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -16,64 +16,56 @@ img {
 /* * {
     box-sizing: border-box;
   } */
-  
-  /* Add styles to the form container */
-  .container1 {
-    margin-left: 10%;
-    padding-top: 100px;
-    background-color: #e0e0e0;
-    opacity: 0.9;
-    border-radius: 25px 25px;
-    cursor: pointer;
-    color: #156108;
-    text-align: center;
-    width: 550px;
-    height: 450px;
-    margin-top: 6%;
-  }
 
-  .container2{
-    margin-left: 20%;
-    padding-top: 100px;
-    background-color: #e0e0e0;
-    opacity: 0.9;
-    border-radius: 25px 25px;
-    cursor: pointer;
-    color: #156108;
-    text-align: center;
-    width: 550px;
-    height: 450px;
-    margin-top: 6%;
-  }
-
-  div{
-    float: left;
-  }
-
-  label{
-    text-align: center;
-    font-size: 35px;
-    cursor: pointer;
-    font-family: Space Grotesk;
-  }
-
-  .forms-container {
-    margin-left: 10%;
-    display: flex;
-    /* justify-content: space-between; */
+/* Add styles to the form container */
+.container1 {
+  margin-left: 10%;
+  padding-top: 100px;
+  background-color: #e0e0e0;
+  opacity: 0.9;
+  border-radius: 25px 25px;
+  cursor: pointer;
+  color: #156108;
+  text-align: center;
+  width: 550px;
+  height: 450px;
+  margin-top: 6%;
 }
 
-/* for user logo */
-/* Popup container - can be anything you want */
-.popup {
-  position: relative;
-  display: inline-block;
+.container2 {
+  margin-left: 20%;
+  padding-top: 100px;
+  background-color: #e0e0e0;
+  opacity: 0.9;
+  border-radius: 25px 25px;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-left: 98%;
+  color: #156108;
+  text-align: center;
+  width: 550px;
+  height: 450px;
+  margin-top: 6%;
+}
+
+div {
+  float: left;
+}
+
+label {
+  text-align: center;
+  font-size: 35px;
+  cursor: pointer;
+  font-family: Space Grotesk;
+}
+
+.forms-container {
+  margin-left: 6%;
+  display: flex;
+  margin-top: 2%;
+  /* justify-content: space-between; */
+}
+
+.back {
+  cursor: pointer;
 }
 
 a {
@@ -83,7 +75,9 @@ a {
   display: block;
 }
 
-a:hover {background-color: #f1f1f1}
+a:hover {
+  background-color: #f1f1f1
+}
 
 /* The actual popup */
 .popup {
@@ -104,51 +98,6 @@ a {
   font-family: Space Grotesk;
 }
 
-a:hover {background-color: #c5c49f}
-
-/* The actual popup */
-.popup .popuptext {
-  visibility: hidden;
-  width: 140px;
-  background-color: #fffff6;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  top: 135%;
-  left: 0px;
-  margin-left: -110px;
-  padding: 5px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-   content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 80%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #fffff6 transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+a:hover {
+  background-color: #c5c49f
 }
