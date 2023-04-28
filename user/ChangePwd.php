@@ -48,6 +48,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (password_verify($crt_pwd, $row['userpsw'])) {
     // Current password is correct
     // Code to update the user's password
+    if ($new_pwd === $_POST['newPwd2']) {
+      $hashed_password = password_hash($new_pwd, PASSWORD_DEFAULT);
+      
+      $stmt = $conn->prepare("UPDATE users SET userpsw = ? WHERE userid = ?");
+      $stmt->bind_param("si", $hashed_password, $uid);
+      $stmt->execute();
+    
+      $_SESSION['userpsw'] = $hashed_password;
+    
+      $stmt->close();
+    
+      header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.urlencode($uname));
+      exit;
+    } else {
+      header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1&username='.urlencode($uname));
+      exit;
+    }
   } else {
     // Current password is incorrect
     header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1&username='.urlencode($uname));
@@ -56,23 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $stmt->close();
 
-  if ($new_pwd === $_POST['newPwd2']) {
-    $hashed_password = password_hash($new_pwd, PASSWORD_DEFAULT);
-    
-    $stmt = $conn->prepare("UPDATE users SET userpsw = ? WHERE userid = ?");
-    $stmt->bind_param("si", $hashed_password, $uid);
-    $stmt->execute();
-  
-    $_SESSION['userpsw'] = $hashed_password;
-  
-    $stmt->close();
-  
-    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.urlencode($uname));
-    exit;
-  } else {
-    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&mismatch=1&username='.urlencode($uname));
-    exit;
-  }
 }
     
 ?>
