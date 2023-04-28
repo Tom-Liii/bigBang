@@ -7,11 +7,11 @@ include 'dbconfig.php';
 // Retrieve the data from the POST request
 $inputData = json_decode($_POST['data'], true);
 
-$userid = $inputData['userid'];
-$game_record = $inputData['game_record'];
-$start_time = $inputData['start_time'];
-$elapsed_time = $inputData['elapsed_time'];
-$win_status = $inputData['win_status'];
+$userid = $_POST['userid'];
+$game_record = $_POST['game_record'];
+$start_time = $_POST['start_time'];
+$elapsed_time = $_POST['elapsed_time'];
+$win_status = $_POST['win_status'];
 
 // Escape special characters in the data to prevent SQL injection attacks
 $userid = mysqli_real_escape_string($conn, $userid);
