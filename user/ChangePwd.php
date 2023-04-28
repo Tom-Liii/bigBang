@@ -23,55 +23,57 @@
 <div>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Form has been submitted
-    $uid = $_GET['userid'];
-    $uname = $_GET['username'];
-    $auth = $_GET['auth'];
-    $crt_pwd = $_POST['currentPwd'];
-    $new_pwd = $_POST['newPwd'];
-    // echo "Old pwd: ".$crt_pwd."\n";
-    // echo "New pwd: ".$new_pwd."\n";
-    // echo "Userid: ".$uid."\n";
-    // // Process the data as needed
-    // ...
-    session_start();
-    $_SESSION['crt_pwd'] = $crt_pwd;
-    $_SESSION['userid'] = $uid;
-  
-    $authentification = false;
+  // Form has been submitted
+  $uid = $_GET['userid'];
+  $uname = $_GET['username'];
+  $auth = $_GET['auth'];
+  $crt_pwd = $_POST['currentPwd'];
+  $new_pwd = $_POST['newPwd'];
+  // echo "Old pwd: ".$crt_pwd."\n";
+  // echo "New pwd: ".$new_pwd."\n";
+  // echo "Userid: ".$uid."\n";
+  // // Process the data as needed
+  // ...
+  session_start();
+  $_SESSION['crt_pwd'] = $crt_pwd;
+  $_SESSION['userid'] = $uid;
 
-    $stmt = $conn->prepare("SELECT userpsw, username FROM users WHERE userid = ?");
-    $stmt->bind_param("i", $userid);
-    $stmt->execute();
+  $stmt = $conn->prepare("SELECT userpsw FROM users WHERE userid = ?");
+  $stmt->bind_param("i", $uid);
+  $stmt->execute();
 
-    // get the result of the query
-    
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $username = $row['username'];
-    if (1) {
-        if (!strcmp($row['userpsw'], $userpsw)) {
-            $authentification = true;
-        } else {
-            $authentification = false;
-        }
-    }
+  $result = $stmt->get_result();
+  $row = $result->fetch_assoc();
 
-    $_SESSION['userid'] = $userid;
-    $_SESSION['userpsw'] = $userpsw;
-    $_SESSION['userpsw_au'] = $row['userpsw'];
-    $_SESSION['username'] = $uname;
-
-    $stmt->close();
-    $conn->close();
-    if ($authentification) {
-        header('Location: password_verified.php?userid='. urlencode($userid) .'&auth=1&username='.urlencode($username));
-        exit;
-    } else {
-        header('Location: ChangePwd.php?userid='. urlencode($userid) .'&wrongpwd=1&username='.urlencode($username));
-        exit;
-    }
+  if (password_verify($crt_pwd, $row['userpsw'])) {
+    // Current password is correct
+    // Code to update the user's password
+  } else {
+    // Current password is incorrect
+    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1&username='.urlencode($uname));
+    exit;
   }
+
+  $stmt->close();
+
+  if ($new_pwd === $_POST['newPwd2']) {
+    $hashed_password = password_hash($new_pwd, PASSWORD_DEFAULT);
+    
+    $stmt = $conn->prepare("UPDATE users SET userpsw = ? WHERE userid = ?");
+    $stmt->bind_param("si", $hashed_password, $uid);
+    $stmt->execute();
+  
+    $_SESSION['userpsw'] = $hashed_password;
+  
+    $stmt->close();
+  
+    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.urlencode($uname));
+    exit;
+  } else {
+    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&mismatch=1&username='.urlencode($uname));
+    exit;
+  }
+}
     
 ?>
 <form method="post">
