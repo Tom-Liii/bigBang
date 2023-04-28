@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Form has been submitted
     $uid = $_GET['userid'];
     $uname = $_GET['username'];
+    $auth = $_GET['auth'];
     $crt_pwd = $_POST['currentPwd'];
     $new_pwd = $_POST['newPwd'];
     echo "Old pwd: ".$crt_pwd."\n";
@@ -33,38 +34,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Userid: ".$uid."\n";
     // Process the data as needed
     // ...
+    session_start();
+    $_SESSION['crt_pwd'] = $crt_pwd;
+    $_SESSION['userid'] = $uid;
     
-    include 'dbconfig.php';
+    if ($auth) {
+      include 'dbconfig.php';
+      $crt_pwd = mysqli_real_escape_string($conn, $crt_pwd);
+      $new_pwd = mysqli_real_escape_string($conn, $new_pwd);
 
+      try {
+          // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
 
+          $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid'";
+          if ($conn->query($update_pwd) === True) {
+            echo "Succeed";
+            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$uname);
+          }else {
+          header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1'.'&username='.$uname);
+          }
+      } catch (Exception $e) {
+          echo "Fail";
+          echo "mysql error no.: ".mysqli_errno($conn);
+          // handle duplicate entry error
+          // display error message to user or redirect to appropriate page
+          header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1');
+      
+      }
 
-    $crt_pwd = mysqli_real_escape_string($conn, $crt_pwd);
-    $new_pwd = mysqli_real_escape_string($conn, $new_pwd);
-
-    try {
-        // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
-
-        if ($result->num_rows > 0) {
-            // Current password is correct, update the password
-            $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid and userpsw = '$crt_pwd'";
-            if ($conn->query($update_pwd) === True) {
-              echo "Succeed";
-              header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$uname);
-            }
-        } else {
-            // Current password is incorrect, redirect to appropriate page
-            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1'.'&username='.$uname);
-        }
-    } catch (Exception $e) {
-        echo "Fail";
-        echo "mysql error no.: ".mysqli_errno($conn);
-        // handle duplicate entry error
-        // display error message to user or redirect to appropriate page
-        header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1');
-    
     }
+    } else {
+      header('Location: password_verification.php');
+    }
+    
 
-}
+
+    
 ?>
 <form method="post">
     <img src="ChangePwd.png" alt="ChangePwd"></img><br>
