@@ -23,58 +23,31 @@
 <div>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Form has been submitted
-  $uid = $_GET['userid'];
-  $uname = $_GET['username'];
-  $auth = $_GET['auth'];
-  $crt_pwd = $_POST['currentPwd'];
-  $new_pwd = $_POST['newPwd'];
-  // echo "Old pwd: ".$crt_pwd."\n";
-  // echo "New pwd: ".$new_pwd."\n";
-  // echo "Userid: ".$uid."\n";
-  // // Process the data as needed
-  // ...
-  session_start();
-  $_SESSION['crt_pwd'] = $crt_pwd;
-  $_SESSION['userid'] = $uid;
+  include('dbconfig.php');
+  $oldPwd = $_POST['currentPwd'];
+  $newPwd = $_POST['newPwd'];
+  $newPwd2 = $_POST['newPwd2'];
 
-  $stmt = $conn->prepare("SELECT userpsw FROM users WHERE userid = ?");
-  $stmt->bind_param("i", $uid);
+  $userid = $_GET['userid'];
+  $stmt = $conn->prepare("SELECT userpsw FROM users WHERE id = ?");
+  $stmt->bind_param("s", $userid);
   $stmt->execute();
-
   $result = $stmt->get_result();
   $row = $result->fetch_assoc();
-
-  if (password_verify($crt_pwd, $row['userpsw'])) {
-    // Current password is correct
-    // Code to update the user's password
-    if ($new_pwd === $_POST['newPwd2']) {
-      $hashed_password = password_hash($new_pwd, PASSWORD_DEFAULT);
-      
-      $stmt = $conn->prepare("UPDATE users SET userpsw = ? WHERE userid = ?");
-      $stmt->bind_param("si", $hashed_password, $uid);
-      $stmt->execute();
-    
-      $_SESSION['userpsw'] = $hashed_password;
-    
-      $stmt->close();
-    
-      header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.urlencode($uname));
-      exit;
-    } else {
-      header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1&username='.urlencode($uname));
-      exit;
-    }
+  $hashed_password = $row['password'];
+  // Verify old password against hashed password in database
+  if (password_verify($oldPwd, $hashed_password)) {
+    // Update password
+    $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+    $hashed_new_pwd = password_hash($newPwd, PASSWORD_DEFAULT);
+    $stmt->bind_param("ss", $hashed_new_pwd, $userid);
+    $stmt->execute();
+    echo '<script>window.location.href="ChangePwd.php?userid='.$userid.'&username='.$username.'&success=true";</script>';
   } else {
-    // Current password is incorrect
-    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1&username='.urlencode($uname));
-    exit;
+    echo '<script>window.location.href="ChangePwd.php?userid='.$userid.'&username='.$username.'&wrongpwd=true";</script>';
   }
 
-  $stmt->close();
-
 }
-    
 ?>
 <form method="post">
     <img src="ChangePwd.png" alt="ChangePwd"></img><br>
