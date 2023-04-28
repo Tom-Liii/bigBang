@@ -1,11 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>Send Data to MySQL Database</title>
+
+  </head>
+
+  <body>
+
+    <h1>Send Data to MySQL Database</h1>
+
+    <form method="POST" action="http://34.237.159.19/bigBang/user/record.php">
+
+      <label for="userid">User ID:</label>
+      <input type="number" id="userid" name="userid" required><br><br>
+      
+      <label for="game_record">Game Record:</label>
+      <textarea id="game_record" name="game_record" required></textarea><br><br>
+      
+      <label for="start_time">Start Time:</label>
+      <input type="datetime-local" id="start_time" name="start_time" required><br><br>
+      
+      <label for="elapsed_time">Elapsed Time:</label>
+      <input type="number" id="elapsed_time" name="elapsed_time" required><br><br>
+      
+      <label for="win_status">Win Status:</label>
+      <input type="text" id="win_status" name="win_status" required><br><br>
+
+
+      
+
+      <input type="submit" value="Submit">
+
+    </form>
+
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 
 include 'dbconfig.php';
 
-// Retrieve the data from the POST request
-$inputData = json_decode($_POST['data'], true);
 
 $userid = $_POST['userid'];
 $game_record = $_POST['game_record'];
@@ -42,3 +78,6 @@ if ($conn->query($sql) === TRUE) {
 // close connection
 $conn->close();
 ?>
+  </body>
+
+</html>
