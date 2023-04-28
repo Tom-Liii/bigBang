@@ -37,38 +37,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
     $_SESSION['crt_pwd'] = $crt_pwd;
     $_SESSION['userid'] = $uid;
+  
+    $authentification = false;
+
+    $stmt = $conn->prepare("SELECT userpsw, username FROM users WHERE userid = ?");
+    $stmt->bind_param("i", $userid);
+    $stmt->execute();
+
+    // get the result of the query
     
-    if ($auth) {
-      include 'dbconfig.php';
-      $crt_pwd = mysqli_real_escape_string($conn, $crt_pwd);
-      $new_pwd = mysqli_real_escape_string($conn, $new_pwd);
-
-      try {
-          // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
-
-          $update_pwd = "UPDATE users SET userpsw = '$new_pwd' WHERE userid = $uid'";
-          if ($conn->query($update_pwd) === True) {
-            echo "Succeed";
-            header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$uname);
-          }else {
-          header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1'.'&username='.$uname);
-          }
-      } catch (Exception $e) {
-          echo "Fail";
-          echo "mysql error no.: ".mysqli_errno($conn);
-          // handle duplicate entry error
-          // display error message to user or redirect to appropriate page
-          header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1');
-      
-      }
-
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $username = $row['username'];
+    if (1) {
+        if (!strcmp($row['userpsw'], $userpsw)) {
+            $authentification = true;
+        } else {
+            $authentification = false;
+        }
     }
+
+    $_SESSION['userid'] = $userid;
+    $_SESSION['userpsw'] = $userpsw;
+    $_SESSION['userpsw_au'] = $row['userpsw'];
+    $_SESSION['username'] = $uname;
+
+    $stmt->close();
+    $conn->close();
+    if ($authentification) {
+        header('Location: password_verified.php?userid='. urlencode($userid) .'&auth=1&username='.urlencode($username));
+        exit;
     } else {
-      header('Location: password_verification.php');
+        header('Location: ChangePwd.php?userid='. urlencode($userid) .'&wrongpwd=1'.'&username='.urlencode($username));
+        exit;
     }
-    
-
-
+  }
     
 ?>
 <form method="post">
