@@ -23,30 +23,32 @@
 <div>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  include('dbconfig.php');
-  $oldPwd = $_POST['currentPwd'];
+  // Form has been submitted
+  $uid = $_GET['userid'];
+  session_start();
+  $uname = $_SESSION['uname'];
+  $name = $_GET['username'];
+  echo $mySessionVar;
+  $currentPwd = $_POST['currentPwd'];
   $newPwd = $_POST['newPwd'];
-  $newPwd2 = $_POST['newPwd2'];
+  // $email = $_POST['email'];
+  // Process the data as needed
+  // ...
+  include 'dbconfig.php';
+  $newPwd = mysqli_real_escape_string($conn, $newPwd);
 
-  $userid = $_GET['userid'];
-  $stmt = $conn->prepare("SELECT userpsw FROM users WHERE id = ?");
-  $stmt->bind_param("s", $userid);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $row = $result->fetch_assoc();
-  $hashed_password = $row['password'];
-  // Verify old password against hashed password in database
-  if (password_verify($oldPwd, $hashed_password)) {
-    // Update password
-    $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
-    $hashed_new_pwd = password_hash($newPwd, PASSWORD_DEFAULT);
-    $stmt->bind_param("ss", $hashed_new_pwd, $userid);
-    $stmt->execute();
-    echo '<script>window.location.href="ChangePwd.php?userid='.$userid.'&username='.$username.'&success=true";</script>';
-  } else {
-    echo '<script>window.location.href="ChangePwd.php?userid='.$userid.'&username='.$username.'&wrongpwd=true";</script>';
+  try {
+      // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
+      $update_pwd = "UPDATE users SET userpsw = '$newPwd' WHERE userid = $uid";
+      if ($conn->query($update_pwd) === True) {
+        echo "Succeed";
+        header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$name);
+      }
+  } catch (Exception $e) {
+    header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1&username='.$name);   
+    echo "Fail";
+    echo "mysql error no.: ".mysqli_errno($conn);
   }
-
 }
 ?>
 <form method="post">
