@@ -29,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $auth = $_GET['auth'];
     $crt_pwd = $_POST['currentPwd'];
     $new_pwd = $_POST['newPwd'];
-    echo "Old pwd: ".$crt_pwd."\n";
-    echo "New pwd: ".$new_pwd."\n";
-    echo "Userid: ".$uid."\n";
-    // Process the data as needed
+    // echo "Old pwd: ".$crt_pwd."\n";
+    // echo "New pwd: ".$new_pwd."\n";
+    // echo "Userid: ".$uid."\n";
+    // // Process the data as needed
     // ...
     session_start();
     $_SESSION['crt_pwd'] = $crt_pwd;
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: password_verified.php?userid='. urlencode($userid) .'&auth=1&username='.urlencode($username));
         exit;
     } else {
-        header('Location: ChangePwd.php?userid='. urlencode($userid) .'&wrongpwd=1'.'&username='.urlencode($username));
+        header('Location: ChangePwd.php?userid='. urlencode($userid) .'&wrongpwd=1&username='.urlencode($username));
         exit;
     }
   }

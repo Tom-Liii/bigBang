@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "mysql error no.: ".mysqli_errno($conn);
         // handle duplicate entry error
         // display error message to user or redirect to appropriate page
-        header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1');
+        header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1&username='.$uname);
     
     }
     
