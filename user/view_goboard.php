@@ -109,6 +109,7 @@
     include('dbconfig.php');
     $sql = "SELECT * FROM game where userid = $game_id";
     $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
     $game_record = $row['game_record'];
     
     // close database connection
