@@ -47,15 +47,6 @@ label{
   /* justify-content: space-between; */
 }
 
-.welcome{
-  font-size: 30px;
-  font-family: Space Grotesk;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  color: #c13b3b;
-}
-
 /* for user logo */
 /* Popup container - can be anything you want */
 .popup {
@@ -80,15 +71,19 @@ text-align: center;
 
 button:hover {background-color: #f1f1f1}
 
-/* The actual popup */
-.popup {
+.welcome {
 position: relative;
-display: inline-block;
 cursor: pointer;
 -webkit-user-select: none;
 -moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
+font-size: 30px;
+font-family: Space Grotesk;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+color: #c13b3b;
 }
 
 button {
