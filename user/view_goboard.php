@@ -109,9 +109,15 @@
     include('dbconfig.php');
     $sql = "SELECT * FROM game where userid = $game_id";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $game_record = $row['game_record'];
+    $game_record;
     
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $game_record = $row['game_record'];
+      }
+    } else {
+        echo "<tr><td colspan='3'>No game record found.</td></tr>";
+    }
     // close database connection
     mysqli_close($conn);
     echo '<script>var board_record = "' . $game_record . '";</script>';
