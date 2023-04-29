@@ -37,7 +37,7 @@
           $sql = "SELECT * FROM game where userid = $userid";
           $result = mysqli_query($conn, $sql);
           echo "<table class=\"table\">";
-          echo "<thead><tr><th scope=\"col\">Game ID</th>\<th scope=\"col\">Start Time</th><th scope=\"col\">Elapsed Time</th><th scope=\"col\">Win Status</th><th scope=\"col\">Game Record</th></tr></thead>";
+          echo "<thead><tr><th scope=\"col\">Game ID</th><th scope=\"col\">Start Time</th><th scope=\"col\">Elapsed Time</th><th scope=\"col\">Win Status</th><th scope=\"col\">Game Record</th></tr></thead>";
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
