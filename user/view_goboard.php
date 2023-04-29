@@ -107,7 +107,7 @@
     $game_id = $_GET['game_id'];
 
     include('dbconfig.php');
-    $sql = "SELECT * FROM game where userid = $game_id";
+    $sql = "SELECT * FROM game where game_id = $game_id";
     $result = mysqli_query($conn, $sql);
     $game_record;
     
