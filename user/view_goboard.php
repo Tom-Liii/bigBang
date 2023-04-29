@@ -143,23 +143,22 @@
 //-----------------------------------------------------------------------------------------------------------------------      
 
       console.log('board_record: ' + board_record);
+      function stringToBoardStatus(inputString) {
+        const boardStatus = new Array(19).fill().map(() => new Array(19).fill(0));
+        let index = 0;
 
-      const boardStatus = Array.from({ length: 19 }, () => Array.from({ length: 19 }, () => 0));
-
-      // Iterate through the string and assign values to the boardStatus array
-      let index = 0;
-      for (let i = 0; i < 19; i++) {
-        for (let j = 0; j < 19; j++) {
-          const char = board_record.charAt(index);
-          if (char === '1') {
-            boardStatus[i][j] = 1;
-          } else if (char === '-') {
-            boardStatus[i][j] = -1;
+        for (let i = 0; i < 19; i++) {
+          for (let j = 0; j < 19; j++) {
+            const value = parseInt(inputString[index]);
+            boardStatus[i][j] = value;
+            index++;
           }
-          index++;
         }
+
+        return boardStatus;
       }
 
+      var boardStatus = stringToBoardStatus(board_record);
       // Print the boardStatus array
       console.log('boardStatus: ' + boardStatus);
       function displayGoboard() {
