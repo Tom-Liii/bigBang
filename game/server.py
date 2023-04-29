@@ -204,6 +204,7 @@ async def application(scope, receive, send):
                 import requests
                 dataToPHP = data['dataToPHP']
                 url = 'http://34.237.159.19/bigBang/user/record.php'
+                print(dataToPHP)
                 response = requests.post(url, data=dataToPHP)
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
