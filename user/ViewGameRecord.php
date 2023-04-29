@@ -52,8 +52,9 @@
           echo "</table>";
           // echo $rows;
           // Close the database connection
+
+          
           mysqli_close($conn);
-          exit;
           ?>
       <button class="btn" type="button" onclick="document.location='StartPage.html?userid='+userid+'&username='+username">Back</button>
 
