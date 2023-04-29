@@ -78,6 +78,7 @@ function easyAI(boardStatus) {
   
     return bestMove;
   }
+
   
   function expertAI(boardStatus) {
     const directions = [
@@ -125,15 +126,21 @@ function easyAI(boardStatus) {
         }
   
         if (count >= 5) {
-          score += 10000;
-        } else if (count === 4 && empty === 2) {
           score += 1000;
+        } else if (count === 4 && empty === 2) {
+          score += 500;
+        } else if (count === 4 && empty === 1) {
+          score += 50;
         } else if (count === 3 && empty === 2) {
-          score += 100;
+          score += 50;
+        } else if (count === 3 && empty === 1) {
+          score += 20;
         } else if (count === 2 && empty === 2) {
-          score += 10;
+          score += 25;
+        } else if (count === 2 && empty === 1) {
+          score += 15;
         } else if (count === 1 && empty === 2) {
-          score += 1;
+          score += 5;
         }
       }
   
@@ -147,7 +154,7 @@ function easyAI(boardStatus) {
       for (let y = 0; y < 19; y++) {
         if (boardStatus[x][y] === 0) {
           const currentScore =
-            evaluateScore(x, y, -1) * 1.5 + evaluateScore(x, y, 1);
+            evaluateScore(x, y, -1) * 0.8 + evaluateScore(x, y, 1);
   
           if (currentScore > bestScore) {
             bestScore = currentScore;
@@ -159,7 +166,6 @@ function easyAI(boardStatus) {
   
     return bestMove;
   }
-
 
 
 
