@@ -207,7 +207,7 @@ async def application(scope, receive, send):
                 #print(dataToPHP)
                 #response = requests.post(url, data=dataToPHP)
                 payload = {
-                    'userid': 6786,
+                    'userid': 67800,
                     'game_record': '1101010100010',
                     'start_time': '2023-04-28T10:30',
                     'elapsed_time': 60,
