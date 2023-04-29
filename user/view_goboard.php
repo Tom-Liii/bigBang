@@ -142,7 +142,7 @@
 
 //-----------------------------------------------------------------------------------------------------------------------      
 
-      console.log('board_record' + board_record);
+      console.log('board_record: ' + board_record);
       function displayGoboard() {
         const board = document.getElementById("board");
         // Remove existing pieces from the board
