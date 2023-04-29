@@ -203,18 +203,12 @@ async def application(scope, receive, send):
             if data['type'] == 'dataToPHP':
                 import requests
                 dataToPHP = data['dataToPHP']
+                s_time = dataToPHP['start_time'].split()
+                dataToPHP['start_time'] = f'{s_time[0]}T{s_time[1]}'
+                dataToPHP['elapsed_time'] = str(dataToPHP['elapsed_time'])
+                print(dataToPHP['start_time'], dataToPHP['elapsed_time'])
                 url = 'http://34.237.159.19/bigBang/user/record.php'
-                print(dataToPHP)
-                #response = requests.post(url, data=dataToPHP)
-                payload = {
-                    'userid': 67800,
-                    'game_record': '1101010100010',
-                    'start_time': '2023-04-28T10:30',
-                    'elapsed_time': 60,
-                    'win_status': 'Win'
-                }
-
-                response = requests.post(url, data=payload)
+                response = requests.post(url, data=dataToPHP)
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据
