@@ -98,10 +98,11 @@
 <body style="height: 100%; margin: 0">
 
     <?php 
+    $record_id = $_GET['record_id'];
     session_start();
     $game_record = $_SESSION['game_record'];
     // define board variable for js
-    echo '<script>var board_record = "' . $game_record . '";</script>';
+    echo '<script>var board_record = "' . $game_record[$record_id] . '";</script>';
     // echo '<script>console.log(board_record);</script>';
     ?>
     <svg id="board" viewBox="-95,-95,190,190" style="position: fixed; top: 100; left: 160; height: 570; width: 570" xmlns="http://www.w3.org/2000/svg">
