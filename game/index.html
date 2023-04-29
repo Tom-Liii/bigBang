@@ -789,7 +789,7 @@
               movement = mediumAI(boardStatus);
             }
             else if ((gameSettings.gameMode == "Hard")&&(playerColor == -1)){
-              movement = mediumAI(boardStatus);
+              movement = hardAI(boardStatus);
             }
             else if ( gameSettings.gameMode == "PVP" && gameSettings.fiveStepThreeStrikes && playerColor==1 && countBlack == 4 && roomInfor.iniColor == 1){
               movement = await fiveStepThreeStrikes();
