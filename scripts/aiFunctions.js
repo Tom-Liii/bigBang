@@ -158,9 +158,9 @@ function easyAI(boardStatus) {
       }
     }
   
-    return bestMove; 
-   }
-  
+    return bestMove;
+  }
+
 
 
 
