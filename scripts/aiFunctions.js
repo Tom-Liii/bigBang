@@ -310,55 +310,23 @@ function easyAI(boardStatus) {
       return score;
     };
   
-
-    const minimax = (board, depth, alpha, beta, maximizingPlayer) => {
-      if (depth === 0) {
-        let score = 0;
-        for (let x = 0; x < 19; x++) {
-          for (let y = 0; y < 19; y++) {
-            if (board[x][y] === 0) {
-              score += evaluateScore(x, y, maximizingPlayer ? -1 : 1);
-            }
-          }
-        }
-        return score;
-      }
+    let bestScore = -Infinity;
+    let bestMove = [0, 0];
   
-      let bestScore = maximizingPlayer ? -Infinity : Infinity;
-      let bestMove = null;
-      for (let x = 0; x < 19; x++) {
-        for (let y = 0; y < 19; y++) {
-          if (board[x][y] === 0) {
-            const newBoard = board.map(row => row.slice());
-            newBoard[x][y] = maximizingPlayer ? -1 : 1;
+    for (let x = 0; x < 19; x++) {
+      for (let y = 0; y < 19; y++) {
+        if (boardStatus[x][y] === 0) {
+          const currentScore =
+            evaluateScore(x, y, -1) * 1.5 + evaluateScore(x, y, 1);
   
-            const moveScore = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
-  
-            if (maximizingPlayer) {
-              if (moveScore > bestScore) {
-                bestScore = moveScore;
-                bestMove = [x, y];
-              }
-              alpha = Math.max(alpha, bestScore);
-            } else {
-              if (moveScore < bestScore) {
-                bestScore = moveScore;
-                bestMove = [x, y];
-              }
-              beta = Math.min(beta, bestScore);
-            }
-  
-            if (beta <= alpha) {
-              break;
-            }
+          if (currentScore > bestScore) {
+            bestScore = currentScore;
+            bestMove = [x, y];
           }
         }
       }
+    }
   
-      return depth === 2 ? bestMove : bestScore;
-    };
-  
-    const bestMove = minimax(boardStatus, depth, -Infinity, Infinity, true);
-    console.log(bestMove);
     return bestMove;
   }
+  
