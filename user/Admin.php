@@ -45,7 +45,7 @@
         // Loop through the results and display each user in a row of the table
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-              if ($row['userid'] == 0) {
+              if ($row['userid'] < 100) {
                 echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['username'] . "</td><td>" . $row['login_t'] . "</td></tr>";
                 continue;
               }
