@@ -198,7 +198,13 @@ async def application(scope, receive, send):
                     await _send({'type': 'websocket.send', 'text': json.dumps({
                         'type': 'whiteValidChoice',
                         'whiteValidChoice': data['whiteValidChoice'],
-                    })})                                          
+                    })})
+
+            if data['type'] == 'dataToPHP':
+                import requests
+                dataToPHP = data['dataToPHP']
+                url = 'http://34.237.159.19/bigBang/user/record.php'
+                response = requests.post(url, data=dataToPHP)
 #*******************************************************************************************************************/
             if data['type'] == 'DropPiece':#如果有人落子了
                 room['boardStatus'] =  data['boardStatus']#存储棋盘数据

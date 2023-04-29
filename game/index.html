@@ -987,34 +987,10 @@
           elapsed_time: gameSettings.elapsedTimer.getFormattedStartTime(),
           win_status: winRecord
         }
-        // Create a new XMLHttpRequest object
-const xhr = new XMLHttpRequest();
 
-// Define the POST request URL
-const url = "http://34.237.159.19/bigBang/user/record.php";
-
-// Open the POST request
-xhr.open("POST", url);
-
-// Set the Content-Type header
-xhr.setRequestHeader("Content-Type", "application/json");
-
-// Define the callback function for when the request completes
-xhr.onload = function() {
-  if (xhr.status === 200) {
-    console.log("Data sent successfully!");
-  } else {
-    console.log("Error sending data: " + xhr.status);
-  }
-};
-
-// Send the data to the server
-xhr.send(JSON.stringify(dataToPHP));
-        
-
+        ws.send(JSON.stringify({type: 'dataToPHP', dataToPHP: dataToPHP}));
         console.log("here send data");
-        // Update the game-result element when the game ends
-        window.location.href = "http://34.225.43.131/bigBang/code/StartPage.html?userid=" + userid;
+
       }
       // This part is the script of the game (Main structure)
 
