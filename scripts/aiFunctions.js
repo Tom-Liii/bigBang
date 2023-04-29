@@ -81,7 +81,7 @@ function easyAI(boardStatus) {
   
 
    function hardAI(boardStatus) {
-    const directions = [
+        const directions = [
       [0, 1],
       [1, 0],
       [1, 1],
@@ -126,13 +126,13 @@ function easyAI(boardStatus) {
         }
   
         if (count >= 5) {
-          score += 10000;
+          score += 300;
         } else if (count === 4 && empty === 2) {
-          score += 1000;
+          score += 60;
         } else if (count === 3 && empty === 2) {
-          score += 100;
+          score += 20;
         } else if (count === 2 && empty === 2) {
-          score += 10;
+          score += 5;
         } else if (count === 1 && empty === 2) {
           score += 1;
         }
@@ -158,8 +158,8 @@ function easyAI(boardStatus) {
       }
     }
   
-    return bestMove;
-  }
+    return bestMove; 
+   }
   
 
 
