@@ -63,14 +63,11 @@
             const fiveStep = document.getElementById("function3").checked;
             const time = document.getElementById("time").value;
             const generatedRoomNo = roomNo;
-            let timer = false;
+            let timer = true;
             const [minutes, seconds] = time.split(":").map(Number);
             const totalSeconds = (minutes * 60) + seconds;
             const gameMode = "PVP";
 
-            if (totalSeconds > 0){
-                timer = true;
-            }
 
             // construct the query string
             const queryString = `termination=${termination}&threeStep=${threeStep}&fiveStep=${fiveStep}&timer=${timer}&roomNo=${roomNo}&totalSeconds=${time}&gameMode=${gameMode}`;
