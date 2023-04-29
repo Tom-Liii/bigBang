@@ -81,7 +81,7 @@ function easyAI(boardStatus) {
   
 
 
-  function mediumAI(boardStatus) {
+  function hardAI(boardStatus) {
     const directions = [
       [0, 1],
       [1, 0],
@@ -167,7 +167,7 @@ function easyAI(boardStatus) {
 
 
 
-  function expertAI(boardStatus, depth = 2) {
+  function mediumAI(boardStatus) {
     const directions = [
       [0, 1],
       [1, 0],
@@ -213,13 +213,13 @@ function easyAI(boardStatus) {
         }
   
         if (count >= 5) {
-          score += 10000;
+          score += 300;
         } else if (count === 4 && empty === 2) {
-          score += 1000;
+          score += 60;
         } else if (count === 3 && empty === 2) {
-          score += 100;
+          score += 20;
         } else if (count === 2 && empty === 2) {
-          score += 10;
+          score += 5;
         } else if (count === 1 && empty === 2) {
           score += 1;
         }
@@ -228,55 +228,24 @@ function easyAI(boardStatus) {
       return score;
     };
   
-
-    const minimax = (board, depth, alpha, beta, maximizingPlayer) => {
-      if (depth === 0) {
-        let score = 0;
-        for (let x = 0; x < 19; x++) {
-          for (let y = 0; y < 19; y++) {
-            if (board[x][y] === 0) {
-              score += evaluateScore(x, y, maximizingPlayer ? -1 : 1);
-            }
-          }
-        }
-        return score;
-      }
+    let bestScore = -Infinity;
+    let bestMove = [0, 0];
   
-      let bestScore = maximizingPlayer ? -Infinity : Infinity;
-      let bestMove = null;
-      for (let x = 0; x < 19; x++) {
-        for (let y = 0; y < 19; y++) {
-          if (board[x][y] === 0) {
-            const newBoard = board.map(row => row.slice());
-            newBoard[x][y] = maximizingPlayer ? -1 : 1;
+    for (let x = 0; x < 19; x++) {
+      for (let y = 0; y < 19; y++) {
+        if (boardStatus[x][y] === 0) {
+          const currentScore =
+            evaluateScore(x, y, -1) * 1.5 + evaluateScore(x, y, 1);
   
-            const moveScore = minimax(newBoard, depth - 1, alpha, beta, !maximizingPlayer);
-  
-            if (maximizingPlayer) {
-              if (moveScore > bestScore) {
-                bestScore = moveScore;
-                bestMove = [x, y];
-              }
-              alpha = Math.max(alpha, bestScore);
-            } else {
-              if (moveScore < bestScore) {
-                bestScore = moveScore;
-                bestMove = [x, y];
-              }
-              beta = Math.min(beta, bestScore);
-            }
-  
-            if (beta <= alpha) {
-              break;
-            }
+          if (currentScore > bestScore) {
+            bestScore = currentScore;
+            bestMove = [x, y];
           }
         }
       }
+    }
   
-      return depth === 2 ? bestMove : bestScore;
-    };
-  
-    const bestMove = minimax(boardStatus, depth, -Infinity, Infinity, true);
-    console.log(bestMove);
     return bestMove;
   }
+
+  
