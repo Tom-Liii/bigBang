@@ -143,6 +143,25 @@
 //-----------------------------------------------------------------------------------------------------------------------      
 
       console.log('board_record: ' + board_record);
+
+      const boardStatus = Array.from({ length: 19 }, () => Array.from({ length: 19 }, () => 0));
+
+      // Iterate through the string and assign values to the boardStatus array
+      let index = 0;
+      for (let i = 0; i < 19; i++) {
+        for (let j = 0; j < 19; j++) {
+          const char = board_record.charAt(index);
+          if (char === '1') {
+            boardStatus[i][j] = 1;
+          } else if (char === '-') {
+            boardStatus[i][j] = -1;
+          }
+          index++;
+        }
+      }
+
+      // Print the boardStatus array
+      console.log('boardStatus: ' + boardStatus);
       function displayGoboard() {
         const board = document.getElementById("board");
         // Remove existing pieces from the board
