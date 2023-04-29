@@ -250,8 +250,11 @@
 	    const isEarlyTermValid = (getURLParameter('termination')==="true");
 	    const isThreeExchangeValid = (getURLParameter('threeStep')==="true");
 	    const isFiveThreeHitValid = (getURLParameter('fiveStep')==="true");
-	    const isTimeValid = (getURLParameter('timer')==="true");
+	    let isTimeValid = (getURLParameter('timer')==="true");
 	    const maxTimeSet = getURLParameter('totalSeconds');
+	    if(maxTimeSet ==""){
+	        isTimeValid = False;
+	    }
       
       console.log('User id: ', userID);
       console.log('username: ', username);
