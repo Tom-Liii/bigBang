@@ -10,8 +10,10 @@
 - Each test case include the path of operation, input, expected behavior, and actual behavior.
 
 ### White-box Testing
-- Path 1: Entry -> 1 -> 2 -> 5 -> 8 -> 5 -> 9 -> 2 -> 4 -> 2 -> 3 -> 7 -> 12 -> 17 -> 19 -> Exit
-- Path 2: Entry -> 1 -> 2 -> 3 -> 7 -> 12 -> 17 -> 18 -> Exit
+*Entry: http://34.237.159.19/bigBang/user/Welcome.html*
+*Exit could be logout or entering game module*
+- Path 1: Entry -> 1 -> 2 -> 5 -> 8 -> 5 -> 9 -> 2 -> 4 -> 2 -> 3 -> 7 -> 12 -> 17 -> Exit
+- Path 2: Entry -> 1 -> 2 -> 3 -> 7 -> 12 -> 17 -> Exit
 - Path 3: Entry -> 1 -> 2 -> 3 -> 6 -> 11 -> 6 -> 10 -> Exit
 - Path 4: Entry -> 1 -> 2 -> 3 -> 7 -> 13 -> 7 -> 14 -> 7 -> 15 -> 7 -> 16 -> Exit
 ### Black-box Testing

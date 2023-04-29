@@ -98,11 +98,22 @@
 <body style="height: 100%; margin: 0">
 
     <?php 
-    session_start();
-    $game_record = $_SESSION['game_record'];
+    // session_start();
+    // $game_record = $_SESSION['game_record'];
     // define board variable for js
+    // echo '<script>var board_record = "' . $game_record . '";</script>';
+
+
+    $game_id = $_GET['game_id'];
+
+    include('dbconfig.php');
+    $sql = "SELECT * FROM game where userid = $game_id";
+    $result = mysqli_query($conn, $sql);
+    $game_record = $row['game_record'];
+    
+    // close database connection
+    mysqli_close($conn);
     echo '<script>var board_record = "' . $game_record . '";</script>';
-    // echo '<script>console.log(board_record);</script>';
     ?>
     <svg id="board" viewBox="-95,-95,190,190" style="position: fixed; top: 100; left: 160; height: 570; width: 570" xmlns="http://www.w3.org/2000/svg">
         <defs>

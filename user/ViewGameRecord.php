@@ -31,8 +31,8 @@
           $username = $_GET['username'];
           include('dbconfig.php');
           
-          session_start();
-          $_SESSION['game_record'];
+          // session_start();
+          // $_SESSION['game_record'];
           // Query the database for all users
           $sql = "SELECT * FROM game where userid = $userid";
           $result = mysqli_query($conn, $sql);
@@ -41,13 +41,13 @@
           // Loop through the results and display each user in a row of the table
           if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
-                $_SESSION['game_record'] = $row['game_record'];
-                echo "<tr><td>" . $row['game_id'] . "</td><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-border-all\" viewBox=\"0 0 16 16\" onclick=\"location.href='view_goboard.php?username=".$username."&userid=".$row['userid']."';\">
+                // $_SESSION['game_record'] = $row['game_record'];
+                echo "<tr><td>" . $row['game_id'] . "</td><td>" . $row['userid'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['elapsed_time'] . "</td><td>" . $row['win_status']  ."</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"currentColor\" class=\"bi bi-border-all\" viewBox=\"0 0 16 16\" onclick=\"location.href='view_goboard.php?username=".$username."&userid=".$row['userid']."&game_id=".$row['game_id']."';\">
                 <path d=\"M0 0h16v16H0V0zm1 1v6.5h6.5V1H1zm7.5 0v6.5H15V1H8.5zM15 8.5H8.5V15H15V8.5zM7.5 15V8.5H1V15h6.5z\"/>
               </svg>";
               }
           } else {
-              echo "<tr><td colspan='3'>No users found.</td></tr>";
+              echo "<tr><td colspan='3'>No game record found.</td></tr>";
           }
           echo "</tbody>";
           echo "</table>";
