@@ -97,7 +97,10 @@
 
 <body style="height: 100%; margin: 0">
 
-
+    <?php 
+    session_start();
+    $game_record = $_SESSION['game_record'];
+    ?>
     <svg id="board" viewBox="-95,-95,190,190" style="position: fixed; top: 100; left: 160; height: 570; width: 570" xmlns="http://www.w3.org/2000/svg">
         <defs>
 
