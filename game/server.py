@@ -204,7 +204,7 @@ async def application(scope, receive, send):
                 import requests
                 dataToPHP = data['dataToPHP']
                 url = 'http://34.237.159.19/bigBang/user/record.php'
-                #print(dataToPHP)
+                print(dataToPHP)
                 #response = requests.post(url, data=dataToPHP)
                 payload = {
                     'userid': 67800,
