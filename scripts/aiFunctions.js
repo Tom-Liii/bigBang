@@ -159,7 +159,6 @@ function easyAI(boardStatus) {
   
     return bestMove;
   }
-  
 
 
 
