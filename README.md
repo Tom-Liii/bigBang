@@ -21,7 +21,7 @@ We are developing a online gobang application with *big* features.
 - Web browser such as Chrome, Safari and so on.
 
 ### Developer Requirements
-> Due to the resource limitation of AWS instance, we decided to distribute our project into 2 Linux Ubuntu Server. Thanks to the modularity of our application, we can deploy the user management module in one of the server and game module in another server. 
+> Due to the resource limitation of AWS instance, we decided to distribute our project into 2 Linux Ubuntu Server so that we can improve the responsiveness and robustness of both server. Thanks to the modularity of our application, we can deploy the user management module in one of the server and game module in another server. 
 > You can try out our project by git clone this repo into two different AWS server that configure with the following packages. 
 **The version of each application is not strictly limited, developer can employ any version to rebuild our game as long as the system works**
 - Requirements for the first server
