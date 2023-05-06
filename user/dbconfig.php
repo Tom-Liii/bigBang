@@ -1,5 +1,7 @@
 <?php
+// This file is a general database configuration for php files under this directory
 
+// database owner information
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "000000";

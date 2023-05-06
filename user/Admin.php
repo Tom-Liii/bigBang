@@ -40,16 +40,19 @@
         // Query the database for all users
         $sql = "SELECT * FROM users";
         $result = mysqli_query($conn, $sql);
+
+        // Display the users in a table
         echo "<table class=\"table\">";
         echo "<thead><tr><th scope=\"col\">Account ID</th><th scope=\"col\">User Name</th><th scope=\"col\">Last Online</th><th scope=\"col\"></th></tr></thead>";
+        
         // Loop through the results and display each user in a row of the table
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-              if ($row['userid'] < 100) {
+              if ($row['userid'] < 100) { // for admin user account
                 echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['username'] . "</td><td>" . $row['login_t'] . "</td></tr>";
                 continue;
               }
-              if (is_null($row['login_t'])) {
+              if (is_null($row['login_t'])) { // for user don't have login time
                 echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['username'] . "</td><td>" . "N. A." . "</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#b41d12\" class=\"bi bi-trash\"
                 viewBox=\"0 0 16 16\" onclick=\"location.href='delete_user.php?userid=".$row['userid']."';\" >
                 <path
@@ -57,7 +60,7 @@
                 <path
                   d=\"M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z\" />
               </svg></td></tr>";
-              } else {
+              } else { // for user have login time
                 echo "<tr><td>" . $row['userid'] . "</td><td>" . $row['username'] . "</td><td>" . $row['login_t'] . "</td><td><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#b41d12\" class=\"bi bi-trash\"
                 viewBox=\"0 0 16 16\" onclick=\"location.href='delete_user.php?userid=".$row['userid']."';\">
                 <path
@@ -68,7 +71,7 @@
               }
                 // $rows .= "<tr><td>{$row['id']}</td><td>{$row['name']}</td><td>{$row['email']}</td></tr>";
             }
-        } else {
+        } else { // If no users exist with the given credentials display an error message
             echo "<tr><td colspan='3'>No users found.</td></tr>";
         }
         echo "</table>";
