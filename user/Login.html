@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="Login.css">
+    <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+    <title>bigBang</title>
+</head>
+
+<body>
+    <!-- HTML code for the login page -->
+    <div id="error-message"></div>
+    <div class="center">
+        <img src="image.png" class="logo"> </img>
+    </div>
+    <div class="bottom">
+        <form action="./login_verification.php" method="POST" class="container">
+            <h1 class="login"><b>LOGIN</b></h1>
+            <label for="id">Account</label>
+            <input type="text" placeholder="Enter User ID" name="userid" id="input" required>
+
+            <label for="psw">Password</label>
+            <input type="password" placeholder="Enter Password" name="userpsw" id="pw" required>
+
+            <button type="submit" class="btn">LOGIN</button><br><br>
+<!--             <span class="pwd">
+                <a href="#">Forgot Password? </a>
+            </span> -->
+            <span class="signUp">
+                <a href="#" onclick="document.location='SignUp.html'">Register </a>
+            </span>
+            <br>
+        </form>
+
+
+        <div id="toast">
+            Invalid ID/ Password! Please enter again!
+        </div>
+    </div>
+ <script src="Login.js"></script>
+</body>
+
+</html>

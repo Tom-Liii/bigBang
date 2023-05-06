@@ -1,0 +1,169 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Add styles to the form container */
+.admin {
+  margin-left: 8%;
+  width: 340px;
+  padding: 30px 30px 10px 40px;
+  background-color: #d2d1c6;
+  opacity: 1;
+  border-radius: 15px 0 0 0;
+  margin-top: 1.5%;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  margin-top: 1.5%;
+  width: 1035px;
+  height: 690px;
+  background-color: #ffffffaa;
+  margin-left: 0;
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
+}
+
+img {
+  text-align: center;
+  opacity: 1;
+  height: 160px;
+  width: 180px;
+  margin-left: 25%;
+}
+
+.bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(bg.jpg);
+  opacity: 0.7;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-attachment: fixed;
+}
+
+.name {
+  font-family: Space Grotesk;
+  color: #083561;
+  font-size: 36px;
+  text-align: center;
+}
+
+.acc {
+  font-family: Space Grotesk;
+  color: #083561;
+  font-size: 25px;
+  margin-top: 5%;
+  text-align: center;
+}
+
+.line {
+  border-bottom: 2px solid #083561;
+  margin-top: 20px;
+  width: 85%;
+  text-align: center;
+}
+
+.display {
+  font-family: Space Grotesk;
+  color: #083561;
+  font-size: 25px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 8%;
+}
+
+.logout {
+  font-family: Space Grotesk;
+  color: #083561;
+  font-size: 21px;
+  cursor: pointer;
+  margin-top: 65%;
+  margin-left: 65%;
+  text-align: center;
+}
+
+.styling {
+  display: inline-flex;
+}
+
+.table {
+  font-family: Space Grotesk;
+  margin: 3.5%;
+  text-align: center;
+  background-color: #fafafae8;
+  height: 625px;
+  width: -webkit-fill-available;
+  border-radius: 13px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 900px;
+}
+
+table {
+  font-family: Space Grotesk;
+  margin: 1%;
+  text-align: center;
+  height: 450px;
+  border-radius: 13px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 800px;
+  /* 140px * 5 column + 16px scrollbar width */
+}
+
+/* Fix table head */
+
+tbody,
+thead tr {
+  display: block;
+}
+
+tbody {
+  height: 570px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 14px;
+}
+
+tbody td,
+thead th {
+  width: 240px;
+  height: 45px;
+}
+
+th {
+  font-size: 20px;
+}
+
+td {
+  font-size: 15px;
+}
+
+thead th:last-child,
+tbody td:last-child {
+  width: 110px;
+  /* scrollbar width */
+  text-align: center;
+  cursor: pointer;
+}
+
+thead:nth-last-child(2) {
+  width: 240px;
+  text-align: center;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50%;
+}

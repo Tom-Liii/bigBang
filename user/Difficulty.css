@@ -1,0 +1,74 @@
+/* fix the background */
+body {
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-image: url(bg.jpg);
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* * {
+    box-sizing: border-box;
+  } */
+  
+  /* Add styles to the form container */
+  .container1 {
+    margin-left: 8%;
+    padding-top: 100px;
+    background-color: #e0e0e0;
+    opacity: 0.9;
+    border-radius: 25px 25px;
+    cursor: pointer;
+    color: #156108;
+    text-align: center;
+    width: 430px;
+    height: 470px;
+    margin-top: 6%;
+  }
+
+  .container2{
+    margin-left: 8%;
+    padding-top: 100px;
+    background-color: #e0e0e0;
+    opacity: 0.9;
+    border-radius: 25px 25px;
+    cursor: pointer;
+    color: #156108;
+    text-align: center;
+    width: 430px;
+    height: 470px;
+    margin-top: 6%;
+  }
+
+  .container3{
+    margin-left: 10%;
+    padding-top: 100px;
+    background-color: #e0e0e0;
+    opacity: 0.9;
+    border-radius: 25px 25px;
+    cursor: pointer;
+    color: #156108;
+    text-align: center;
+    width: 430px;
+    height: 470px;
+    margin-top: 6%;
+  }  
+
+  div{
+    float: left;
+  }
+
+  label{
+    text-align: center;
+    font-size: 35px;
+    cursor: pointer;
+    font-family: Space Grotesk;
+  }
+
+  .forms-container {
+    display: flex;
+    margin-left: 4%;
+}

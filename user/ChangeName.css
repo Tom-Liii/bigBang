@@ -1,0 +1,180 @@
+body {
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-image: url(bg.jpg);
+  margin-top: 2%;
+}
+
+html{
+  text-align: center;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: Source Sans Pro;
+}
+
+
+/* Add styles to the form container */
+form {
+  margin-left: 30%;
+  max-width: 500px;
+  padding: 10px 50px 30px ;
+  background-color: #f2f2f2;
+  opacity:0.9;
+  border-radius: 25px 25px;
+  box-shadow: 1px 2px 2px 2px #d9d6b996;
+  margin-top: 13%;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 90%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  border-color: #a39a9aad;
+  border-width: 1px;
+  border-style: solid;
+  background: white;
+  font-size: 14px;
+  font-size: Source Sans Pro;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: white;
+  outline: none;
+
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: #21779d;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px 7px;
+  float: left;
+  margin-left: 7%;
+  font-size: 19px;
+  width: 40%;
+  right: auto;
+  font-family: Space Grotesk;
+  opacity:1;
+}
+
+.btn:hover {
+  background-color: #195d7a;
+}
+
+.b{
+  background-color: #69757a;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 7px 7px;
+  float: left;
+  margin-left: 7%;
+  font-size: 19px;
+  width: 40%;
+  right: auto;
+  font-family: Space Grotesk;
+  opacity:1;
+}
+
+.b:hover{
+  background-color: #4b5457;
+}
+
+.accName{
+  text-align: center;
+  font-family: Space Grotesk;
+  color: #635e5e;
+  font-size: 20px;
+}
+
+input{
+  color: black;
+  background-color: white;
+  border-radius: 7px 7px;
+}
+
+.bottom{
+  margin-top: 6%;
+}
+
+
+img{
+text-align: center;
+width: 150px;
+}
+
+/*popup warning*/
+#toast {
+visibility: hidden;
+min-width: 250px;
+margin-left: -200px;
+background-color: #c13b3b;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+color: white;
+text-align: center;
+border-radius: 10px;
+padding: 16px;
+position: fixed;
+z-index: 1;
+left: 53%;
+bottom: 30px;
+font-size: 16px;
+}
+
+#toast.show {
+visibility: visible;
+-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/*popup changed*/
+#changed {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -200px;
+  background-color: rgb(122, 159, 189);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: rgb(85, 85, 85);
+  text-align: center;
+  border-radius: 10px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 53%;
+  bottom: 30px;
+  font-size: 16px;
+}
+
+#changed.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+from {bottom: 0; opacity: 0;} 
+to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+from {bottom: 30px; opacity: 1;} 
+to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
