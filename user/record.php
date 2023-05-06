@@ -42,7 +42,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 include 'dbconfig.php';
 
-
+// get data from POST
 $userid = $_POST['userid'];
 $game_record = $_POST['game_record'];
 $start_time = $_POST['start_time'];
@@ -56,6 +56,7 @@ $start_time = mysqli_real_escape_string($conn, $start_time);
 $elapsed_time = mysqli_real_escape_string($conn, $elapsed_time);
 $win_status = mysqli_real_escape_string($conn, $win_status);
 
+// Print data to the console for debugging
 echo "userid<br>";
 echo $userid;
 echo "<br>game_record<br>";
@@ -69,9 +70,9 @@ echo $win_status;
 $sql = "INSERT INTO game (userid, game_record, start_time, elapsed_time, win_status) VALUES ('$userid', '$game_record', '$start_time', '$elapsed_time', '$win_status')";
 
 echo "<br>";
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === TRUE) { // execute query, and record game record to database
      echo "Data inserted successfully!";
-} else {
+} else { // print error message
      echo "Error inserting data: " . mysqli_error($conn);
 }
 

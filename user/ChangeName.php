@@ -35,17 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $email = $_POST['email'];
     // Process the data as needed
     // ...
+    // include config file
     include 'dbconfig.php';
-
-
-
-
 
     $name = mysqli_real_escape_string($conn, $name);
 
     try {
-        // $sql = "DELETE FROM users WHERE userid = $uid_delete;";
-        $update_name = "UPDATE users SET username = '$name' WHERE userid = $uid";
+      // update name
+      $update_name = "UPDATE users SET username = '$name' WHERE userid = $uid";
         if ($conn->query($update_name) === True) {
           echo "Succeed";
           header('Location: ChangeName.php?userid='. urlencode($uid) .'&username_changed=1&username='.$name);

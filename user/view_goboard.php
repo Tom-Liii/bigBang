@@ -98,12 +98,7 @@
 <body style="height: 100%; margin: 0">
 
     <?php 
-    // session_start();
-    // $game_record = $_SESSION['game_record'];
-    // define board variable for js
-    // echo '<script>var board_record = "' . $game_record . '";</script>';
-
-
+    // get game record from url
     $game_id = $_GET['game_id'];
 
     include('dbconfig.php');
@@ -111,11 +106,11 @@
     $result = mysqli_query($conn, $sql);
     $game_record;
     
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
+    if (mysqli_num_rows($result) > 0) { // if there is game record
+      while ($row = mysqli_fetch_assoc($result)) { // get game record
         $game_record = $row['game_record'];
       }
-    } else {
+    } else { // if no game record found
         echo "<tr><td colspan='3'>No game record found.</td></tr>";
     }
     // close database connection

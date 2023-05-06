@@ -38,22 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $newPwd = mysqli_real_escape_string($conn, $newPwd);
 
   try {
+    // verify current password
     $get_pwd = "SELECT userpsw FROM users WHERE userid = $uid";
     $result = $conn->query($get_pwd);
     $row = $result->fetch_assoc();
     $storedPwd = $row['userpsw'];
     
-    if ($currentPwd == $storedPwd) {
+    if ($currentPwd == $storedPwd) { // if current password is correct
       $update_pwd = "UPDATE users SET userpsw = '$newPwd' WHERE userid = $uid";
       if ($conn->query($update_pwd) === True) {
         // echo "Succeed";
         header('Location: ChangePwd.php?userid='. urlencode($uid) .'&success=1&username='.$name);
       }
-    } else {
+    } else { // if current password is wrong
       header('Location: ChangePwd.php?userid='. urlencode($uid) .'&wrongpwd=1&username='.$name);
       // echo "Wrong current password!";
     }
-  } catch (Exception $e) {
+  } catch (Exception $e) { // if error
     header('Location: ChangePwd.php?userid='. urlencode($uid) .'&fail=1&username='.$name);   
     // echo "Fail";
     // echo "mysql error no.: ".mysqli_errno($conn);
